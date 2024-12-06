@@ -1,0 +1,16 @@
+{
+    "wushuBaseSetting": [
+        {
+            "Id": "TSOTW_ADD",
+            "Type": "TEXT",
+            "TextVal": "1000.0",
+            "Callback": "CallBack:TSOTW_ADD"
+        },
+        {
+            "Id": "TSOTW_INIT",
+            "Type": "TEXT",
+            "TextVal": "10000.0",
+            "Callback": "CallBack:TSOTW_INIT"
+        }
+    ]
+}

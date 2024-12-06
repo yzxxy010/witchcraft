@@ -1,5 +1,5 @@
 ﻿
-namespace InterestingTrait.code
+namespace VideoCopilot.code
 {
     internal class stats
     {

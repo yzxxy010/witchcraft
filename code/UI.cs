@@ -2,11 +2,11 @@ using NCMS.Utils;
 using NeoModLoader.General;
 using NeoModLoader.General.UI.Tab;
 using System.Collections.Generic;
-using InterestingTrait.code.window;
 using UnityEngine;
 using UnityEngine.UI;
+using VideoCopilot.code.window;
 
-namespace InterestingTrait.code;
+namespace VideoCopilot.code;
 
 public class UI
 {

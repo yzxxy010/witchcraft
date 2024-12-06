@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 
-namespace InterestingTrait.code
+namespace VideoCopilot.code
 {
     internal class SorceryEffect
     {

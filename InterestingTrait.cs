@@ -1,14 +1,13 @@
 ﻿using HarmonyLib;
-
-using InterestingTrait.code;
-using InterestingTrait.code.window;
 using NeoModLoader.api;
+using VideoCopilot.code;
+using VideoCopilot.code.window;
 
-namespace InterestingTrait
+namespace VideoCopilot
 {
-    internal class InterestingTraitClass : BasicMod<InterestingTraitClass>
+    internal class VideoCopilotClass : BasicMod<VideoCopilotClass>
     {
-        public static string id = "shiyue.worldbox.mod.interestingtrait";
+        public static string id = "shiyue.worldbox.mod.VideoCopilot";
         protected override void OnModLoad()
         {
             stats.Init();

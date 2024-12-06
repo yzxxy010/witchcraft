@@ -8,7 +8,7 @@ using ReflectionUtility;
 using ai;
 using System.Numerics;
 
-namespace InterestingTrait.code
+namespace VideoCopilot.code
 {
     internal class traits
     {

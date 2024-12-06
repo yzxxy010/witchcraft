@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace InterestingTrait.code.window
+namespace VideoCopilot.code.window
 {
     public class UItools : MonoBehaviour
     {

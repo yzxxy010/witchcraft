@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace InterestingTrait.code;
+namespace VideoCopilot.code;
 
 public class CallBack
 {

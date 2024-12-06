@@ -7,7 +7,7 @@ using ai;
 using UnityEngine;
 using ReflectionUtility;
 
-namespace InterestingTrait.code
+namespace VideoCopilot.code
 {
     internal class traitAction
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-namespace InterestingTrait.code.window
+namespace VideoCopilot.code.window
 {
     public class WindowAttack : MonoBehaviour
     {

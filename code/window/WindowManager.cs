@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-namespace InterestingTrait.code.window;
+namespace VideoCopilot.code.window;
 
 public class WindowManager
 {

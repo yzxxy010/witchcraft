@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 
 
-namespace InterestingTrait.code
+namespace VideoCopilot.code
 {
     internal class patch
     {

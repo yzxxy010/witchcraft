@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace InterestingTrait.code;
+namespace VideoCopilot.code;
 
 public class Globals
 {

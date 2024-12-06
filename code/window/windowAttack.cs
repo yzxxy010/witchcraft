@@ -80,12 +80,7 @@ namespace InterestingTrait.code.window
 
 
             Sort_AttackWinodw(Sort_key.default_Age_sort);
-            
 
-            //根据预制件数量判定列表长度
-            float totalHeight = sortedList.Count * itemHeightWithGap;
-            RectTransform contentRect = content.GetComponent<RectTransform>();
-            contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, totalHeight);
             drawListOnAttackWindow();
         }
 
@@ -95,23 +90,35 @@ namespace InterestingTrait.code.window
             {
                 case Sort_key.default_Age_sort:
                     state = Sort_key.default_Age_sort;
-                    Sort_Of_Age();
+                    Civ_Sort_Of_Age();
+                    break;
+                case Sort_key.allActor_Age_sort:
+                    state = Sort_key.allActor_Age_sort;
+                    AllActor_Sort_Of_Age();
                     break;
                 case Sort_key.yuanneng_sort:
                     state = Sort_key.yuanneng_sort;
-                    Sort_Of_Yuanneng();
+                    Civ_Sort_Of_Yuanneng();
+                    break;
+                case Sort_key.allActor_yuanneng_sort:
+                    state = Sort_key.allActor_yuanneng_sort;
+                    AllActor_Sort_Of_Yuanneng();
                     break;
             }
         }
 
         public static void drawListOnAttackWindow()
         {
+            //根据预制件数量判定列表长度
+            float totalHeight = sortedList.Count * itemHeightWithGap;
+            RectTransform contentRect = content.GetComponent<RectTransform>();
+            contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, totalHeight+30);
+            
             var num = 0;
             foreach (var actor in sortedList)
             {
-                Debug.Log($"Actor {actor} positioned at y = {-20 - (num * itemHeightWithGap)}");
                 UItools.createActorOnUI(actor, content, new Vector3(70, -30 - (num * itemHeightWithGap), 10),
-                    Sort_key.default_Age_sort);
+                    state);
                 num++;
             }
         }
@@ -125,12 +132,30 @@ namespace InterestingTrait.code.window
             }
         }
 
-         public static void Sort_Of_Age()
+        public static void AllActor_Sort_Of_Age()
         {
             sortedList.Clear();
 
-            // 通过一次遍历来同时处理添加到 sortedList 和收集需要删除的键
-            sortedList.AddRange(Globals.Actors.Values.Where(actor => actor != null));
+            // 通过一次遍历来同时处理添加到 sortedList 和收集需要删除的键(年龄降序)
+            sortedList.AddRange(Globals.Actors.Values.Where(actor => actor != null)
+                .OrderByDescending(actor => actor.getAge()));
+            var keysToRemove = Globals.Actors
+                .Where(pair => pair.Value == null) // 筛选出值为 null 的项
+                .Select(pair => pair.Key) // 选择出键
+                .ToList();
+            foreach (var key in keysToRemove)
+            {
+                Globals.Actors.Remove(key);
+            }
+        }
+
+        public static void Civ_Sort_Of_Age()
+        {
+            sortedList.Clear();
+
+            // 通过一次遍历来同时处理添加到 sortedList 和收集需要删除的键(年龄降序)
+            sortedList.AddRange(Globals.Actors.Values.Where(actor => actor != null && actor.race.civilization)
+                .OrderByDescending(actor => actor.getAge()));
             var keysToRemove = Globals.Actors
                 .Where(pair => pair.Value == null) // 筛选出值为 null 的项
                 .Select(pair => pair.Key) // 选择出键
@@ -142,8 +167,34 @@ namespace InterestingTrait.code.window
         }
 
 
-        public static void Sort_Of_Yuanneng()
+        public static void Civ_Sort_Of_Yuanneng()
         {
+            sortedList.Clear();
+            sortedList.AddRange(Globals.Actors.Values.Where(actor => actor != null && actor.race.civilization)
+                .OrderByDescending(actor => actor.stats["yuanneng"]));
+            var keysToRemove = Globals.Actors
+                .Where(pair => pair.Value == null) // 筛选出值为 null 的项
+                .Select(pair => pair.Key) // 选择出键
+                .ToList();
+            foreach (var key in keysToRemove)
+            {
+                Globals.Actors.Remove(key);
+            }
+        }
+
+        public static void AllActor_Sort_Of_Yuanneng()
+        {
+            sortedList.Clear();
+            sortedList.AddRange(Globals.Actors.Values.Where(actor => actor != null )
+                .OrderByDescending(actor => actor.stats["yuanneng"]));
+            var keysToRemove = Globals.Actors
+                .Where(pair => pair.Value == null) // 筛选出值为 null 的项
+                .Select(pair => pair.Key) // 选择出键
+                .ToList();
+            foreach (var key in keysToRemove)
+            {
+                Globals.Actors.Remove(key);
+            }
         }
     }
 
@@ -151,7 +202,7 @@ namespace InterestingTrait.code.window
     {
         public const string default_Age_sort = "age";
         public const string yuanneng_sort = "yuaneng";
-        public const string allActor_sort = "allActor";
-        public const string civActor_sort = "civActor";
+        public const string allActor_Age_sort = "allActor_age";
+        public const string allActor_yuanneng_sort = "allActor_yuanneng";
     }
 }

@@ -31,9 +31,63 @@ namespace InterestingTrait.code.window
             image.raycastTarget = false; //取消阻挡,不然button全失效了
             rectTransform.localPosition = pos;
             rectTransform.localScale = scale;
+
+            createButtonOnImageUI(UIname, imageObject, new Vector3(-22.6f, -42.3f, 0), "ui/allActor_Age.png",
+                Sort_key.allActor_Age_sort);
+            createButtonOnImageUI(UIname, imageObject, new Vector3(-13.6f, -42.3f, 0), "ui/civActor_Age.png",
+                Sort_key.default_Age_sort);
+            createButtonOnImageUI(UIname, imageObject, new Vector3(22.6f, -42.3f, 0), "ui/allActor_Yuanneng.png",
+                Sort_key.allActor_yuanneng_sort);
+            createButtonOnImageUI(UIname, imageObject, new Vector3(13.6f, -42.3f, 0), "ui/civActor_Yuanneng.png",
+                Sort_key.yuanneng_sort);
         }
 
-        public static void createActorOnUI(Actor actor, GameObject parent, Vector3 pos,string option)
+        public delegate void ButtonClickDelegate(string buttonName);
+
+        private static void createButtonOnImageUI(string buttonName, GameObject parent, Vector3 pos, string imageName,
+            string option )
+        {
+            GameObject buttonObject = new GameObject(buttonName + "_Button");
+            buttonObject.transform.SetParent(parent.transform); // 将按钮设置为图像的子物体
+            RectTransform buttonRectTransform = buttonObject.AddComponent<RectTransform>();
+            buttonObject.AddComponent<Button>(); // 添加按钮组件
+
+            // 创建一个纯白色的Image来作为按钮背景
+            Image buttonImage = buttonObject.AddComponent<Image>();
+            Color color;
+            ColorUtility.TryParseHtmlString("#3e4237", out color);
+            buttonImage.color = color; // 设置按钮背景颜色为纯白色
+
+
+            // 设置按钮的大小（例如，适配图像大小）
+            buttonRectTransform.localPosition = pos;
+            buttonRectTransform.sizeDelta = new Vector2(8, 4.5f);
+            buttonRectTransform.localScale = Vector3.one;
+
+            // 创建按钮图案的Image
+            GameObject iconObject = new GameObject(buttonName + "_Icon");
+            iconObject.transform.SetParent(buttonObject.transform);
+            RectTransform iconRectTransform = iconObject.AddComponent<RectTransform>();
+
+            Image iconImage = iconObject.AddComponent<Image>();
+            Sprite iconSprite = Resources.Load<Sprite>(imageName); // 从Resources加载图案
+            iconImage.sprite = iconSprite;
+            iconImage.preserveAspect = true; // 保持图案的长宽比
+            iconImage.raycastTarget = false;
+            iconRectTransform.localPosition = Vector3.zero; // 图案居中于按钮
+            iconRectTransform.localScale = new Vector3(0.05f, 0.05f, 1);
+            buttonObject.GetComponent<Button>().onClick.AddListener(() => reloading_List(option));
+        }
+
+        public static void reloading_List(string option)
+        {
+            WindowAttack.ClearContent();
+            WindowAttack.Sort_AttackWinodw(option);
+            WindowAttack.drawListOnAttackWindow();
+        }
+        
+
+        public static void createActorOnUI(Actor actor, GameObject parent, Vector3 pos, string option)
         {
             GameObject GO = Instantiate(avatarRef);
             GO.transform.SetParent(parent.transform);
@@ -62,11 +116,23 @@ namespace InterestingTrait.code.window
             CreateButtonBackground(openActorButton_GO, "ui/openActorButton.png", "openActorImage",
                 new Vector3(0, 0), new Vector3(0.6f, 0.6f, 1f), true);
 
-
-            createActorText(GO, $"<color=#FF9B1C>单位姓名:</color>\t" +
-                                $"{actor.getName()}\n" +
-                                $"<color=#FF9B1C>单位源能:</color>\t" +
-                                $"100", new Vector3(110, 0, 0));
+            switch (option)
+            {
+                case Sort_key.default_Age_sort:
+                case Sort_key.allActor_Age_sort:
+                    createActorText(GO, $"<color=#FF9B1C>单位姓名:</color>\t" +
+                                        $"{actor.getName()}\n" +
+                                        $"<color=#FF9B1C>单位年龄:</color>\t" +
+                                        $"{actor.getAge()}", new Vector3(110, 0, 0));
+                    break;
+                case Sort_key.allActor_yuanneng_sort:
+                case Sort_key.yuanneng_sort:
+                    createActorText(GO, $"<color=#FF9B1C>单位姓名:</color>\t" +
+                                        $"{actor.getName()}\n" +
+                                        $"<color=#FF9B1C>单位源能:</color>\t" +
+                                        $"{actor.stats["yuanneng"]}", new Vector3(110, 0, 0));
+                    break;
+            }
         }
 
         public static void createActorText(GameObject parent, string text, Vector3 pos)

@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术秘典\\InterestingTrait.csproj",
-      "projectName": "InterestingTrait",
-      "projectPath": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术秘典\\InterestingTrait.csproj",
+      "projectUniqueName": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术秘典\\WindowAttack.csproj",
+      "projectName": "WindowAttack",
+      "projectPath": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术秘典\\WindowAttack.csproj",
       "packagesPath": "C:\\Users\\yzxxy\\.nuget\\packages\\",
       "outputPath": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术秘典\\obj\\",
       "projectStyle": "PackageReference",

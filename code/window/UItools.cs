@@ -59,7 +59,7 @@ namespace VideoCopilot.code.window
             buttonImage.color = color; // 设置按钮背景颜色为纯白色
 
 
-            // 设置按钮的大小（例如，适配图像大小）
+            // 设置按钮的大小
             buttonRectTransform.localPosition = pos;
             buttonRectTransform.sizeDelta = new Vector2(8, 4.5f);
             buttonRectTransform.localScale = Vector3.one;

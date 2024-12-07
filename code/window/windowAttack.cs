@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using NCMS.Utils;
 using NeoModLoader.General;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace VideoCopilot.code.window
 {
@@ -35,7 +35,7 @@ namespace VideoCopilot.code.window
             isInitialized = true; // 标记为已初始化
 
             // 创建窗口并设置窗口名称
-            window = Windows.CreateNewWindow("tilesWindow", LM.Get("windowAttack"));
+            window = WindowCreator.CreateEmptyWindow("tilesWindow", "windowAttack");
 
             // 激活滚动视图
             var scrollView =
@@ -117,6 +117,10 @@ namespace VideoCopilot.code.window
             var num = 0;
             foreach (var actor in sortedList)
             {
+                if (num>100)
+                {
+                    break;
+                }
                 UItools.createActorOnUI(actor, content, new Vector3(70, -30 - (num * itemHeightWithGap), 10),
                     state);
                 num++;

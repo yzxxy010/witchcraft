@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WindowAttack")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5b5a4c3515633f5374be43f2de6f1e6f69892f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6e9909eef9e17ec0443948649a8123b799944e1")]
 [assembly: System.Reflection.AssemblyProductAttribute("WindowAttack")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WindowAttack")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

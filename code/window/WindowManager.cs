@@ -9,9 +9,11 @@ public class WindowManager
 {
     public static void Init()
     {
+        AutoUpdate.Init();
         window_init();
         UItools.Init();
-        WindowAttack.Init();
+        WindowAttack.Init(); 
+        
     }
 
     public static void window_init()

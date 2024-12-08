@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术秘典\\WindowAttack.csproj",
+      "projectUniqueName": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术\\WindowAttack.csproj",
       "projectName": "WindowAttack",
-      "projectPath": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术秘典\\WindowAttack.csproj",
+      "projectPath": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术\\WindowAttack.csproj",
       "packagesPath": "C:\\Users\\yzxxy\\.nuget\\packages\\",
-      "outputPath": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术秘典\\obj\\",
+      "outputPath": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术\\obj\\",
       "projectStyle": "PackageReference",
       "UsingMicrosoftNETSdk": false,
       "configFilePaths": [

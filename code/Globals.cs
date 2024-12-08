@@ -10,4 +10,5 @@ public class Globals
     public static Dictionary<string,Actor> Actors = new Dictionary<string, Actor>();
 
 
+
 }

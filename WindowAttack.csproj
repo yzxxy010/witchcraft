@@ -16,6 +16,9 @@
     <Reference Include="NeoModLoader">
       <HintPath>..\..\..\..\..\..\..\CODE\mod依赖\NeoModLoader.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\..\..\CODE\mod依赖\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\..\CODE\mod依赖\UnityEngine.dll</HintPath>
     </Reference>

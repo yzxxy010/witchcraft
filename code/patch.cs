@@ -635,7 +635,7 @@ namespace VideoCopilot.code
 
             if (!Globals.Actors.ContainsKey(actor.data.id))
             {
-                Debug.Log(actor.getName());
+                
                 Globals.Actors.Add(actor.data.id, actor);
             }
 

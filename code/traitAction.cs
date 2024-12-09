@@ -1253,9 +1253,23 @@ namespace VideoCopilot.code
 
             return true;
         }
+
+        private static Dictionary<string, int> _reviveCounts = new Dictionary<string, int>(); //跟踪每个名字复活次数
+
         public static bool flair8_death(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget == null)
+            {
+                return false;
+            }
+
+            string entityName = pTarget.a.getName();
+            //检查是否存在该名字的复活计数，如果不存在则初始化为0
+            if (!_reviveCounts.TryGetValue(entityName, out int reviveCount))
+            {
+                _reviveCounts[entityName] = 0;
+            }
+            if (_reviveCounts[entityName] >= 9) //复活次数是否已达到限制
             {
                 return false;
             }
@@ -1278,8 +1292,15 @@ namespace VideoCopilot.code
             act.data.health = 999;
             act.data.created_time = World.world.getCreationTime();
             act.data.age_overgrowth = 18;
+            act.data.setName(entityName);
             teleportRandom(act);
 
+            if (reviveCount < 9) //如果复活次数未达到限制，则添加flair8
+            {
+                act.data.traits = new List<string>() { "flair8" };
+            }
+
+            _reviveCounts[entityName] = reviveCount + 1; //增加该名字的复活次数计数器
 
             PowerLibrary pb = new PowerLibrary();
             pb.divineLightFX(pTarget.a.currentTile, null);

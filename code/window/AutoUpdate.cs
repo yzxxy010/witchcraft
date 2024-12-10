@@ -18,9 +18,10 @@ namespace VideoCopilot.code.window
         public static GameObject content;
         public static Text textComponent;
 
-        
+
         private static readonly string UpdateCheckUrl =
-            "https://cdn.jsdmirror.com/gh/yzxxy010/witchcraft/mod.json"; //走的cdn,理论上国内可以成功访问!
+            "https://gh.tryxd.cn/https://raw.githubusercontent.com/yzxxy010/witchcraft/master/mod.json?t=" +
+            DateTime.UtcNow.Ticks; //走的cdn,理论上国内可以成功访问!
 
         // 当前版本号
         public static string currentVersion = VideoCopilotClass.modDeclare.Version;
@@ -112,17 +113,18 @@ namespace VideoCopilot.code.window
                                  $"{currentVersion}\t" +
                                  $"<color=#FF9B1C>最新版本:</color>\t" +
                                  $"{remoteVersion}\n" +
-                                 $"当前mod已经有了新版本\n如果你的设备可以\n" +
-                                 $"<b><color=#ff0000>直接连接GitHub下载</color></b>\n" +
-                                 $"请点击下方的更新" +
-                                 $"\n<b><color=#ff0000>否则</color></b>请自行更新,此页面可以关闭";
+                                 // $"当前mod已经有了新版本\n如果你的设备可以\n" +
+                                 // $"<b><color=#ff0000>直接连接GitHub下载</color></b>\n" +
+                                 $"当前mod已经有了新版本" +
+                                 $"请点击下方的更新";
+            // $"\n<b><color=#ff0000>否则</color></b>请自行更新,此页面可以关闭";
             textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             textComponent.fontSize = 50;
             textComponent.color = Color.white;
             textComponent.alignment = TextAnchor.MiddleCenter;
             RectTransform rectTransform = textObject.GetComponent<RectTransform>();
             rectTransform.sizeDelta = new Vector2(800, 600);
-            rectTransform.localPosition = new Vector3(130, -45);
+            rectTransform.localPosition = new Vector3(130, -65);
             textComponent.raycastTarget = false;
         }
 
@@ -148,7 +150,8 @@ namespace VideoCopilot.code.window
             GameObject textObject = new GameObject("ButtonText");
             textObject.transform.SetParent(buttonObject.transform);
             Text textComponent = textObject.AddComponent<Text>();
-            textComponent.text = "<b><color=#ffffff>GitHub一键下载</color></b>";
+            // textComponent.text = "<b><color=#ffffff>GitHub一键下载</color></b>";
+            textComponent.text = "<b><color=#ffffff>一键下载</color></b>";
             textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             textComponent.fontSize = 40;
             textComponent.alignment = TextAnchor.MiddleCenter;
@@ -162,9 +165,10 @@ namespace VideoCopilot.code.window
             // 添加按钮点击事件
             buttonComponent.onClick.AddListener(() =>
             {
-
-                string downloadUrl = "https://api.github.com/repos/yzxxy010/witchcraft/zipball"; 
-                string savePath = Path.Combine(Directory.GetParent(VideoCopilotClass.modDeclare.FolderPath).FullName, "witchcraft_latest.zip");
+                string downloadUrl =
+                    "https://gh.tryxd.cn/https://github.com/yzxxy010/witchcraft/archive/refs/heads/master.zip";
+                string savePath = Path.Combine(Directory.GetParent(VideoCopilotClass.modDeclare.FolderPath).FullName,
+                    "witchcraft_latest.zip");
                 // 开始下载文件
                 content.AddComponent<AutoUpdate>().StartCoroutine(DownloadFileCoroutine(downloadUrl, savePath));
             });
@@ -172,7 +176,6 @@ namespace VideoCopilot.code.window
 
         private static IEnumerator DownloadFileCoroutine(string downloadUrl, string savePath)
         {
-            
             // 创建异步任务并使用协程等待
             Task downloadTask = DownloadFileAsync(downloadUrl, savePath);
 
@@ -181,15 +184,15 @@ namespace VideoCopilot.code.window
             {
                 Destroy(buttonObject);
             }
+
             var closeButton = GameObject.Find("CloseBackgound");
             if (closeButton != null)
             {
                 Destroy(closeButton);
             }
-            
+
             while (!downloadTask.IsCompleted)
             {
-                
                 yield return null;
             }
 
@@ -201,13 +204,10 @@ namespace VideoCopilot.code.window
             }
             else
             {
-
-                ExtractZipFileToRoot(Path.Combine(parentPath,"witchcraft_latest.zip"), parentPath);
+                ExtractZipFileToRoot(Path.Combine(parentPath, "witchcraft_latest.zip"), parentPath);
                 DeleteFile();
                 DeleteFolder(VideoCopilotClass.modDeclare.FolderPath);
                 textComponent.text = "下载完成，请重启游戏。";
-
-               
             }
         }
 
@@ -220,7 +220,8 @@ namespace VideoCopilot.code.window
                     // 设置GitHub API请求的User-Agent头部，GitHub要求所有API请求必须包含这个头部
                     client.DefaultRequestHeaders.Add("User-Agent", "Unity-Downloader");
 
-                    HttpResponseMessage response = await client.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
+                    HttpResponseMessage response =
+                        await client.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
                     response.EnsureSuccessStatusCode();
 
                     long totalBytes = response.Content.Headers.ContentLength ?? 0;
@@ -230,7 +231,7 @@ namespace VideoCopilot.code.window
                     using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
                            fileStream = new FileStream(savePath, FileMode.Create, FileAccess.Write, FileShare.None))
                     {
-                        byte[] buffer = new byte[ 1024 *1024];
+                        byte[] buffer = new byte[1024 * 1024];
                         int bytesRead;
                         while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                         {
@@ -278,7 +279,6 @@ namespace VideoCopilot.code.window
             {
                 Debug.LogError("解压文件时出错: " + ex.Message);
             }
-
         }
 
 
@@ -286,7 +286,7 @@ namespace VideoCopilot.code.window
         {
             try
             {
-                 parentPath = Directory.GetParent(folderPath).FullName;
+                parentPath = Directory.GetParent(folderPath).FullName;
 
                 Directory.Delete(folderPath, true);
                 Debug.Log($"成功删除文件夹: {folderPath}");
@@ -307,7 +307,6 @@ namespace VideoCopilot.code.window
         {
             try
             {
-
                 parentPath = Directory.GetParent(VideoCopilotClass.modDeclare.FolderPath).FullName;
                 Debug.Log(parentPath);
                 if (!File.Exists(Path.Combine(parentPath, "witchcraft_latest.zip")))
@@ -316,7 +315,6 @@ namespace VideoCopilot.code.window
                 }
 
                 File.Delete(Path.Combine(parentPath, "witchcraft_latest.zip"));
-
             }
             catch (IOException ioEx)
             {

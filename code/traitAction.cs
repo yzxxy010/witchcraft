@@ -1309,36 +1309,24 @@ namespace VideoCopilot.code
         }
         public static bool teleportRandom(Actor a)
         {
-            TileIsland randomIslandGround = World.world.islandsCalculator.getRandomIslandGround(true);
-            WorldTile worldTile;
-            if (randomIslandGround == null)
-            {
-                worldTile = null;
-            }
-            else
-            {
-                MapRegion random = randomIslandGround.regions.GetRandom();
-                worldTile = (random != null) ? random.tiles.GetRandom<WorldTile>() : null;
-            }
-
-            WorldTile worldTile2 = worldTile;
-            if (worldTile2 == null)
+            System.Random random = new System.Random();
+            int index = random.Next(World.world.cities.list.Count); 
+            City randomCity = World.world.cities.list[index];
+            if (randomCity == null)
             {
                 return false;
             }
 
-            if (worldTile2.Type.block)
+            WorldTile cityTile = randomCity.getTile();
+            if (cityTile == null || cityTile.Type.block || !cityTile.Type.ground)
             {
                 return false;
             }
 
-            if (!worldTile2.Type.ground)
-            {
-                return false;
-            }
+            Vector2 cityPosition = cityTile.pos;
 
             a.cancelAllBeh(null);
-            a.spawnOn(worldTile2, 0f);
+            a.spawnOn(cityTile, 0f);
             return true;
         }
         public static bool flair8_Traits(BaseSimObject pTarget, WorldTile pTile = null)

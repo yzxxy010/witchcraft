@@ -1005,6 +1005,35 @@ namespace VideoCopilot.code
             {
                 return false;
             }
+            a.stats["yuanneng"] -= 1;
+            double successRate = 0.9;//默认概率
+            //根据天赋调整概率
+            if (a.hasTrait("flair1"))
+            {
+                successRate = 0.05;
+            }
+            else if (a.hasTrait("flair2"))
+            {
+                successRate = 0.1;
+            }
+            else if (a.hasTrait("flair3"))
+            {
+                successRate = 0.3;
+            }
+            else if (a.hasTrait("flair4"))
+            {
+                successRate = 0.6;
+            }
+            else if (a.hasTrait("flair5"))
+            {
+                successRate = 0.9;
+            }
+            double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
+            if (randomValue > successRate)
+            {
+                return false;
+            }
+
             string[] additionalTraits = { "sorcery11", "sorcery12", "sorcery13", "sorcery14", "sorcery15", "sorcery16"};
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
@@ -1087,6 +1116,34 @@ namespace VideoCopilot.code
             {
                 return false;
             }
+            a.stats["yuanneng"] -= 2;
+            double successRate = 0.9;//默认概率
+            //根据天赋调整概率
+            if (a.hasTrait("flair1"))
+            {
+                successRate = 0.05;
+            }
+            else if (a.hasTrait("flair2"))
+            {
+                successRate = 0.1;
+            }
+            else if (a.hasTrait("flair3"))
+            {
+                successRate = 0.3;
+            }
+            else if (a.hasTrait("flair4"))
+            {
+                successRate = 0.6;
+            }
+            else if (a.hasTrait("flair5"))
+            {
+                successRate = 0.9;
+            }
+            double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
+            if (randomValue > successRate)
+            {
+                return false;
+            }
             string[] additionalTraits = { "sorcery22", "sorcery23", "sorcery24", "sorcery25", "sorcery26" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
@@ -1165,6 +1222,34 @@ namespace VideoCopilot.code
 
             Actor a = pTarget.a;
             if (a.stats["yuanneng"] <= 287.99)
+            {
+                return false;
+            }
+            a.stats["yuanneng"] -= 3;
+            double successRate = 0.9;//默认概率
+            //根据天赋调整概率
+            if (a.hasTrait("flair1"))
+            {
+                successRate = 0.05;
+            }
+            else if (a.hasTrait("flair2"))
+            {
+                successRate = 0.1;
+            }
+            else if (a.hasTrait("flair3"))
+            {
+                successRate = 0.3;
+            }
+            else if (a.hasTrait("flair4"))
+            {
+                successRate = 0.6;
+            }
+            else if (a.hasTrait("flair5"))
+            {
+                successRate = 0.9;
+            }
+            double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
+            if (randomValue > successRate)
             {
                 return false;
             }
@@ -1269,7 +1354,7 @@ namespace VideoCopilot.code
             {
                 _reviveCounts[entityName] = 0;
             }
-            if (_reviveCounts[entityName] >= 9) //复活次数是否已达到限制
+            if (_reviveCounts[entityName] >= 30) //复活次数是否已达到限制
             {
                 return false;
             }
@@ -1295,7 +1380,7 @@ namespace VideoCopilot.code
             act.data.setName(entityName);
             teleportRandom(act);
 
-            if (reviveCount < 9) //如果复活次数未达到限制，则添加flair8
+            if (reviveCount < 30) //如果复活次数未达到限制，则添加flair8
             {
                 act.data.traits = new List<string>() { "flair8" };
             }
@@ -1309,24 +1394,36 @@ namespace VideoCopilot.code
         }
         public static bool teleportRandom(Actor a)
         {
-            System.Random random = new System.Random();
-            int index = random.Next(World.world.cities.list.Count); 
-            City randomCity = World.world.cities.list[index];
-            if (randomCity == null)
+            TileIsland randomIslandGround = World.world.islandsCalculator.getRandomIslandGround(true);
+            WorldTile worldTile;
+            if (randomIslandGround == null)
+            {
+                worldTile = null;
+            }
+            else
+            {
+                MapRegion random = randomIslandGround.regions.GetRandom();
+                worldTile = (random != null) ? random.tiles.GetRandom<WorldTile>() : null;
+            }
+
+            WorldTile worldTile2 = worldTile;
+            if (worldTile2 == null)
             {
                 return false;
             }
 
-            WorldTile cityTile = randomCity.getTile();
-            if (cityTile == null || cityTile.Type.block || !cityTile.Type.ground)
+            if (worldTile2.Type.block)
             {
                 return false;
             }
 
-            Vector2 cityPosition = cityTile.pos;
+            if (!worldTile2.Type.ground)
+            {
+                return false;
+            }
 
             a.cancelAllBeh(null);
-            a.spawnOn(cityTile, 0f);
+            a.spawnOn(worldTile2, 0f);
             return true;
         }
         public static bool flair8_Traits(BaseSimObject pTarget, WorldTile pTile = null)

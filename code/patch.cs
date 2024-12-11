@@ -644,7 +644,21 @@ namespace VideoCopilot.code
                 Globals.Tsotw += actor.stats["xiaohao"];
                 actor.stats["yuanneng"] -=  actor.stats["xiaohao"];
             }
-            
+
+            UpdateYuannengBasedOnGrade(__instance, "Grade02", 18.0f);
+            UpdateYuannengBasedOnGrade(__instance, "Grade3", 72.0f);
+            UpdateYuannengBasedOnGrade(__instance, "Grade6", 288.0f);
+        }
+        private static void UpdateYuannengBasedOnGrade(Actor actor, string traitName, float maxYuanneng)
+        {
+            if (actor.hasTrait(traitName))
+            {
+                float currentYuanneng = actor.stats["yuanneng"];
+                if (currentYuanneng > maxYuanneng)
+                {
+                    actor.stats["yuanneng"] = maxYuanneng;
+                }
+            }
         }
         [HarmonyPrefix, HarmonyPatch(typeof(MapAction), "checkLightningAction")]
         public static bool checkLightningAction(Vector2Int pPos, int pRad)

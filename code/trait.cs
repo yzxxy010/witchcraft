@@ -14,8 +14,8 @@ namespace VideoCopilot.code
     {
         public static void Init()
         {                          //特质id↓ //贴图路径↓ //诞生率↓ //每年-x点世界源力+x点源能↓ //排斥的特质↓
-            flair12345_AddActorTrait("flair1", "trait/flair1", 8f, -0.5f, "flair2,flair3,flair4,flair5,flair6,flair7");//D天赋
-            flair12345_AddActorTrait("flair2", "trait/flair2", 5f, -0.7f, "flair1,flair3,flair4,flair5,flair6,flair7");//C天赋
+            flair12345_AddActorTrait("flair1", "trait/flair1", 10f, -0.3f, "flair2,flair3,flair4,flair5,flair6,flair7");//D天赋
+            flair12345_AddActorTrait("flair2", "trait/flair2", 7f, -0.6f, "flair1,flair3,flair4,flair5,flair6,flair7");//C天赋
             flair12345_AddActorTrait("flair3", "trait/flair3", 3f, -0.9f, "flair1,flair2,flair4,flair5,flair6,flair7");//B天赋
             flair12345_AddActorTrait("flair4", "trait/flair4", 1.5f, -1.2f, "flair1,flair2,flair3,flair5,flair6,flair7");//A天赋
             flair12345_AddActorTrait("flair5", "trait/flair5", 0.5f, -1.5f, "flair1,flair2,flair3,flair4,flair6,flair7");//S天赋

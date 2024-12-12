@@ -685,5 +685,23 @@ namespace VideoCopilot.code
             }
             return false;
         }
+        [HarmonyPrefix, HarmonyPatch(typeof(ActionLibrary), "giveEnchanted")]
+        public static bool giveEnchanted(WorldTile pTile, ActorBase pActor)
+        {
+            pActor.removeTrait("cursed");
+            pActor.addStatusEffect("enchanted", -1f);
+            // 检查 pActor 是否具有指定的特性之一
+            if (pActor.hasTrait("flair1") ||
+                pActor.hasTrait("flair2") ||
+                pActor.hasTrait("flair3") ||
+                pActor.hasTrait("flair4") ||
+                pActor.hasTrait("flair5") ||
+                pActor.hasTrait("flair6") ||
+                pActor.hasTrait("flair7"))
+                {
+                    pActor.addStatusEffect("miracle_power", -1f);
+                }
+            return false;
+        }
     }
 }    

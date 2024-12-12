@@ -14,6 +14,13 @@ namespace VideoCopilot.code
     {
         public static void Init()
         {
+            StatusEffect miracle_power = new StatusEffect();
+            miracle_power.id = "miracle_power";//元素共呜
+            miracle_power.name = "status_title_miracle_power";
+            miracle_power.path_icon = "Ring/miracle_power";
+            miracle_power.base_stats["xiaohao"] = -0.5f;
+            miracle_power.duration = 120f;
+            AssetManager.status.add(pAsset:miracle_power);
             //零环
             StatusEffect Ring01 = new StatusEffect();
             Ring01.id = "Ring01";//零环•轻身术

@@ -11,8 +11,7 @@ public class WindowManager
     {
         AutoUpdate.Init();
         window_init();
-        UItools.Init();
-        WindowAttack.Init(); 
+        window_attack.Init(); 
         
     }
 

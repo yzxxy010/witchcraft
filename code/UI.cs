@@ -31,7 +31,7 @@ public class UI
     {
         
         var buttons = PowerButtonCreator.CreateSimpleButton("windowAttack",
-            ()=>{WindowAttack.ShowWindow();}, Resources.Load<Sprite>("ui/openAttackWindow.png"));
+            ()=>{window_attack.showWindow();}, Resources.Load<Sprite>("ui/openAttackWindow.png"));
         tab.AddPowerButton(INFO,buttons );
 
     }

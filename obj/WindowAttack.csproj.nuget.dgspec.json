@@ -13,7 +13,6 @@
         "packagesPath": "C:\\Users\\yzxxy\\.nuget\\packages\\",
         "outputPath": "D:\\pc\\Steam\\steamapps\\common\\worldbox\\Mods\\巫术\\obj\\",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "C:\\Users\\yzxxy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"

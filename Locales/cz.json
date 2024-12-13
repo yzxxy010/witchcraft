@@ -1,4 +1,8 @@
 {
+  "sort_allActor_yuanneng":"源能排行榜(全部生物)",
+  "sort_civActor_yuanneng":"源能排行榜(文明生物)",
+  "sort_allActor_age":"年龄排行榜(全部生物)",
+  "sort_civActor_age":"年龄排行榜(文明生物)",
   "tab_witchcraft": "巫术秘典",
   "windowAttack": "排行",
   "AutoUpdateWindow": "自动更新",

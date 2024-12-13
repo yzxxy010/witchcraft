@@ -21,6 +21,7 @@ namespace VideoCopilot.code.window
         private static ScrollWindow window;
         private static GameObject scrollView;
         public static GameObject content;
+        public static GameObject title;
         public static bool Initialized = false;
         public static float itemHeight = 35f;
 
@@ -32,6 +33,7 @@ namespace VideoCopilot.code.window
             scrollView.SetActive(true);
             content = window.transform.Find("Background/Scroll View/Viewport/Content").gameObject;
 
+            title = window.transform.Find("Background/Title").gameObject;
             var closeButton = window.transform.Find("Background/CloseBackgound").gameObject
                 .GetComponent<RectTransform>();
             closeButton.localPosition = new Vector3(closeButton.localPosition.x, 130, 0);
@@ -257,6 +259,7 @@ namespace VideoCopilot.code.window
             Debug.Log(allActors.Count);
             actors.Clear();
             actors = allActors.OrderByDescending(actor => actor.getAge()).ToList();
+            title.GetComponent<Text>().text = LM.Get("sort_allActor_age");
             reOnNormalEnable();
         }
 
@@ -265,6 +268,7 @@ namespace VideoCopilot.code.window
             actors.Clear();
             actors = allActors.Where(actor => actor.race.civilization)
                 .OrderByDescending(actor => actor.stats["yuanneng"]).ToList();
+            title.GetComponent<Text>().text = LM.Get("sort_civActor_yuanneng");
             reOnNormalEnable();
         }
 
@@ -273,6 +277,8 @@ namespace VideoCopilot.code.window
             actors.Clear();
             actors = allActors.Where(actor => actor.race.civilization).OrderByDescending(actor => actor.getAge())
                 .ToList();
+            title.GetComponent<Text>().text = LM.Get("sort_civActor_age");
+
             reOnNormalEnable();
         }
 
@@ -281,6 +287,7 @@ namespace VideoCopilot.code.window
             actors.Clear();
             actors = allActors
                 .OrderByDescending(actor => actor.stats["yuanneng"]).ToList();
+            title.GetComponent<Text>().text = LM.Get("sort_allActor_yuanneng");
             reOnNormalEnable();
         }
     }

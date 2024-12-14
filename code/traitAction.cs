@@ -1121,23 +1121,23 @@ namespace VideoCopilot.code
             //根据天赋调整概率
             if (a.hasTrait("flair1"))
             {
-                successRate = 0.05;
+                successRate = 0.5;
             }
             else if (a.hasTrait("flair2"))
             {
-                successRate = 0.1;
+                successRate = 0.2;
             }
             else if (a.hasTrait("flair3"))
             {
-                successRate = 0.3;
+                successRate = 0.2;
             }
             else if (a.hasTrait("flair4"))
             {
-                successRate = 0.6;
+                successRate = 0.3;
             }
             else if (a.hasTrait("flair5"))
             {
-                successRate = 0.9;
+                successRate = 0.4;
             }
             double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
             if (randomValue > successRate)
@@ -1230,23 +1230,23 @@ namespace VideoCopilot.code
             //根据天赋调整概率
             if (a.hasTrait("flair1"))
             {
-                successRate = 0.05;
+                successRate = 0.6;
             }
             else if (a.hasTrait("flair2"))
             {
-                successRate = 0.1;
+                successRate = 0.4;
             }
             else if (a.hasTrait("flair3"))
             {
-                successRate = 0.3;
+                successRate = 0.25;
             }
             else if (a.hasTrait("flair4"))
             {
-                successRate = 0.6;
+                successRate = 0.2;
             }
             else if (a.hasTrait("flair5"))
             {
-                successRate = 0.9;
+                successRate = 0.3;
             }
             double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
             if (randomValue > successRate)

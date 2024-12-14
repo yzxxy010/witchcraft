@@ -3,7 +3,7 @@
         {
             "Id": "TSOTW_ADD",
             "Type": "TEXT",
-            "TextVal": "1000.0",
+            "TextVal": "2000.0",
             "Callback": "CallBack:TSOTW_ADD"
         },
         {

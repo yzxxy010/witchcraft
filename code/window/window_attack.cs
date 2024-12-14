@@ -1,11 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using NeoModLoader.General;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.Runtime;
-using System.Linq;
-using System.Runtime.Serialization;
+using VideoCopilot.code.utils;
 using VideoCopilot.code.window.prafab;
 
 namespace VideoCopilot.code.window
@@ -13,17 +12,17 @@ namespace VideoCopilot.code.window
     public class window_attack : MonoBehaviour
     {
         public static List<Actor> allActors = new List<Actor>();
-        public static List<Actor> actors = new List<Actor>();
+        public static List<Actor> actors    = new List<Actor>();
 
         public static GameObject avatarRef = GameObject.Find(
             $"Canvas Container Main/Canvas - Windows/windows/inspect_unit/Background/Scroll View/Viewport/Content/Part 1/BackgroundAvatar");
 
         private static ScrollWindow window;
-        private static GameObject scrollView;
-        public static GameObject content;
-        public static GameObject title;
-        public static bool Initialized = false;
-        public static float itemHeight = 35f;
+        private static GameObject   scrollView;
+        public static  GameObject   content;
+        public static  GameObject   title;
+        public static  bool         Initialized = false;
+        public static  float        itemHeight  = 35f;
 
         public static void Init()
         {
@@ -52,11 +51,11 @@ namespace VideoCopilot.code.window
             Sprite imageSprite = Resources.Load<Sprite>("ui/attackWindow.png");
             imageComponent.sprite = imageSprite;
             imageComponent.raycastTarget = false;
-            rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            rectTransform.pivot = new Vector2(0.5f,     0.5f);
             rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
             rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-            rectTransform.localScale = new Vector3(2.4f, 2.7f, 0f);
-            rectTransform.localPosition = new Vector3(0f, -1f, 0f);
+            rectTransform.localScale = new Vector3(2.4f,  2.7f, 0f);
+            rectTransform.localPosition = new Vector3(0f, -1f,  0f);
             drawWindoowUIButton(image);
         }
 
@@ -134,9 +133,9 @@ namespace VideoCopilot.code.window
             Button buttonComponent = iconObject.AddComponent<Button>();
             buttonImage.raycastTarget = true;
             // 配置 RectTransform
-            iconRect.pivot = new Vector2(0.5f, 0f);
-            iconRect.anchorMin = new Vector2(0.5f, 0f);
-            iconRect.anchorMax = new Vector2(0.5f, 0f);
+            iconRect.pivot = new Vector2(0.5f,              0f);
+            iconRect.anchorMin = new Vector2(0.5f,          0f);
+            iconRect.anchorMax = new Vector2(0.5f,          0f);
             iconRect.anchoredPosition = new Vector2(-27.2f, 5.6f); //16.4
             iconRect.localScale = Vector3.one;
             iconRect.sizeDelta = new Vector2(9.5f, 4.5f);
@@ -149,7 +148,7 @@ namespace VideoCopilot.code.window
             centerImage.raycastTarget = false;
             centerImageRect.anchorMin = new Vector2(0.5f, 0.5f);
             centerImageRect.anchorMax = new Vector2(0.5f, 0.5f);
-            centerImageRect.pivot = new Vector2(0.5f, 0.5f);
+            centerImageRect.pivot = new Vector2(0.5f,     0.5f);
             centerImageRect.anchoredPosition = Vector2.zero;
             centerImageRect.localScale = new Vector3(0.045f, 0.045f);
             //补充点击
@@ -166,9 +165,9 @@ namespace VideoCopilot.code.window
             Button buttonComponent2 = iconObject2.AddComponent<Button>();
             buttonImage2.raycastTarget = true;
             // 配置 RectTransform
-            iconRect2.pivot = new Vector2(0.5f, 0f);
-            iconRect2.anchorMin = new Vector2(0.5f, 0f);
-            iconRect2.anchorMax = new Vector2(0.5f, 0f);
+            iconRect2.pivot = new Vector2(0.5f,              0f);
+            iconRect2.anchorMin = new Vector2(0.5f,          0f);
+            iconRect2.anchorMax = new Vector2(0.5f,          0f);
             iconRect2.anchoredPosition = new Vector2(-16.4f, 5.6f);
             iconRect2.localScale = Vector3.one;
             iconRect2.sizeDelta = new Vector2(9.5f, 4.5f);
@@ -181,7 +180,7 @@ namespace VideoCopilot.code.window
             centerImage2.raycastTarget = false;
             centerImageRect2.anchorMin = new Vector2(0.5f, 0.5f);
             centerImageRect2.anchorMax = new Vector2(0.5f, 0.5f);
-            centerImageRect2.pivot = new Vector2(0.5f, 0.5f);
+            centerImageRect2.pivot = new Vector2(0.5f,     0.5f);
             centerImageRect2.anchoredPosition = Vector2.zero;
             centerImageRect2.localScale = new Vector3(0.045f, 0.045f);
             //补充点击
@@ -198,9 +197,9 @@ namespace VideoCopilot.code.window
             Button buttonComponent3 = iconObject3.AddComponent<Button>();
             buttonImage3.raycastTarget = true;
             // 配置 RectTransform
-            iconRect3.pivot = new Vector2(0.5f, 0f);
-            iconRect3.anchorMin = new Vector2(0.5f, 0f);
-            iconRect3.anchorMax = new Vector2(0.5f, 0f);
+            iconRect3.pivot = new Vector2(0.5f,             0f);
+            iconRect3.anchorMin = new Vector2(0.5f,         0f);
+            iconRect3.anchorMax = new Vector2(0.5f,         0f);
             iconRect3.anchoredPosition = new Vector2(16.4f, 5.6f);
             iconRect3.localScale = Vector3.one;
             iconRect3.sizeDelta = new Vector2(9.5f, 4.5f);
@@ -213,7 +212,7 @@ namespace VideoCopilot.code.window
             centerImage3.raycastTarget = false;
             centerImageRect3.anchorMin = new Vector2(0.5f, 0.5f);
             centerImageRect3.anchorMax = new Vector2(0.5f, 0.5f);
-            centerImageRect3.pivot = new Vector2(0.5f, 0.5f);
+            centerImageRect3.pivot = new Vector2(0.5f,     0.5f);
             centerImageRect3.anchoredPosition = Vector2.zero;
             centerImageRect3.localScale = new Vector3(0.045f, 0.045f);
             //补充点击
@@ -230,9 +229,9 @@ namespace VideoCopilot.code.window
             Button buttonComponent4 = iconObject4.AddComponent<Button>();
             buttonImage4.raycastTarget = true;
             // 配置 RectTransform
-            iconRect4.pivot = new Vector2(0.5f, 0f);
-            iconRect4.anchorMin = new Vector2(0.5f, 0f);
-            iconRect4.anchorMax = new Vector2(0.5f, 0f);
+            iconRect4.pivot = new Vector2(0.5f,             0f);
+            iconRect4.anchorMin = new Vector2(0.5f,         0f);
+            iconRect4.anchorMax = new Vector2(0.5f,         0f);
             iconRect4.anchoredPosition = new Vector2(27.2f, 5.6f); //16.4
             iconRect4.localScale = Vector3.one;
             iconRect4.sizeDelta = new Vector2(9.5f, 4.5f);
@@ -245,7 +244,7 @@ namespace VideoCopilot.code.window
             centerImage4.raycastTarget = false;
             centerImageRect4.anchorMin = new Vector2(0.5f, 0.5f);
             centerImageRect4.anchorMax = new Vector2(0.5f, 0.5f);
-            centerImageRect4.pivot = new Vector2(0.5f, 0.5f);
+            centerImageRect4.pivot = new Vector2(0.5f,     0.5f);
             centerImageRect4.anchoredPosition = Vector2.zero;
             centerImageRect4.localScale = new Vector3(0.045f, 0.045f);
             // 补充点击
@@ -267,7 +266,7 @@ namespace VideoCopilot.code.window
         {
             actors.Clear();
             actors = allActors.Where(actor => actor.race.civilization)
-                .OrderByDescending(actor => actor.stats["yuanneng"]).ToList();
+                .OrderByDescending(actor => actor.GetYuanNeng()).ToList();
             title.GetComponent<Text>().text = LM.Get("sort_civActor_yuanneng");
             reOnNormalEnable();
         }
@@ -286,7 +285,7 @@ namespace VideoCopilot.code.window
         {
             actors.Clear();
             actors = allActors
-                .OrderByDescending(actor => actor.stats["yuanneng"]).ToList();
+                .OrderByDescending(actor => actor.GetYuanNeng()).ToList();
             title.GetComponent<Text>().text = LM.Get("sort_allActor_yuanneng");
             reOnNormalEnable();
         }

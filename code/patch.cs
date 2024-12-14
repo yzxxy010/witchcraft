@@ -9,6 +9,32 @@ namespace VideoCopilot.code
 {
     internal class patch
     {
+        [HarmonyPrefix, HarmonyPatch(typeof(SavedMap), "create")]
+        public static bool create_prefix()
+        {
+            List<Actor> actors = World.world.units.getSimpleList();
+            foreach (Actor actor in actors)
+            {
+                actor.data.set("wushu.yuannengNum", actor.stats["yuanneng"]);
+                actor.data.set("wushu.global",Globals.Tsotw);
+            }
+            return true;
+        }
+        
+        [HarmonyPostfix, HarmonyPatch(typeof(ActorManager), "loadObject")]
+        public static void AddCustomData(ref Actor __result, ActorData pData)
+        {
+            if (__result != null)
+            {
+                float yuanneng;
+                __result.data.get("wushu.yuannengNum",out yuanneng);
+                __result.stats["yuanneng"] = yuanneng;
+                __result.data.get("wushu.global", out Globals.Tsotw);
+            }
+        }
+        
+        
+        
         [HarmonyPrefix, HarmonyPatch(typeof(Actor), "getHit")]
         public static void actorGetHit_prefix(
             Actor __instance,
@@ -611,13 +637,20 @@ namespace VideoCopilot.code
             return false;
         }
 
+        public static bool isLoadSave =false;
         [HarmonyPostfix, HarmonyPatch(typeof(MapBox), "updateObjectAge")]
         public static void updateWorldTime_Postfix(MapBox __instance)
         {
-            if (Globals.WorldName != __instance.mapStats.name)
+            if (Globals.WorldName != __instance.mapStats.name && !isLoadSave )
             {
-                Globals.Tsotw = 10000;
+                Globals.Tsotw = Globals.baseTsotw;
                 Globals.WorldName = __instance.mapStats.name;
+                return;
+            }
+            else if (isLoadSave)
+            {
+                Globals.WorldName = __instance.mapStats.name;
+                isLoadSave = false;
                 return;
             }
 

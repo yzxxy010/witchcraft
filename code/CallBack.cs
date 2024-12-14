@@ -23,11 +23,11 @@ public class CallBack
        bool bol = float.TryParse(pCurrentValue,out temp2);
        if (bol)
        {
-           Globals.Tsotw = temp2;
+           Globals.baseTsotw = temp2;
        }
        else
        {
-           Globals.Tsotw = 10000.0f;
+           Globals.baseTsotw = 10000.0f;
            Debug.Log("数值格式不正确,请检查");
        }
     }

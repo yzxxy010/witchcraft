@@ -163,7 +163,7 @@ namespace VideoCopilot.code.window
             textRectTransform.localPosition = Vector3.zero;
 
             // 添加按钮点击事件
-            buttonComponent.onClick.AddListener(() => { Application.OpenURL("https://325477.xyz");});
+            buttonComponent.onClick.AddListener(() => { Application.OpenURL("https://github.com/yzxxy010/witchcraft");});
         }
     }
 }

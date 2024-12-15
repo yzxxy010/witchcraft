@@ -1,6 +1,7 @@
 ﻿using NeoModLoader.General;
 using UnityEngine;
 using UnityEngine.UI;
+using VideoCopilot.code.utils;
 
 namespace VideoCopilot.code.window.prafab;
 
@@ -125,7 +126,7 @@ public class AttackPrefab : MonoBehaviour
         // 设置文本属性
         textComponent.text = $"<color=#FF9B1C>姓名:</color>\t{actor.getName()}\n" +
                              $"<color=#FF9B1C>年龄:</color>\t{actor.getAge()}\n" +
-                             $"<color=#FF9B1C>{LM.Get("yuanneng")}:</color>\t{(int)actor.stats["yuanneng"]}";
+                             $"<color=#FF9B1C>{LM.Get("yuanneng")}:</color>\t{(int)actor.GetYuanNeng()}";
         textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
         textComponent.fontSize = 6;
         textComponent.alignment = TextAnchor.MiddleLeft;

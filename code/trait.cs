@@ -14,13 +14,13 @@ namespace VideoCopilot.code
     {
         public static void Init()
         {                          //特质id↓ //贴图路径↓ //诞生率↓ //每年-x点世界源力+x点源能↓ //排斥的特质↓
-            flair12345_AddActorTrait("flair1", "trait/flair1", 10f, -0.3f, "flair2,flair3,flair4,flair5,flair6,flair7");//D天赋
-            flair12345_AddActorTrait("flair2", "trait/flair2", 7f, -0.6f, "flair1,flair3,flair4,flair5,flair6,flair7");//C天赋
-            flair12345_AddActorTrait("flair3", "trait/flair3", 3f, -0.9f, "flair1,flair2,flair4,flair5,flair6,flair7");//B天赋
-            flair12345_AddActorTrait("flair4", "trait/flair4", 1.5f, -1.2f, "flair1,flair2,flair3,flair5,flair6,flair7");//A天赋
-            flair12345_AddActorTrait("flair5", "trait/flair5", 0.5f, -1.5f, "flair1,flair2,flair3,flair4,flair6,flair7");//S天赋
-            flair12345_AddActorTrait("flair6", "trait/flair6", 0f, -10f, "flair1,flair2,flair3,flair4,flair5,flair7");//SS天赋
-            flair12345_AddActorTrait("flair7", "trait/flair7", 0f, -30f, "flair1,flair2,flair3,flair4,flair5,flair6");//SSS天赋
+            flair12345_AddActorTrait("flair1", "trait/flair1", 8f, -0.3f, "flair2,flair3,flair4,flair5,flair6,flair7,flair9");//D天赋
+            flair12345_AddActorTrait("flair2", "trait/flair2", 6f, -0.6f, "flair1,flair3,flair4,flair5,flair6,flair7,flair9");//C天赋
+            flair12345_AddActorTrait("flair3", "trait/flair3", 3f, -0.9f, "flair1,flair2,flair4,flair5,flair6,flair7,flair9");//B天赋
+            flair12345_AddActorTrait("flair4", "trait/flair4", 1.5f, -1.2f, "flair1,flair2,flair3,flair5,flair6,flair7,flair9");//A天赋
+            flair12345_AddActorTrait("flair5", "trait/flair5", 0.5f, -1.5f, "flair1,flair2,flair3,flair4,flair6,flair7,flair9");//S天赋
+            flair12345_AddActorTrait("flair6", "trait/flair6", 0f, -10f, "flair1,flair2,flair3,flair4,flair5,flair7,flair9");//SS天赋
+            flair12345_AddActorTrait("flair7", "trait/flair7", 0f, -30f, "flair1,flair2,flair3,flair4,flair5,flair6,flair9");//SSS天赋
 
             ActorTrait flair8 = new ActorTrait();
             flair8.id = "flair8";//大巫师•灵魂
@@ -34,6 +34,15 @@ namespace VideoCopilot.code
             flair8.action_death = traitAction.flair8_death;//无限重生效果
             flair8.action_special_effect = traitAction.flair8_Traits;//随机天赋
             AssetManager.traits.add(flair8);
+
+            ActorTrait flair9 = new ActorTrait();
+            flair9.id = "flair9";//禁巫之族
+            flair9.inherit = 100f;
+            flair9.path_icon = "trait/flair9";
+            flair9.needs_to_be_explored = false;
+            flair9.group_id = "interesting3";
+            flair9.opposite = "flair1,flair2,flair3,flair4,flair5,flair6,flair7";
+            AssetManager.traits.add(flair9);
             //巫师境界↓
             ActorTrait Grade0 = new ActorTrait();
             Grade0.id = "Grade0"; //学徒•初识

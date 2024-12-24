@@ -333,6 +333,7 @@ internal class patch
         UpdateYuannengBasedOnGrade(__instance, "Grade02", 18.0f);
         UpdateYuannengBasedOnGrade(__instance, "Grade3",  72.0f);
         UpdateYuannengBasedOnGrade(__instance, "Grade6",  288.0f);
+        UpdateYuannengBasedOnGrade(__instance, "flair9",  0f);
     }
 
     private static void UpdateYuannengBasedOnGrade(Actor actor, string traitName, float maxYuanneng)

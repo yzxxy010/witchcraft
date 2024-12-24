@@ -990,16 +990,6 @@ namespace VideoCopilot.code
                 return false;
             }
 
-            // 添加成功概率检查-暂时不考虑
-            //double successRate = 0.3; // 30%的概率
-            //System.Random random = new System.Random();
-            //double randomValue = random.NextDouble(); // 生成0到1之间的随机数
-            //if (randomValue > successRate)
-            //{
-            // 随机数大于successRate，表示执行失败
-            //return false;
-            //}
-
             string[] forbiddenTraits =
             {
                 "Grade01", "Grade02", "Grade1", "Grade2", "Grade3", "Grade4", "Grade5", "Grade6", "Grade7", "Grade8",

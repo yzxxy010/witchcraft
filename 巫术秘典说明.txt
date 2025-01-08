@@ -1,5 +1,7 @@
-更新:
-    彻底解决了原先"禁巫之族"实际上没用的问题，整体境界小幅度加强
+更新内容update:
+Add English
+添加英文
+
 主要内容：
     在生物属性下方添加：
     ①"世界源力(全局)"目前初始10000每年增加2000，低于初始值便不再增加巫师的源能
@@ -16,6 +18,25 @@
     有巫师天赋的小人在魔法之地上会获得"元素共呜"状态，每年源能+0.5
     "禁巫之族"可用来给不想让其出现巫术天赋的种族用，100%遗传
 
+Add under creature attributes:
+    ①"World Origin Power (Global)" currently starts at 10000 and increases by 2000 annually. If it is lower than the initial value, it will no longer increase the wizard's origin power.
+    ②"Origin ability" Wizard experience points, consumption of world origin energy can be converted to origin ability
+    ③"World Source Power Consumption/Year" shows how much World Source Power can be consumed every year.
+    Sorcerers upgrade system: Apprentice-Official Sorceress-Advanced Sorceress-Grand Sorceress-Ancestor, each divided into three stages (upgrade to Grand Sorceress Stage 3 Immortal Realm to obtain Immortal Soul, reincarnate to upgrade to Ancestor)
+    Sorcery Talent System: D-C-B-A-S, SS and SSS can only be created by God
+    Sorcery system: Zero ring to three rings, corresponding to apprentice to great sorcery. The ancestor randomly releases three rings of sorcery, which is ineffective against realms higher than sorcery level. For example, zero ring will not be effective against official sorcerers.
+    In mod settings, you can change the initial world source power value and the annual increment value (note: only enter pure numbers)
+    The place where immortal souls are resurrected is changed to a city instead of an island.
+    Undying souls resurrected 30 times instead
+    Add the probability of breaking through to a major realm (-1 origin ability when breaking through to an official realm,-2 origin ability when breaking through to an advanced realm,-3 origin ability when breaking through to a great wizard), and the probability of breaking through varies with different talents.
+    D cost reduced from 0.5 to 0.3 per year, C cost reduced from 0.7 to 0.6 per year
+    Minions with wizard talent will gain "Elemental Resonance" status in Magic Land, annual origin ability +0.5
+    "Forbidden Witch Clan" can be used on races that do not want their magic talents to appear. 100% inherited.
+    
+    
+联系方式 call me:
+You can feed back questions to yzxxy010@163.com
+If you want to translate into a specific language, you can also contact us via email
 食用方法：
 ⚠本模组属于NeoMod前置类模组
 ①群文件下载NeoModLoader，然后将其中NeoModLoader.dll和NeoModLoader.pdb放到worldbox_Data/StreamingAssets/mods/ 这个文件夹内

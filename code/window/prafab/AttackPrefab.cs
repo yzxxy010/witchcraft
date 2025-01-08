@@ -124,8 +124,8 @@ public class AttackPrefab : MonoBehaviour
         Text textComponent = textObject.AddComponent<Text>();
 
         // 设置文本属性
-        textComponent.text = $"<color=#FF9B1C>姓名:</color>\t{actor.getName()}\n" +
-                             $"<color=#FF9B1C>年龄:</color>\t{actor.getAge()}\n" +
+        textComponent.text = $"<color=#FF9B1C>{LM.Get("name_xy")}:</color>\t{actor.getName()}\n" +
+                             $"<color=#FF9B1C>{LM.Get("age_xy")}:</color>\t{actor.getAge()}\n" +
                              $"<color=#FF9B1C>{LM.Get("yuanneng")}:</color>\t{(int)actor.GetYuanNeng()}";
         textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
         textComponent.fontSize = 6;

@@ -14,11 +14,11 @@ namespace VideoCopilot.code
     {
         public static void Init()
         {                          //特质id↓ //贴图路径↓ //诞生率↓ //每年-x点世界源力+x点源能↓ //排斥的特质↓
-            flair12345_AddActorTrait("flair1", "trait/flair1", 8f, -0.3f, "flair2,flair3,flair4,flair5,flair6,flair7");//D天赋
-            flair12345_AddActorTrait("flair2", "trait/flair2", 6f, -0.6f, "flair1,flair3,flair4,flair5,flair6,flair7");//C天赋
-            flair12345_AddActorTrait("flair3", "trait/flair3", 3f, -0.9f, "flair1,flair2,flair4,flair5,flair6,flair7");//B天赋
-            flair12345_AddActorTrait("flair4", "trait/flair4", 1.5f, -1.2f, "flair1,flair2,flair3,flair5,flair6,flair7");//A天赋
-            flair12345_AddActorTrait("flair5", "trait/flair5", 0.5f, -1.5f, "flair1,flair2,flair3,flair4,flair6,flair7");//S天赋
+            flair12345_AddActorTrait("flair1", "trait/flair1", 7f, -0.3f, "flair2,flair3,flair4,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//D天赋
+            flair12345_AddActorTrait("flair2", "trait/flair2", 5f, -0.6f, "flair1,flair3,flair4,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//C天赋
+            flair12345_AddActorTrait("flair3", "trait/flair3", 2f, -0.9f, "flair1,flair2,flair4,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//B天赋
+            flair12345_AddActorTrait("flair4", "trait/flair4", 1f, -1.2f, "flair1,flair2,flair3,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//A天赋
+            flair12345_AddActorTrait("flair5", "trait/flair5", 0.5f, -1.5f, "flair1,flair2,flair3,flair4,flair6,flair7,talent1,talent2,talent3,talent4");//S天赋
             flair12345_AddActorTrait("flair6", "trait/flair6", 0f, -10f, "flair1,flair2,flair3,flair4,flair5,flair7");//SS天赋
             flair12345_AddActorTrait("flair7", "trait/flair7", 0f, -30f, "flair1,flair2,flair3,flair4,flair5,flair6");//SSS天赋
 
@@ -77,12 +77,15 @@ namespace VideoCopilot.code
             Grade02.base_stats[S.damage] = 100f;
             Grade02.base_stats[S.health] = 1000f;
             Grade02.base_stats[S.armor] = 15f;
+            Grade02.base_stats[S.speed] = 5f;
             Grade02.base_stats[S.intelligence] = 3f;
             Grade02.base_stats[S.range] = 1f;//射程+1
             Grade02.base_stats[S.area_of_effect] = 1f;
             Grade02.base_stats[S.targets] = 2f;
             Grade02.base_stats[S.knockback_reduction] = 0.8f;
             Grade02.action_special_effect = traitAction.Grade1_effectAction; //正式巫师•塑造的升级条件
+            Grade02.action_special_effect = (WorldAction)Delegate.Combine(Grade02.action_special_effect,
+new WorldAction(traitAction.Grade02_Regen)); //学徒•精通的再生效果
             AssetManager.traits.add(Grade02);
 
             ActorTrait Grade1 = new ActorTrait();
@@ -94,6 +97,7 @@ namespace VideoCopilot.code
             Grade1.base_stats[S.damage] = 300f;//
             Grade1.base_stats[S.health] = 3000f;
             Grade1.base_stats[S.armor] = 20f;
+            Grade1.base_stats[S.speed] = 10f;
             Grade1.base_stats[S.intelligence] = 10f;
             Grade1.base_stats[S.range] = 3f;//射程+3
             Grade1.base_stats[S.area_of_effect] = 4f;//近战范围+3
@@ -114,6 +118,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade2.base_stats[S.damage] = 600f;
             Grade2.base_stats[S.health] = 6000f;
             Grade2.base_stats[S.armor] = 20f;
+            Grade2.base_stats[S.speed] = 10f;
             Grade2.base_stats[S.intelligence] = 20f;
             Grade2.base_stats[S.range] = 3f;
             Grade2.base_stats[S.area_of_effect] = 5f;
@@ -134,6 +139,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade3.base_stats[S.damage] = 1200f;
             Grade3.base_stats[S.health] = 12000f;
             Grade3.base_stats[S.armor] = 30f;
+            Grade3.base_stats[S.speed] = 20f;
             Grade3.base_stats[S.intelligence] = 30f;
             Grade3.base_stats[S.range] = 5f;
             Grade3.base_stats[S.area_of_effect] = 6f;
@@ -156,6 +162,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade4.base_stats[S.damage] = 3000f;
             Grade4.base_stats[S.health] = 30000f;
             Grade4.base_stats[S.armor] = 40f;
+            Grade4.base_stats[S.speed] = 25f;
             Grade4.base_stats[S.intelligence] = 60f;
             Grade4.base_stats[S.range] = 8f;
             Grade4.base_stats[S.area_of_effect] = 10f;
@@ -181,6 +188,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade5.base_stats[S.damage] = 6000f;
             Grade5.base_stats[S.health] = 60000f;
             Grade5.base_stats[S.armor] = 40f;
+            Grade5.base_stats[S.speed] = 25f;
             Grade5.base_stats[S.intelligence] = 100f;
             Grade5.base_stats[S.range] = 8f;
             Grade5.base_stats[S.area_of_effect] = 10f;
@@ -206,6 +214,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade6.base_stats[S.damage] = 12000f;
             Grade6.base_stats[S.health] = 120000f;
             Grade6.base_stats[S.armor] = 50f;
+            Grade6.base_stats[S.speed] = 35f;
             Grade6.base_stats[S.intelligence] = 150f;
             Grade6.base_stats[S.attack_speed] = 10f;
             Grade6.base_stats[S.range] = 8f;
@@ -234,6 +243,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade7.base_stats[S.intelligence] = 250f;
             Grade7.base_stats[S.critical_chance] = 0.10f;
             Grade7.base_stats[S.armor] = 70f;
+            Grade7.base_stats[S.speed] = 45f;
             Grade7.base_stats[S.mod_damage] = 0.20f;
             Grade7.base_stats[S.mod_health] = 0.20f;
             Grade7.base_stats[S.range] = 10f;
@@ -262,6 +272,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade8.base_stats[S.intelligence] = 350f;
             Grade8.base_stats[S.critical_chance] = 0.10f;
             Grade8.base_stats[S.armor] = 80f;
+            Grade8.base_stats[S.speed] = 45f;
             Grade8.base_stats[S.mod_damage] = 0.20f;
             Grade8.base_stats[S.mod_health] = 0.20f;
             Grade8.base_stats[S.range] = 10f;
@@ -288,6 +299,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade9.base_stats[S.damage] = 120000f;
             Grade9.base_stats[S.health] = 1200000f;
             Grade9.base_stats[S.armor] = 100f;
+            Grade9.base_stats[S.speed] = 55f;
             Grade9.base_stats[S.intelligence] = 550f;
             Grade9.base_stats[S.critical_chance] = 0.10f;
             Grade9.base_stats[S.mod_damage] = 0.20f;
@@ -316,6 +328,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade91.base_stats[S.damage] = 10000000f;//1000w伤害
             Grade91.base_stats[S.health] = 100000000f;//1E血量
             Grade91.base_stats[S.armor] = 300f;
+            Grade91.base_stats[S.speed] = 60f;
             Grade91.base_stats[S.intelligence] = 999f;
             Grade91.base_stats[S.critical_chance] = 0.30f;
             Grade91.base_stats[S.mod_damage] = 0.30f;
@@ -509,6 +522,13 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery33.action_attack_target = (AttackAction)Delegate.Combine(sorcery33.action_attack_target,
                 new AttackAction(traitAction.sorcery33_Attack));
             AssetManager.traits.add(sorcery33);
+
+            ActorTrait sorcery34 = new ActorTrait();
+            sorcery34.id = "sorcery34";
+            sorcery34.path_icon = "trait/sorcery34";
+            sorcery34.needs_to_be_explored = false;
+            sorcery34.group_id = "interesting4";
+            AssetManager.traits.add(sorcery34);
         }
         
         public static void flair12345_AddActorTrait(string id, string pathIcon, float birth, float base_stat_value, string opposite_stats_value)
@@ -521,7 +541,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             flair.group_id = "interesting3";
             flair.base_stats["xiaohao"] = base_stat_value;
             flair.opposite = opposite_stats_value;
-            flair.action_special_effect = traitAction.Grade0_effectAction; //觉醒一阶的升价条件
+            flair.action_special_effect = traitAction.Grade0_effectAction; //学徒•初识的升级条件
             AssetManager.traits.add(flair);
         }
     }

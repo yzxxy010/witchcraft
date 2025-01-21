@@ -522,13 +522,6 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery33.action_attack_target = (AttackAction)Delegate.Combine(sorcery33.action_attack_target,
                 new AttackAction(traitAction.sorcery33_Attack));
             AssetManager.traits.add(sorcery33);
-
-            ActorTrait sorcery34 = new ActorTrait();
-            sorcery34.id = "sorcery34";
-            sorcery34.path_icon = "trait/sorcery34";
-            sorcery34.needs_to_be_explored = false;
-            sorcery34.group_id = "interesting4";
-            AssetManager.traits.add(sorcery34);
         }
         
         public static void flair12345_AddActorTrait(string id, string pathIcon, float birth, float base_stat_value, string opposite_stats_value)

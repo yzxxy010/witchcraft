@@ -536,6 +536,27 @@ namespace VideoCopilot.code
         }
 
         //以下为境界带的再生
+        public static bool Grade02_Regen(BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if (pTarget.a.hasTrait("infected"))
+            {
+                return true;
+            }
+
+            bool flag = true;
+            if (pTarget.a.asset.needFood)
+            {
+                flag = (pTarget.a.data.hunger > 0);
+            }
+
+            if (pTarget.a.data.health != pTarget.getMaxHealth())
+            {
+                pTarget.a.restoreHealth(5);
+                pTarget.a.spawnParticle(Toolbox.color_heal);
+            }
+
+            return true;
+        }
         public static bool Grade1_Regen(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget.a.hasTrait("infected"))
@@ -1502,36 +1523,36 @@ namespace VideoCopilot.code
 
         public static bool teleportRandom(Actor a)
         {
-            TileIsland randomIslandGround = World.world.islandsCalculator.getRandomIslandGround(true);
-            WorldTile worldTile;
-            if (randomIslandGround == null)
-            {
-                worldTile = null;
-            }
-            else
-            {
-                MapRegion random = randomIslandGround.regions.GetRandom();
-                worldTile = (random != null) ? random.tiles.GetRandom<WorldTile>() : null;
-            }
-
-            WorldTile worldTile2 = worldTile;
-            if (worldTile2 == null)
+            MapBox mapBox = World.world as MapBox;
+            if (mapBox == null)
             {
                 return false;
             }
 
-            if (worldTile2.Type.block)
+            CitiesManager citiesManager = mapBox.list_base_managers.OfType<CitiesManager>().FirstOrDefault();
+            if (citiesManager == null)
             {
                 return false;
             }
 
-            if (!worldTile2.Type.ground)
+            List<City> cities = citiesManager.list;
+            if (cities.Count == 0)
+            {
+                return false;
+            }
+
+            System.Random random = new System.Random();
+            int randomIndex = random.Next(cities.Count);
+            City randomCity = cities[randomIndex];
+
+            WorldTile cityCenterTile = randomCity.getTile();
+            if (cityCenterTile == null || cityCenterTile.Type.block || !cityCenterTile.Type.ground)
             {
                 return false;
             }
 
             a.cancelAllBeh(null);
-            a.spawnOn(worldTile2, 0f);
+            a.spawnOn(cityCenterTile, 0f);
             return true;
         }
 

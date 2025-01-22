@@ -30,250 +30,87 @@ internal class patch
         }
     }
 
-
-    [HarmonyPrefix, HarmonyPatch(typeof(Actor), "getHit")]
-    public static void actorGetHit_prefix(
-        Actor         __instance,
-        ref float     pDamage,
-        bool          pFlash,
-        AttackType    pAttackType,
-        BaseSimObject pAttacker,
-        bool          pSkipIfShake,
-        bool          pMetallicWeapon)
+    [HarmonyPostfix, HarmonyPatch(typeof(Actor), nameof(Actor.newKillAction))]
+    private static void newMechanism(Actor __instance, Actor pDeadUnit)
     {
-        __instance.attackedBy = null;
-        if (pSkipIfShake && __instance.shake_active)
+        if (pDeadUnit.hasTrait("extraordinary9") && __instance.hasTrait("extraordinary9"))
         {
-            return;
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        if (__instance.data.health <= 0)
+        if (pDeadUnit.hasTrait("fountainhead1") && __instance.hasTrait("extraordinary9"))
         {
-            return;
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        if (__instance.hasStatus("invincible"))
-
+        if (pDeadUnit.hasTrait("fountainhead2") && __instance.hasTrait("extraordinary9"))
         {
-            return;
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        if (pAttackType == AttackType.Weapon)
+        if (pDeadUnit.hasTrait("fountainhead3") && __instance.hasTrait("extraordinary9"))
         {
-            bool flag = pMetallicWeapon && __instance.haveMetallicWeapon();
-            if (flag)
-            {
-                MusicBox.playSound("event:/SFX/HIT/HitSwordSword", __instance.currentTile, false, true);
-            }
-            else if (__instance.asset.sound_hit != string.Empty)
-            {
-                MusicBox.playSound(__instance.asset.sound_hit, __instance.currentTile, false, true);
-            }
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        if (pAttackType == AttackType.Other || pAttackType == AttackType.Weapon)
+        if (pDeadUnit.hasTrait("fountainhead1") && __instance.hasTrait("fountainhead1"))
         {
-            float num = 1f - __instance.stats[S.armor] / 100f;
-            pDamage *= num;
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        if (pDamage < 1f)
+        if (pDeadUnit.hasTrait("fountainhead1") && __instance.hasTrait("fountainhead2"))
         {
-            pDamage = 1f;
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        __instance.data.health -= (int)pDamage;
-        __instance.timer_action = 0.002f;
-        if (pAttacker != __instance)
+        if (pDeadUnit.hasTrait("fountainhead1") && __instance.hasTrait("fountainhead3"))
         {
-            __instance.attackedBy = pAttacker;
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        foreach (string pID in __instance.data.s_traits_ids)
+        if (pDeadUnit.hasTrait("fountainhead2") && __instance.hasTrait("fountainhead2"))
         {
-            GetHitAction action_get_hit = AssetManager.traits.get(pID).action_get_hit;
-            if (action_get_hit != null)
-            {
-                action_get_hit(__instance, pAttacker, __instance.currentTile);
-            }
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        if (pFlash)
+        if (pDeadUnit.hasTrait("fountainhead3") && __instance.hasTrait("fountainhead3"))
         {
-            __instance.startColorEffect(ActorColorEffect.Red);
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        if (__instance.data.health <= 0)
+        if (pDeadUnit.hasTrait("extraordinary9") && __instance.hasTrait("fountainhead1"))
         {
-            Kingdom kingdom = __instance.kingdom;
-            if (pAttacker != null && pAttacker != __instance && pAttacker.isActor() && pAttacker.isAlive())
-            {
-                BattleKeeperManager.unitKilled(__instance);
-                pAttacker.a.newKillAction(__instance, kingdom);
-
-
-                //新增判定
-                newMechanism(__instance, pAttacker);
-
-
-                if (pAttacker.city != null)
-                {
-                    bool flag2 = false;
-                    if (__instance.asset.animal)
-                    {
-                        flag2 = true;
-                        pAttacker.city.data.storage.change("meat", 1);
-                    }
-                    else if (__instance.asset.unit && pAttacker.a.hasTrait("savage"))
-                    {
-                        flag2 = true;
-                    }
-
-                    if (flag2)
-                    {
-                        if (Toolbox.randomChance(0.5f))
-                        {
-                            pAttacker.city.data.storage.change(SR.bones, 1);
-                        }
-                        else if (Toolbox.randomChance(0.5f))
-                        {
-                            pAttacker.city.data.storage.change(SR.leather, 1);
-                        }
-                        else if (Toolbox.randomChance(0.5f))
-                        {
-                            pAttacker.city.data.storage.change(SR.meat, 1);
-                        }
-                    }
-                }
-            }
-
-            __instance.killHimself(false, pAttackType, true, true, true);
-            return;
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        if (pAttackType == AttackType.Weapon && !__instance.asset.immune_to_injuries &&
-            !__instance.hasStatus("shield"))
+        if (pDeadUnit.hasTrait("extraordinary9") && __instance.hasTrait("fountainhead2"))
         {
-            if (Toolbox.randomChance(0.02f))
-            {
-                __instance.addTrait("crippled", false);
-            }
-
-            if (Toolbox.randomChance(0.02f))
-            {
-                __instance.addTrait("eyepatch", false);
-            }
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        __instance.startShake(0.3f, 0.1f, true, true);
-        if (!__instance.has_attack_target                         && __instance.attackedBy != null &&
-            !__instance.shouldIgnoreTarget(__instance.attackedBy) &&
-            __instance.canAttackTarget(__instance.attackedBy))
+        if (pDeadUnit.hasTrait("extraordinary9") && __instance.hasTrait("fountainhead3"))
         {
-            __instance.setAttackTarget(__instance.attackedBy);
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        if (__instance.activeStatus_dict != null)
+        if (pDeadUnit.hasTrait("fountainhead2") && __instance.hasTrait("fountainhead1"))
         {
-            foreach (StatusEffectData statusEffectData in __instance.activeStatus_dict.Values)
-            {
-                GetHitAction action_get_hit2 = statusEffectData.asset.action_get_hit;
-                if (action_get_hit2 != null)
-                {
-                    action_get_hit2(__instance, pAttacker, __instance.currentTile);
-                }
-            }
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        GetHitAction action_get_hit3 = __instance.asset.action_get_hit;
-        if (action_get_hit3 == null)
+        if (pDeadUnit.hasTrait("fountainhead2") && __instance.hasTrait("fountainhead3"))
         {
-            return;
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        action_get_hit3(__instance, pAttacker, __instance.currentTile);
-    }
-
-    private static void newMechanism(Actor __instance, BaseSimObject pAttacker)
-    {
-        if (__instance.a.hasTrait("extraordinary9") && pAttacker.a.hasTrait("extraordinary9"))
+        if (pDeadUnit.hasTrait("fountainhead3") && __instance.hasTrait("fountainhead2"))
         {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
 
-        if (__instance.a.hasTrait("fountainhead1") && pAttacker.a.hasTrait("extraordinary9"))
+        if (pDeadUnit.hasTrait("fountainhead3") && __instance.hasTrait("fountainhead1"))
         {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead2") && pAttacker.a.hasTrait("extraordinary9"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead3") && pAttacker.a.hasTrait("extraordinary9"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead1") && pAttacker.a.hasTrait("fountainhead1"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead1") && pAttacker.a.hasTrait("fountainhead2"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead1") && pAttacker.a.hasTrait("fountainhead3"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead2") && pAttacker.a.hasTrait("fountainhead2"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead3") && pAttacker.a.hasTrait("fountainhead3"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("extraordinary9") && pAttacker.a.hasTrait("fountainhead1"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("extraordinary9") && pAttacker.a.hasTrait("fountainhead2"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("extraordinary9") && pAttacker.a.hasTrait("fountainhead3"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead2") && pAttacker.a.hasTrait("fountainhead1"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead2") && pAttacker.a.hasTrait("fountainhead3"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead3") && pAttacker.a.hasTrait("fountainhead2"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
-        }
-
-        if (__instance.a.hasTrait("fountainhead3") && pAttacker.a.hasTrait("fountainhead1"))
-        {
-            pAttacker.a.ChangeBenYuan(__instance.GetBenYuan() + 1);
+            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
         }
     }
 

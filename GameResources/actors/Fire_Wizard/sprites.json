@@ -1,0 +1,130 @@
+{
+  "Specific": [
+    {
+      "Path": "walk_0_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -2,
+      "PivotY": 6
+    },
+    {
+      "Path": "walk_1_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -2,
+      "PivotY": 8
+    },
+    {
+      "Path": "walk_2_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 8
+    },
+    {
+      "Path": "walk_3_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 6
+    },
+    {
+      "Path": "walk_4_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 6
+    },
+    {
+      "Path": "walk_5_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 8
+    },
+    {
+      "Path": "walk_6_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 8
+    },
+    {
+      "Path": "walk_7_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 6
+    },
+    {
+      "Path": "walk_8_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 6
+    },
+    {
+      "Path": "walk_9_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 8
+    },
+    {
+      "Path": "walk_10_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 8
+    },
+    {
+      "Path": "walk_11_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 6
+    },
+    {
+      "Path": "walk_12_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 6
+    },
+    {
+      "Path": "walk_13_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 8
+    },
+    {
+      "Path": "walk_14_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 8
+    },
+    {
+      "Path": "walk_15_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -1,
+      "PivotY": 6
+    },
+    {
+      "Path": "swim_0_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -8,
+      "PivotY": 6
+    },
+    {
+      "Path": "swim_1_head.png",
+      "PivotX": 4,
+      "RectX": 0,
+      "RectY": -8,
+      "PivotY": 8
+    }
+  ]
+}

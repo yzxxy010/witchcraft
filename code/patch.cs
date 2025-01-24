@@ -225,4 +225,42 @@ internal class patch
 
         return false;
     }
+    public static void checkAnimationContainer(ActorBase __instance)
+    {
+        Actor actor = Reflection.GetField(__instance.GetType(), __instance, "a") as Actor;
+
+        if (actor == null || actor.data == null || actor.asset == null || actor.batch == null || !actor.asset.unit || !actor.isAlive())
+            return;
+
+        string pid = __instance.asset.id;
+        string texturePath = actor.asset.texture_path;
+        string animationContainerPath = "actors/" + texturePath;
+        bool setAnimationContainer = false;
+
+        Dictionary<string, string> unitToCavalryTexture = new()
+        {
+            { "unit_human", "actors/Fire_Wizard" },
+        };
+
+
+            if (actor.hasTrait("sorcery32"))
+            {
+                setAnimationContainer = true;
+                animationContainerPath = "actors/other_cavalry";
+                string pPath = "actors/heads_nothing";
+                actor.checkHeadID();
+                actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
+                actor.has_rendered_sprite_head = true;
+                actor.dirty_sprite_head = false;
+
+                if (unitToCavalryTexture.ContainsKey(actor.asset.id))
+                {
+                    animationContainerPath = unitToCavalryTexture[actor.asset.id];
+                }
+            }
+            if (setAnimationContainer)
+            {
+                actor.animationContainer = ActorAnimationLoader.loadAnimationUnit(animationContainerPath, actor.asset);
+            }
+    }
 }

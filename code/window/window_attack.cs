@@ -15,7 +15,7 @@ namespace VideoCopilot.code.window
         public static List<Actor> actors    = new List<Actor>();
 
         public static GameObject avatarRef = GameObject.Find(
-            $"Canvas Container Main/Canvas - Windows/windows/inspect_unit/Background/Scroll View/Viewport/Content/Part 1/BackgroundAvatar");
+            "Canvas Container Main/Canvas - Windows/windows/inspect_unit/Background/Scroll View/Viewport/Content/Part 1/BackgroundAvatar");
 
         private static ScrollWindow window;
         private static GameObject   scrollView;

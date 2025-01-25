@@ -5,5 +5,8 @@
     "description": "Q群838697221",
     "iconPath": "icon.png",
     "targetGameBuild": 115,
-    "GUID":"witchcraft_Worldbox"
+    "GUID":"WITCHCRAFT_WORLDBOX",
+    "OptionalDependencies": [
+        "TEST"
+    ]
 }

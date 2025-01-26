@@ -146,6 +146,7 @@ internal class patch
         }
 
         Globals.Tsotw += Globals.TsotwAdd;
+        window.UiPanelInfo.UpdateText();
     }
 
     [HarmonyPostfix, HarmonyPatch(typeof(Actor), "updateAge")]

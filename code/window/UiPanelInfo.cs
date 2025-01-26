@@ -73,6 +73,7 @@ namespace VideoCopilot.code.window
             rectTransform.anchorMax = new Vector2(0f, 0.5f);
             rectTransform.pivot = new Vector2(0f, 0.5f);
             rectTransform.localPosition = new Vector3(-48, 20-(index * 8));
+            rectTransform.localScale = new Vector3(0.24f, 0.24f);
 
             Text text = gameObject.AddComponent<Text>();
             text.text = dataList[index].Label + ": ";
@@ -96,11 +97,12 @@ namespace VideoCopilot.code.window
             rectTransform.anchorMax = new Vector2(1f, 0.5f);
             rectTransform.pivot = new Vector2(1f, 0.5f);
             rectTransform.localPosition = new Vector3(48, 20-(index*8));
+            rectTransform.localScale = new Vector3(0.24f, 0.24f);
 
             Text text = gameObject.AddComponent<Text>();
             text.text = dataList[index].Value;
             text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-            text.fontSize = 24;
+            text.fontSize = 20;
             text.color = Color.yellow;
             text.alignment = TextAnchor.MiddleRight;
             

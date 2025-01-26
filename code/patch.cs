@@ -124,7 +124,6 @@ internal class patch
         }
 
         __instance.showStat("benyuan",  __instance.actor.GetBenYuan());
-        __instance.showStat("TSOTW",    Globals.Tsotw.ToString());
         __instance.showStat("xiaohao",  __instance.actor.stats["xiaohao"]);
         __instance.showStat("yuanneng", __instance.actor.GetYuanNeng());
     } 

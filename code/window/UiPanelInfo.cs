@@ -4,6 +4,7 @@ using NeoModLoader.General;
 using UnityEngine;
 using UnityEngine.UI;
 using NeoModLoader.General.UI.Tab;
+using NeoModLoader.ui;
 
 namespace VideoCopilot.code.window
 {
@@ -49,6 +50,8 @@ namespace VideoCopilot.code.window
             imageRect.anchorMax = new Vector2(0.5f, 0.5f);
             imageRect.localPosition = new Vector3(210, 0, 0);
             imageRect.localScale = new Vector3(1.3f, 1.3f);
+            Button button = baseImage.AddComponent<Button>();
+            button.onClick.AddListener(()=>{ModConfigureWindow.ShowWindow(VideoCopilotClass.config);});
             DrawText(baseImage);
         }
         

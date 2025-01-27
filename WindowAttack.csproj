@@ -37,8 +37,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Assemblies\" />
-  </ItemGroup>
-
 </Project>

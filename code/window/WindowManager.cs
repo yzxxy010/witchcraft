@@ -12,6 +12,7 @@ public class WindowManager
         AutoUpdate.Init();
         window_init();
         window_attack.Init(); 
+        UiPanelInfo.Init();
         
     }
 

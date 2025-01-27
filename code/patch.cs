@@ -124,10 +124,9 @@ internal class patch
         }
 
         __instance.showStat("benyuan",  __instance.actor.GetBenYuan());
-        __instance.showStat("TSOTW",    Globals.Tsotw.ToString());
         __instance.showStat("xiaohao",  __instance.actor.stats["xiaohao"]);
         __instance.showStat("yuanneng", __instance.actor.GetYuanNeng());
-    }
+    } 
 
     [HarmonyPostfix, HarmonyPatch(typeof(MapBox), "updateObjectAge")]
     public static void updateWorldTime_Postfix(MapBox __instance)
@@ -146,6 +145,7 @@ internal class patch
         }
 
         Globals.Tsotw += Globals.TsotwAdd;
+        window.UiPanelInfo.UpdateText();
     }
 
     [HarmonyPostfix, HarmonyPatch(typeof(Actor), "updateAge")]
@@ -226,12 +226,10 @@ internal class patch
 
         return false;
     }
+    [HarmonyPrefix, HarmonyPatch(typeof(MapAction), "checkLightningAction")]
     public static void checkAnimationContainer(ActorBase __instance)
     {
-        Actor actor = Reflection.GetField(__instance.GetType(), __instance, "a") as Actor;
-
-        if (actor == null || actor.data == null || actor.asset == null || actor.batch == null || !actor.asset.unit || !actor.isAlive())
-            return;
+        Actor actor = __instance.a;
 
         string pid = __instance.asset.id;
         string texturePath = actor.asset.texture_path;

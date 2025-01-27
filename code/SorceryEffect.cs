@@ -167,11 +167,7 @@ namespace VideoCopilot.code
             Ring31.name = "status_title_Ring31";
             Ring31.description = "status_desc_Ring31";
             Ring31.path_icon = "Ring/Ring31";
-            Ring31.base_stats[S.armor] = -20f;//防御-20
-            //Ring31.base_stats[S.damage] = -50f;//伤害-50
-            //Ring31.base_stats[S.critical_chance] = -0.10f;//暴击-10%
-            //Ring31.base_stats[S.speed] = -30f;//速度-30
-            //Ring31.base_stats[S.attack_speed] = -30f;//攻击速度-30
+            Ring31.base_stats[S.armor] = -20f;
             AssetManager.status.add(pAsset:Ring31);
 
             StatusEffect Ring32 = new StatusEffect();

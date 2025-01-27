@@ -6,8 +6,8 @@
   "tab_witchcraft": "巫术秘典",
   "windowAttack": "排行",
   "AutoUpdateWindow": "自动更新",
-  "name":"姓名",
-  "age":"年龄",
+  "name_xy":"姓名",
+  "age_xy":"年龄",
   "trait_group_interesting2": "巫师境界(提高自身源能攀登超凡)",
   "trait_group_interesting3": "天赋(消耗世界源力转源能为己用)",
   "trait_group_interesting4": "巫术(对高于巫术等级的境界无效)",
@@ -130,8 +130,8 @@
   "yuanneng": "源能",
   "xiaohao": "世界原力消耗/年",
   "wushuBaseSetting": "巫术秘典基础设置",
-  "TSOTW_ADD": "源能每年增长(纯数字)",
-  "TSOTW_ADD Description": "源能每年增长",
-  "TSOTW_INIT": "初始源能(输入纯数字)",
+  "TSOTW_ADD": "源力每年增长(纯数字)",
+  "TSOTW_ADD Description": "源力每年增长",
+  "TSOTW_INIT": "初始源力(输入纯数字)",
   "TSOTW_INIT Description": "初始源能"
 }

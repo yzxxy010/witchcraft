@@ -27,7 +27,7 @@ jobs:
           --data '{
             "type": "TXT",
             "name": "witchcraft.325477.xyz",
-            "content": ""${{ steps.get_version.outputs.version }}"",
+            "content": "\"${{ steps.get_version.outputs.version }}\"",
             "ttl": 3600,
             "proxied": false,
             "comment": "Auto-updated by GitHub Actions"

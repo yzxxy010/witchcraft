@@ -26,9 +26,9 @@ jobs:
           -H "Content-Type: application/json" \
           --data '{
             "type": "TXT",
-            "name": "witchcraft.325477.xyz",  # 精确匹配子域名
+            "name": "witchcraft.325477.xyz",
             "content": "${{ steps.get_version.outputs.version }}",
             "ttl": 3600,
-            "proxied": false,  # TXT 记录必须关闭代理
+            "proxied": false,
             "comment": "Auto-updated by GitHub Actions"
           }'

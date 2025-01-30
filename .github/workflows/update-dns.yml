@@ -1,4 +1,4 @@
-name: Update DNS Version
+name: Update Witchcraft DNS
 
 on:
   push:
@@ -14,17 +14,21 @@ jobs:
     - name: Get version
       id: get_version
       run: |
+        # 从 metadata.json 提取版本号（确保文件名和路径正确）
         VERSION=$(jq -r '.version' metadata.json)
         echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-    - name: Update Cloudflare DNS
+    - name: Update TXT Record
       run: |
+        # 调用 Cloudflare API 更新指定子域名
         curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records/${{ secrets.CLOUDFLARE_RECORD_ID }}" \
           -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
           -H "Content-Type: application/json" \
           --data '{
             "type": "TXT",
-            "name": "y325477.xyz",  # 替换为你的域名
+            "name": "witchcraft.325477.xyz",  # 精确匹配子域名
             "content": "'"${{ steps.get_version.outputs.version }}"'",
-            "ttl": 120
+            "ttl": 3600,
+            "proxied": false,  # TXT 记录必须关闭代理
+            "comment": "Auto-updated by GitHub Actions"
           }'

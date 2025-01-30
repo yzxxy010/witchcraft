@@ -27,7 +27,7 @@ jobs:
           --data '{
             "type": "TXT",
             "name": "witchcraft.325477.xyz",  # 精确匹配子域名
-            "content": "'"${{ steps.get_version.outputs.version }}"'",
+            "content": "${{ steps.get_version.outputs.version }}",
             "ttl": 3600,
             "proxied": false,  # TXT 记录必须关闭代理
             "comment": "Auto-updated by GitHub Actions"

@@ -133,5 +133,12 @@
   "TSOTW_ADD": "Source Energy Growth Per Year (Numeric)",
   "TSOTW_ADD Description": "Source energy growth per year",
   "TSOTW_INIT": "Initial Source Energy (Numeric Input)",
-  "TSOTW_INIT Description": "Initial source energy"
+  "TSOTW_INIT Description": "Initial source energy",
+  "update_txt_1": "<color=#FF9B1C>Current Version:</color>\t",
+  "update_txt_2": "<color=#FF9B1C>Latest Version:</color>\t",
+  "update_txt_3": "A new version of the mod is available.",
+  "update_txt_4": "To update, please join our QQ group: ",
+  "update_txt_5": "GitHub project (Not accessible in China):",
+  "update_txt_6": "https://github.com/yzxxy010/witchcraft"
+
 }

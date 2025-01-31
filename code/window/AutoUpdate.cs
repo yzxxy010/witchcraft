@@ -2,13 +2,13 @@ using UnityEngine;
 using System.Net.Http;
 using System.Threading.Tasks;
 using NeoModLoader.General;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using UnityEngine.UI;
 using System.IO;
-using System.IO.Compression;
-using System.Net;
+using System.Linq;
+using System.Threading;
+using Newtonsoft.Json.Linq;
 
 namespace VideoCopilot.code.window
 {
@@ -18,10 +18,6 @@ namespace VideoCopilot.code.window
         public static GameObject content;
         public static Text textComponent;
 
-
-        private static readonly string UpdateCheckUrl =
-            "https://gh.tryxd.cn/https://raw.githubusercontent.com/yzxxy010/witchcraft/master/mod.json?t=" +
-            DateTime.UtcNow.Ticks; //走的cdn,理论上国内可以成功访问!
 
         // 当前版本号
         public static string currentVersion = VideoCopilotClass.modDeclare.Version;
@@ -47,27 +43,80 @@ namespace VideoCopilot.code.window
                 window.show();
             }
         }
+        private static readonly string[] DnsUrls =
+        {
+            "https://dns.alidns.com/resolve?name={0}&type=TXT",
+            "https://dns.google/resolve?name={0}&type=TXT"
+        };
+
+        public static async Task<string> ResolveTxtRecord(string domain)
+        {
+            foreach (var url in DnsUrls)
+            {
+                string formattedUrl = string.Format(url, domain);
+                string data = await GetTxtRecord(formattedUrl);
+                if (data != null)
+                {
+                    return data;
+                }
+            }
+            return null;
+        }
+
+        private static async Task<string> GetTxtRecord(string url)
+        {
+            using HttpClient client = new HttpClient();
+            using CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+            try
+            {
+                string response = await client.GetStringAsync(url);
+                JObject json = JObject.Parse(response);
+            
+                if (json["Status"]?.ToObject<int>() == 0)
+                {
+                    JArray answers = (JArray)json["Answer"];
+                    if (answers != null && answers.Count > 0)
+                    {
+                        foreach (JObject answer in answers)
+                        {
+                            string data = answer["data"]?.ToString().Trim('"');
+                            if (!string.IsNullOrEmpty(data))
+                            {
+                                return data;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                return null; // 超时返回 null
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return null;
+        }
+
 
         private static async Task<bool> CheckForUpdates()
         {
             using (HttpClient client = new HttpClient())
             {
-                var response = await client.GetStringAsync(UpdateCheckUrl);
+                var response = await ResolveTxtRecord("witchcraft.325477.xyz");
                 if (!string.IsNullOrEmpty(response))
                 {
-                    // 解析 JSON
-                    JObject jsonResponse = JObject.Parse(response);
-                    remoteVersion = jsonResponse["version"]?.ToString();
-
-                    if (string.IsNullOrEmpty(remoteVersion))
+                    if (string.IsNullOrEmpty(response))
                     {
                         Debug.Log("未能获取到版本信息");
                         return false;
                     }
 
-                    Debug.Log($"远程版本: {remoteVersion}, 当前版本: {currentVersion}");
+                    remoteVersion = response;
+                    Debug.Log($"远程版本: {response}, 当前版本: {currentVersion}");
 
-                    if (CompareVersions(remoteVersion, currentVersion) > 0)
+                    if (CompareVersions(response, currentVersion) > 0)
                     {
                         Debug.Log("有新版本可用");
 
@@ -108,16 +157,12 @@ namespace VideoCopilot.code.window
             GameObject textObject = new GameObject("actorText");
             textObject.transform.SetParent(content.transform);
             textComponent = textObject.AddComponent<Text>();
-            textComponent.text = $"<color=#FF9B1C>当前版本:</color>\t" +
-                                 $"{currentVersion}\t" +
-                                 $"<color=#FF9B1C>最新版本:</color>\t" +
-                                 $"{remoteVersion}\n" +
-                                 // $"当前mod已经有了新版本\n如果你的设备可以\n" +
-                                 // $"<b><color=#ff0000>直接连接GitHub下载</color></b>\n" +
-                                 $"当前mod已经有了新版本" +
-                                 $"如若更新,请前往q群:838697221\n" +
-                                 $"GitHub项目(国内无法访问):\nhttps://github.com/yzxxy010/witchcraft";
-            // $"\n<b><color=#ff0000>否则</color></b>请自行更新,此页面可以关闭";
+            textComponent.text = $"{LM.Get("update_txt_1")}{currentVersion}\t" +
+                                 $"{LM.Get("update_txt_2")}{remoteVersion}\n" +
+                                 $"{LM.Get("update_txt_3")}" +
+                                 $"{LM.Get("update_txt_4")}838697221\n" +
+                                 $"{LM.Get("update_txt_5")}\n" +
+                                 $"{LM.Get("update_txt_6")}";
             textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             textComponent.fontSize = 50;
             textComponent.color = Color.white;
@@ -163,7 +208,8 @@ namespace VideoCopilot.code.window
             textRectTransform.localPosition = Vector3.zero;
 
             // 添加按钮点击事件
-            buttonComponent.onClick.AddListener(() => { Application.OpenURL("https://github.com/yzxxy010/witchcraft");});
+            buttonComponent.onClick.AddListener(
+                () => { Application.OpenURL("https://github.com/yzxxy010/witchcraft"); });
         }
     }
 }

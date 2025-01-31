@@ -137,5 +137,11 @@
   "TSOTW_ADD": "源力每年增长(纯数字)",
   "TSOTW_ADD Description": "源力每年增长",
   "TSOTW_INIT": "初始源力(输入纯数字)",
-  "TSOTW_INIT Description": "初始源能"
+  "TSOTW_INIT Description": "初始源能",
+  "update_txt_1": "<color=#FF9B1C>当前版本:</color>\t",
+  "update_txt_2": "<color=#FF9B1C>最新版本:</color>\t",
+  "update_txt_3": "当前mod已经有了新版本",
+  "update_txt_4": "如若更新,请前往q群:",
+  "update_txt_5": "GitHub项目(国内无法访问):",
+  "update_txt_6": "https://github.com/yzxxy010/witchcraft"
 }

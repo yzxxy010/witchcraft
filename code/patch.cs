@@ -226,40 +226,54 @@ internal class patch
 
         return false;
     }
-    [HarmonyPrefix, HarmonyPatch(typeof(MapAction), "checkLightningAction")]
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(ActorBase), "checkAnimationContainer")]
     public static void checkAnimationContainer(ActorBase __instance)
     {
-        Actor actor = __instance.a;
+        Actor actor = Reflection.GetField(__instance.GetType(), __instance, "a") as Actor;
+
+        if (actor == null || actor.data == null || actor.asset == null || actor.batch == null || !actor.asset.unit || !actor.isAlive())
+            return;
 
         string pid = __instance.asset.id;
         string texturePath = actor.asset.texture_path;
         string animationContainerPath = "actors/" + texturePath;
         bool setAnimationContainer = false;
 
-        Dictionary<string, string> unitToCavalryTexture = new()
+        if (actor.hasStatus("Ring34"))
         {
-            { "unit_human", "actors/Fire_Wizard" },
-        };
+            animationContainerPath = "actors/Ring34_Wizard";
+            setAnimationContainer = true;
+        }
+        else if (actor.hasTrait("sorcery34"))
+        {
+            animationContainerPath = "actors/sorcery34_Wizard";
+            setAnimationContainer = true;
+        }
+        else if (actor.hasTrait("sorcery33"))
+        {
+            animationContainerPath = "actors/sorcery33_Wizard";
+            setAnimationContainer = true;
+        }
+        else if (actor.hasTrait("sorcery32"))
+        {
+            animationContainerPath = "actors/sorcery32_Wizard";
+            setAnimationContainer = true;
+        }
+        else if (actor.hasTrait("sorcery31"))
+        {
+            animationContainerPath = "actors/sorcery31_Wizard";
+            setAnimationContainer = true;
+        }
+        if (setAnimationContainer)
+        {
+            string pPath = "actors/heads_nothing";
+            actor.checkHeadID();
+            actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
+            actor.has_rendered_sprite_head = true;
+            actor.dirty_sprite_head = false;
 
-
-            if (actor.hasTrait("sorcery32"))
-            {
-                setAnimationContainer = true;
-                animationContainerPath = "actors/other_cavalry";
-                string pPath = "actors/heads_nothing";
-                actor.checkHeadID();
-                actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
-                actor.has_rendered_sprite_head = true;
-                actor.dirty_sprite_head = false;
-
-                if (unitToCavalryTexture.ContainsKey(actor.asset.id))
-                {
-                    animationContainerPath = unitToCavalryTexture[actor.asset.id];
-                }
-            }
-            if (setAnimationContainer)
-            {
-                actor.animationContainer = ActorAnimationLoader.loadAnimationUnit(animationContainerPath, actor.asset);
-            }
+            actor.animationContainer = ActorAnimationLoader.loadAnimationUnit(animationContainerPath, actor.asset);
+        }
     }
 }

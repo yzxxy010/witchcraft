@@ -9,7 +9,7 @@ namespace VideoCopilot.code;
 internal class patch
 {
     public static bool isLoadSave;
-
+    
     [HarmonyPrefix, HarmonyPatch(typeof(SavedMap), "create")]
     public static bool create_prefix()
     {
@@ -21,7 +21,7 @@ internal class patch
 
         return true;
     }
-
+    
     [HarmonyPostfix, HarmonyPatch(typeof(ActorManager), "loadObject")]
     public static void AddCustomData(ref Actor __result, ActorData pData)
     {
@@ -122,10 +122,8 @@ internal class patch
         {
             return;
         }
-
-        __instance.showStat("benyuan",  __instance.actor.GetBenYuan());
+        
         __instance.showStat("xiaohao",  __instance.actor.stats["xiaohao"]);
-        __instance.showStat("yuanneng", __instance.actor.GetYuanNeng());
     } 
 
     [HarmonyPostfix, HarmonyPatch(typeof(MapBox), "updateObjectAge")]
@@ -182,6 +180,8 @@ internal class patch
         }
     }
 
+    
+    //禁止雷电劈出永生
     [HarmonyPrefix, HarmonyPatch(typeof(MapAction), "checkLightningAction")]
     public static bool checkLightningAction(Vector2Int pPos, int pRad)
     {
@@ -209,6 +209,7 @@ internal class patch
         return false;
     }
 
+    //祝福之地增加魔法
     [HarmonyPrefix, HarmonyPatch(typeof(ActionLibrary), "giveEnchanted")]
     public static bool giveEnchanted(WorldTile pTile, ActorBase pActor)
     {
@@ -226,11 +227,12 @@ internal class patch
 
         return false;
     }
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(ActorBase), "checkAnimationContainer")]
+    
+    //修改单位移动动画
+    [HarmonyPrefix,HarmonyPatch(typeof(ActorBase), "checkAnimationContainer")]
     public static void checkAnimationContainer(ActorBase __instance)
     {
-        Actor actor = Reflection.GetField(__instance.GetType(), __instance, "a") as Actor;
+        Actor actor = __instance.a;
 
         if (actor == null || actor.data == null || actor.asset == null || actor.batch == null || !actor.asset.unit || !actor.isAlive())
             return;
@@ -239,6 +241,17 @@ internal class patch
         string texturePath = actor.asset.texture_path;
         string animationContainerPath = "actors/" + texturePath;
         bool setAnimationContainer = false;
+        Dictionary<string, string> unitToCavalryTexture = new()
+        {
+            { "unit_orc", "actors/wolf_cavalry" },
+            { "unit_human", "actors/human_cavalry" },
+            { "unit_elf", "actors/elf_cavalry" },
+            { "unit_dwarf", "actors/Dwarf_cavalry" },
+        };
+        if (unitToCavalryTexture.ContainsKey(actor.asset.id))
+        {
+            animationContainerPath = unitToCavalryTexture[actor.asset.id];
+        }
 
         if (actor.hasStatus("Ring34"))
         {
@@ -267,12 +280,7 @@ internal class patch
         }
         if (setAnimationContainer)
         {
-            string pPath = "actors/heads_nothing";
-            actor.checkHeadID();
-            actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
-            actor.has_rendered_sprite_head = true;
-            actor.dirty_sprite_head = false;
-
+           
             actor.animationContainer = ActorAnimationLoader.loadAnimationUnit(animationContainerPath, actor.asset);
         }
     }

@@ -496,7 +496,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery31.path_icon = "trait/sorcery31";
             sorcery31.needs_to_be_explored = false;
             sorcery31.group_id = "interesting4";
-            sorcery14.base_stats[S.damage] = 100f;
+            sorcery31.base_stats[S.damage] = 100f;
+            sorcery31.base_stats[S.scale] = -0.05f;//巫师贴图过大，缩小一下
             sorcery31.action_attack_target = new AttackAction((traitAction.attack_sorcery31));
             sorcery31.action_attack_target = (AttackAction)Delegate.Combine(sorcery31.action_attack_target,
                 new AttackAction(traitAction.sorcery31_Attack)); //三环•斥力场攻击效果
@@ -508,6 +509,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery32.needs_to_be_explored = false;
             sorcery32.group_id = "interesting4";
             sorcery32.base_stats[S.damage] = 100f;
+            sorcery32.base_stats[S.scale] = -0.05f;
             sorcery32.action_attack_target = new AttackAction((traitAction.attack_sorcery32));
             sorcery32.action_attack_target = (AttackAction)Delegate.Combine(sorcery32.action_attack_target,
                 new AttackAction(traitAction.sorcery32_Attack));
@@ -518,10 +520,21 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery33.path_icon = "trait/sorcery33";
             sorcery33.needs_to_be_explored = false;
             sorcery33.group_id = "interesting4";
+            sorcery33.base_stats[S.damage] = 100f;
+            sorcery33.base_stats[S.scale] = -0.05f;
             sorcery33.action_attack_target = new AttackAction((traitAction.attack_sorcery33));
             sorcery33.action_attack_target = (AttackAction)Delegate.Combine(sorcery33.action_attack_target,
                 new AttackAction(traitAction.sorcery33_Attack));
             AssetManager.traits.add(sorcery33);
+
+            ActorTrait sorcery34 = new ActorTrait();
+            sorcery34.id = "sorcery34"; //三环•血眸通界·万象饲己之仪
+            sorcery34.path_icon = "trait/sorcery34";
+            sorcery34.needs_to_be_explored = false;
+            sorcery34.group_id = "interesting4";
+            sorcery34.base_stats[S.damage] = 100f;
+            sorcery34.action_attack_target = new AttackAction((traitAction.sorcery34_Attack));//狂暴状态方法
+            AssetManager.traits.add(sorcery34);
         }
         
         public static void flair12345_AddActorTrait(string id, string pathIcon, float birth, float base_stat_value, string opposite_stats_value)

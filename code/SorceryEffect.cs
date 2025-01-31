@@ -185,6 +185,15 @@ namespace VideoCopilot.code
             Ring33.path_icon = "Ring/Ring33";
             Ring33.base_stats[S.armor] = -20f;//防御20
             AssetManager.status.add(pAsset:Ring33);
+
+            StatusEffect Ring34 = new StatusEffect();
+            Ring34.id = "Ring34";//三环•诡异之眼充血
+            Ring34.name = "status_title_Ring34";
+            Ring34.description = "status_desc_Ring34";
+            Ring34.path_icon = "Ring/Ring34";
+            Ring34.base_stats[S.armor] = -20f;//防御-20
+            Ring34.base_stats[S.intelligence] = 90f;
+            AssetManager.status.add(pAsset:Ring34);
         }
     }
 }

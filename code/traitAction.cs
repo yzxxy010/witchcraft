@@ -1398,7 +1398,7 @@ namespace VideoCopilot.code
                 return false;
             }
 
-            string[] additionalTraits = { "sorcery31", "sorcery32", "sorcery33" };
+            string[] additionalTraits = { "sorcery31", "sorcery32", "sorcery33", "sorcery34" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
             upTrait("特质", "Grade7", a,

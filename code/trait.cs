@@ -533,7 +533,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery34.needs_to_be_explored = false;
             sorcery34.group_id = "interesting4";
             sorcery34.base_stats[S.damage] = 100f;
-            sorcery34.action_attack_target = new AttackAction((traitAction.sorcery34_Attack));//狂暴状态方法
+            sorcery34.action_get_hit += new GetHitAction(traitAction.sorcery34_Attack);//狂暴状态方法
             AssetManager.traits.add(sorcery34);
         }
         

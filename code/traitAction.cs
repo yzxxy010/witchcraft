@@ -509,6 +509,26 @@ namespace VideoCopilot.code
             return false;
         }
 
+        public static bool sorcery34_Attack(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            // 定义一个包含无效特质的HashSet
+            var invalidTraits = new HashSet<string> { "Grade91" };
+            // 检查pTarget和pTarget.a是否不为null，并且pTarget.a是否具有无效特质中的任何一个
+            if (pTarget != null && pTarget.a != null && invalidTraits.Any(trait => pTarget.a.hasTrait(trait)))
+            {
+                return false; // 如果具有无效特质，则返回false
+            }
+
+            // 检查血量是否低于60%
+            if ((float)pSelf.base_data.health < (float)pSelf.getMaxHealth() * 0.6f)
+            {
+                // 如果血量低于50%，则为目标添加血眸状态
+                pSelf.a.addStatusEffect("Ring34", 10f);
+            }
+
+            return true;
+        }
+
         public static bool attack_Grade91(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget != null && pTile != null)

@@ -252,9 +252,9 @@ internal class patch
                 actor.has_rendered_sprite_head = true;
                 actor.dirty_sprite_head = false;
 
-                if (unitToCavalryTexture.ContainsKey(actor.asset.id))
+                if (unitToCavalryTexture.TryGetValue(actor.asset.id, out var value))
                 {
-                    animationContainerPath = unitToCavalryTexture[actor.asset.id];
+                    animationContainerPath = value;
                 }
             }
             if (setAnimationContainer)

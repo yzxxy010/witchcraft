@@ -555,6 +555,29 @@ namespace VideoCopilot.code
             return true;
         }
 
+        public static bool sorcery35_Attack(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            // 定义一个包含无效特质的HashSet
+            var invalidTraits = new HashSet<string> { "Grade91" };
+            // 检查pTarget和pTarget.a是否不为null，并且pTarget.a是否具有无效特质中的任何一个
+            if (pTarget != null && pTarget.a != null && invalidTraits.Any(trait => pTarget.a.hasTrait(trait)))
+            {
+                return false; // 如果具有无效特质，则返回false
+            }
+
+            if (pTarget.isBuilding())
+            {
+                return false;
+            }
+
+            if (Toolbox.randomChance(1))
+            {
+                pTarget.a.addStatusEffect("Ring35", 10f); //黯镰噬魂·万灵湮灭之仪状态
+            }
+
+            return true;
+        }
+
         //以下为境界带的再生
         public static bool Grade02_Regen(BaseSimObject pTarget, WorldTile pTile = null)
         {

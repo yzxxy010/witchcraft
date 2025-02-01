@@ -194,6 +194,14 @@ namespace VideoCopilot.code
             Ring34.base_stats[S.armor] = -20f;//防御-20
             Ring34.base_stats[S.intelligence] = 90f;
             AssetManager.status.add(pAsset:Ring34);
+
+            StatusEffect Ring35 = new StatusEffect();
+            Ring35.id = "Ring35";//三环•黯镰噬魂·万灵湮灭之仪
+            Ring35.name = "status_title_Ring35";
+            Ring35.description = "status_desc_Ring35";
+            Ring35.path_icon = "Ring/Ring35";
+            Ring35.base_stats[S.armor] = -20f;
+            AssetManager.status.add(pAsset:Ring35);
         }
     }
 }

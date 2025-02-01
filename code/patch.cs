@@ -258,6 +258,11 @@ internal class patch
             animationContainerPath = "actors/Ring34_Wizard";
             setAnimationContainer = true;
         }
+        else if (actor.hasTrait("sorcery35"))
+        {
+            animationContainerPath = "actors/sorcery35_Wizard";
+            setAnimationContainer = true;
+        }
         else if (actor.hasTrait("sorcery34"))
         {
             animationContainerPath = "actors/sorcery34_Wizard";

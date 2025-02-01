@@ -535,6 +535,17 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery34.base_stats[S.damage] = 100f;
             sorcery34.action_get_hit += new GetHitAction(traitAction.sorcery34_Attack);//狂暴状态方法
             AssetManager.traits.add(sorcery34);
+
+            ActorTrait sorcery35 = new ActorTrait();
+            sorcery35.id = "sorcery35"; //三环•黯镰噬魂·万灵湮灭之仪
+            sorcery35.path_icon = "trait/sorcery35";
+            sorcery35.needs_to_be_explored = false;
+            sorcery35.group_id = "interesting4";
+            sorcery35.base_stats[S.damage] = 100f;
+            sorcery35.base_stats[S.scale] = -0.03f;
+            sorcery35.action_attack_target = (AttackAction)Delegate.Combine(sorcery35.action_attack_target,
+                new AttackAction(traitAction.sorcery35_Attack));
+            AssetManager.traits.add(sorcery35);
         }
         
         public static void flair12345_AddActorTrait(string id, string pathIcon, float birth, float base_stat_value, string opposite_stats_value)

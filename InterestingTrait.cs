@@ -1,7 +1,10 @@
-﻿using HarmonyLib;
+﻿#define TEST
+
+using HarmonyLib;
 using NeoModLoader.api;
 using VideoCopilot.code;
 using VideoCopilot.code.window;
+
 
 namespace VideoCopilot
 {
@@ -9,6 +12,7 @@ namespace VideoCopilot
     internal class VideoCopilotClass : BasicMod<VideoCopilotClass>,IReloadable
     {
         public static ModDeclare modDeclare;
+        public static ModConfig config;
         public static string id = "shiyue.worldbox.mod.VideoCopilot";
 
         protected override void OnModLoad()
@@ -20,7 +24,8 @@ namespace VideoCopilot
             SorceryEffect.Init();
             UI.Init();
             modDeclare = GetDeclaration();
-
+            config = GetConfig();
+            
             WindowManager.Init();
             new Harmony(id).PatchAll(typeof(patch));
         }

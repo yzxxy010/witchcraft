@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using HarmonyLib;
+using NeoModLoader.api.attributes;
+using NeoModLoader.General;
 using UnityEngine;
 using ReflectionUtility;
+using UnityEngine.UI;
 using VideoCopilot.code.utils;
 
 namespace VideoCopilot.code;
@@ -31,97 +34,66 @@ internal class patch
         }
     }
 
+
+    public static string[] traits =
+    {
+        "extraordinary9",
+        "fountainhead1",
+        "fountainhead2",
+        "fountainhead3"
+    };
     [HarmonyPostfix, HarmonyPatch(typeof(Actor), nameof(Actor.newKillAction))]
     private static void newMechanism(Actor __instance, Actor pDeadUnit)
     {
-        if (pDeadUnit.hasTrait("extraordinary9") && __instance.hasTrait("extraordinary9"))
+        
+        
+        foreach (string trait in traits)
         {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead1") && __instance.hasTrait("extraordinary9"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead2") && __instance.hasTrait("extraordinary9"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead3") && __instance.hasTrait("extraordinary9"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead1") && __instance.hasTrait("fountainhead1"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead1") && __instance.hasTrait("fountainhead2"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead1") && __instance.hasTrait("fountainhead3"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead2") && __instance.hasTrait("fountainhead2"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead3") && __instance.hasTrait("fountainhead3"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("extraordinary9") && __instance.hasTrait("fountainhead1"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("extraordinary9") && __instance.hasTrait("fountainhead2"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("extraordinary9") && __instance.hasTrait("fountainhead3"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead2") && __instance.hasTrait("fountainhead1"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead2") && __instance.hasTrait("fountainhead3"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead3") && __instance.hasTrait("fountainhead2"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
-        }
-
-        if (pDeadUnit.hasTrait("fountainhead3") && __instance.hasTrait("fountainhead1"))
-        {
-            __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
+            if (pDeadUnit.hasTrait(trait) && __instance.hasTrait(trait))
+            {
+                __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
+            }
+            else
+            {
+                // 检查交叉特质
+                foreach (string otherTrait in traits)
+                {
+                    if (trait != otherTrait && pDeadUnit.hasTrait(trait) && __instance.hasTrait(otherTrait))
+                    {
+                        __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
+                    }
+                }
+            }
         }
     }
 
+    public static bool displayAreaInitialization = false;
+    [Hotfixable]
     [HarmonyPostfix, HarmonyPatch(typeof(WindowCreatureInfo), "OnEnable")]
     public static void OnEnable_Postfix(WindowCreatureInfo __instance)
     {
-        if (Config.selectedUnit == null)
+        if (!displayAreaInitialization)
         {
-            return;
+            displayAreaInitialization = true;
+            var obj = new GameObject("YuanNnegShow", typeof(Text), typeof(ContentSizeFitter));
+            obj.transform.SetParent(__instance.transform.Find("Background"));
+            obj.transform.localScale = Vector3.one;
+            RectTransform rect = obj.GetComponent<RectTransform>();
+
+            rect.pivot = new Vector2(0f, 1f);
+            rect.anchorMin = new Vector2(0.5f, 1f);
+            rect.anchorMax = new Vector2(0.5f, 1f);
+            rect.localPosition = new Vector3(-50, 155, 0);
+            rect.sizeDelta = new Vector2(800, 200);
+            
         }
+        Transform ActorShowYuanNneg = __instance.transform.Find("Background/YuanNnegShow");
+        Text ActorShowYuanNnegText = ActorShowYuanNneg.GetComponent<Text>();
+        ActorShowYuanNnegText.text = LM.Get("yuanneng")+":\t"+__instance.actor.GetYuanNeng();
+        ActorShowYuanNnegText.font = LocalizedTextManager.currentFont;
+        ActorShowYuanNnegText.alignment = TextAnchor.UpperLeft;
+        ActorShowYuanNnegText.raycastTarget = false;
+        
         
         __instance.showStat("xiaohao",  __instance.actor.stats["xiaohao"]);
     } 
@@ -253,35 +225,32 @@ internal class patch
             animationContainerPath = unitToCavalryTexture[actor.asset.id];
         }
 
-        if (actor.hasStatus("Ring34"))
+        // 定义字典保存特质和路径,省略一堆沟槽的if-else
+        //切记!!!!!!!!!!!!注意先顺序,最前面的优先级比较高,如果同时有多个特性,只判定前面的第一个
+        Dictionary<string, string> traitToAnimationFrame = new Dictionary<string, string>
         {
-            animationContainerPath = "actors/Ring34_Wizard";
-            setAnimationContainer = true;
-        }
-        else if (actor.hasTrait("sorcery35"))
+            { "Ring34", "actors/Ring34_Wizard" },
+            { "sorcery35", "actors/sorcery35_Wizard" },
+            { "sorcery34", "actors/sorcery34_Wizard" },
+            { "sorcery33", "actors/sorcery33_Wizard" },
+            { "sorcery32", "actors/sorcery32_Wizard" },
+            { "sorcery31", "actors/sorcery31_Wizard" }
+        };
+        
+        foreach (var trait in traitToAnimationFrame.Keys)
         {
-            animationContainerPath = "actors/sorcery35_Wizard";
-            setAnimationContainer = true;
-        }
-        else if (actor.hasTrait("sorcery34"))
-        {
-            animationContainerPath = "actors/sorcery34_Wizard";
-            setAnimationContainer = true;
-        }
-        else if (actor.hasTrait("sorcery33"))
-        {
-            animationContainerPath = "actors/sorcery33_Wizard";
-            setAnimationContainer = true;
-        }
-        else if (actor.hasTrait("sorcery32"))
-        {
-            animationContainerPath = "actors/sorcery32_Wizard";
-            setAnimationContainer = true;
-        }
-        else if (actor.hasTrait("sorcery31"))
-        {
-            animationContainerPath = "actors/sorcery31_Wizard";
-            setAnimationContainer = true;
+            if (actor.hasStatus(trait)||actor.hasTrait(trait))
+            {
+                animationContainerPath = traitToAnimationFrame[trait];
+                setAnimationContainer = true;
+                string pPath = "actors/base_head";
+                actor.checkHeadID();
+                actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
+                actor.has_rendered_sprite_head = true;
+                actor.dirty_sprite_head = false;
+                break;
+            }
+
         }
         if (setAnimationContainer)
         {
@@ -289,4 +258,5 @@ internal class patch
             actor.animationContainer = ActorAnimationLoader.loadAnimationUnit(animationContainerPath, actor.asset);
         }
     }
+    
 }

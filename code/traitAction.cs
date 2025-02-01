@@ -1421,7 +1421,7 @@ namespace VideoCopilot.code
                 return false;
             }
 
-            string[] additionalTraits = { "sorcery31", "sorcery32", "sorcery33", "sorcery34" };
+            string[] additionalTraits = { "sorcery31", "sorcery32", "sorcery33", "sorcery34", "sorcery35" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
             upTrait("特质", "Grade7", a,
@@ -1504,7 +1504,8 @@ namespace VideoCopilot.code
                 new string[]
                 {
                     "tumorInfection", "cursed", "infected", "mushSpores", "plague", "madness", "Grade9", "sorcery31",
-                    "sorcery32", "sorcery33"
+                    "sorcery32", "sorcery33", "sorcery34", "sorcery35"
+
                 },
                 new string[] { "添加升级外的特质" });
 

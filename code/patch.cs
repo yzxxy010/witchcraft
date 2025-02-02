@@ -88,6 +88,7 @@ internal class patch
             
         }
         Transform ActorShowYuanNneg = __instance.transform.Find("Background/YuanNnegShow");
+        __instance.transform.Find("Background/Clickable obj").gameObject.SetActive(false);
         Text ActorShowYuanNnegText = ActorShowYuanNneg.GetComponent<Text>();
         ActorShowYuanNnegText.text = LM.Get("yuanneng")+":\t"+__instance.actor.GetYuanNeng();
         ActorShowYuanNnegText.font = LocalizedTextManager.currentFont;

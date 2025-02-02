@@ -1,5 +1,4 @@
-﻿#define TEST
-
+﻿
 using HarmonyLib;
 using NeoModLoader.api;
 using VideoCopilot.code;

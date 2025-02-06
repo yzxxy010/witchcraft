@@ -143,7 +143,6 @@ namespace VideoCopilot.code
             Ring24.base_stats[S.critical_chance] = 0.1f;//暴击+10%
             Ring24.base_stats[S.area_of_effect] = 1f;//近战范围+1
             Ring24.base_stats[S.armor] = 40f;//防御+40
-            Ring24.base_stats[S.scale] = 0.10f;//身材+100%
             Ring24.base_stats[S.speed] = -15f; //-移动速度15
             Ring24.base_stats[S.attack_speed] = -30f;//-攻击速度15
             Ring24.base_stats[S.knockback_reduction] = 1f;//抗击退+100%

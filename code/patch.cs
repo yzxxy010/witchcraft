@@ -231,6 +231,8 @@ internal class patch
         Dictionary<string, string> traitToAnimationFrame = new Dictionary<string, string>
         {
             { "Ring34", "actors/Ring34_Wizard" },
+            { "Ring24", "actors/Ring24_Wizard" },
+            { "Grade91", "actors/Grade91_Wizard" },
             { "sorcery35", "actors/sorcery35_Wizard" },
             { "sorcery34", "actors/sorcery34_Wizard" },
             { "sorcery33", "actors/sorcery33_Wizard" },

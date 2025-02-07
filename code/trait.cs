@@ -27,12 +27,15 @@ namespace VideoCopilot.code
             flair8.path_icon = "trait/flair8";
             flair8.needs_to_be_explored = false;
             flair8.group_id = "interesting3";
+            flair8.base_stats[S.intelligence] = 20f;
             flair8.base_stats[S.max_age] = 10f;//寿命+10
             flair8.base_stats[S.fertility] = -100f;//生育力-100
             flair8.base_stats[S.max_children] = -100f;//可生育子女数-100
             flair8.base_stats["xiaohao"] = -2f;//每年-2点世界源力+2点源能
-            flair8.action_death = traitAction.flair8_death;//无限重生效果
+            flair8.action_death = traitAction.flair8_death;//重生效果
             flair8.action_special_effect = traitAction.flair8_Traits;//随机天赋
+            flair8.action_special_effect = (WorldAction)Delegate.Combine(flair8.action_special_effect,
+new WorldAction(traitAction.flair8_Regen)); //再生效果
             AssetManager.traits.add(flair8);
 
             ActorTrait flair9 = new ActorTrait();
@@ -42,6 +45,21 @@ namespace VideoCopilot.code
             flair9.needs_to_be_explored = false;
             flair9.group_id = "interesting3";
             AssetManager.traits.add(flair9);
+
+            ActorTrait flair91 = new ActorTrait();
+            flair91.id = "flair91";
+            flair91.path_icon = "trait/flair91";
+            flair91.needs_to_be_explored = false;
+            flair91.group_id = "interesting3";
+            flair91.base_stats[S.intelligence] = 60f;
+            flair91.base_stats[S.max_age] = 10f;//寿命+10
+            flair91.base_stats[S.fertility] = -100f;//生育力-100
+            flair91.base_stats[S.max_children] = -100f;//可生育子女数-100
+            flair91.base_stats["xiaohao"] = -2f;//每年-2点世界源力+2点源能
+            flair91.action_death = traitAction.flair91_death;//重生效果
+            flair91.action_special_effect = (WorldAction)Delegate.Combine(flair91.action_special_effect,
+new WorldAction(traitAction.flair91_Regen)); //再生效果
+            AssetManager.traits.add(flair91);
             //巫师境界↓
             ActorTrait Grade0 = new ActorTrait();
             Grade0.id = "Grade0"; //学徒•初识
@@ -333,13 +351,13 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade91.base_stats[S.critical_chance] = 0.30f;
             Grade91.base_stats[S.mod_damage] = 0.30f;
             Grade91.base_stats[S.mod_health] = 0.30f;
-            Grade91.base_stats[S.range] = 10f;
-            Grade91.base_stats[S.area_of_effect] = 30f;
-            Grade91.base_stats[S.targets] = 30f;
-            Grade91.base_stats[S.knockback_reduction] = 10f;
-            Grade91.base_stats[S.knockback] = 10f;
-            Grade91.base_stats[S.warfare] = 15f;
-            Grade91.base_stats[S.stewardship] = 30f;
+            Grade91.base_stats[S.range] = 20f;//攻击范围
+            Grade91.base_stats[S.area_of_effect] = 60f;//近战攻击范围
+            Grade91.base_stats[S.targets] = 30f;//可攻击的目标
+            Grade91.base_stats[S.knockback_reduction] = 10f;//抗击退
+            Grade91.base_stats[S.knockback] = 10f;//击退
+            Grade91.base_stats[S.warfare] = 15f;//指挥
+            Grade91.base_stats[S.stewardship] = 30f;//组织
             Grade91.base_stats["xiaohao"] = -10f;
             Grade91.action_attack_target += traitAction.intelligence_attack_Grade91;//法伤
             Grade91.action_attack_target += new AttackAction((traitAction.attack_Grade91));//随机三环巫术

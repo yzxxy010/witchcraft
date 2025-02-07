@@ -128,6 +128,7 @@ namespace VideoCopilot.code
             Ring22.description = "status_desc_Ring22";
             Ring22.path_icon = "Ring/Ring22";
             Ring22.base_stats[S.intelligence] = -50f;//智力-50
+            Ring22.base_stats[S.warfare] = -50f;
             Ring22.base_stats[S.damage] = -1200f;//伤害-1200
             Ring22.base_stats[S.speed] = -10f;//速度-10
             Ring22.base_stats[S.attack_speed] = -10f;//攻击速度-10

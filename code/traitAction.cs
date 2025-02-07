@@ -322,7 +322,7 @@ namespace VideoCopilot.code
                 return false; // 如果具有无效特质，则返回false
             }
 
-            const int drainAmount = 325; // 定义要汲取的血量
+            const int drainAmount = 150; // 定义要汲取的血量
             if (pSelf == null || pSelf.a == null || pSelf.a.data == null)
             {
                 return false; // 如果施法者无效，则返回false
@@ -531,27 +531,19 @@ namespace VideoCopilot.code
 
         public static bool attack_Grade91(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
         {
-            if (pTarget != null && pTile != null)
+            if (pSelf == null || pTarget == null)
             {
-                float effectChance = 1f / 3f; // 每个效果触发的概率为1/3
-
-                if (Toolbox.randomChance(effectChance)) //三环•雷霆术
-                {
-                    MapBox.spawnLightningMedium(pTile, 0.25f);
-                }
-
-                if (Toolbox.randomChance(effectChance)) //三环•裂界爆炎
-                {
-                    EffectsLibrary.spawnAtTileRandomScale("fx_explosion_tiny", pTile, 0.3f, 0.6f);
-                }
-
-                if (Toolbox.randomChance(effectChance)) //三环•斥力场
-                {
-                    EffectsLibrary.spawnExplosionWave(pTile.posV3, 0.05f, 6f);
-                    return false; // 如果这个效果触发了，函数返回false
-                }
+                return false;
             }
-
+            if (pTarget != null)
+            {
+                pTile = pTarget.currentTile;
+            }
+            if (pTile == null)
+            {
+                return false;
+            }
+            EffectsLibrary.spawn("fx_meteorite", pTile, "meteorite", null, 0f, -1f, -1f);
             return true;
         }
 
@@ -775,6 +767,29 @@ namespace VideoCopilot.code
 
             return true;
         }
+
+        public static bool flair8_Regen(BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if (pTarget.a.data.health != pTarget.getMaxHealth())
+            {
+                pTarget.a.restoreHealth(300);
+                pTarget.a.spawnParticle(Toolbox.color_heal);
+            }
+
+            return true;
+        }
+
+        public static bool flair91_Regen(BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if (pTarget.a.data.health != pTarget.getMaxHealth())
+            {
+                pTarget.a.restoreHealth(1000);
+                pTarget.a.spawnParticle(Toolbox.color_heal);
+            }
+
+            return true;
+        }
+
 
         public static bool hunger_Grade91(BaseSimObject pTarget, WorldTile pTile = null) //始祖的饱食度
         {
@@ -1195,7 +1210,7 @@ namespace VideoCopilot.code
 
             upTrait("特质", "Grade1", a,
                 new string[] { "tumorInfection", "cursed", "infected", "mushSpores", "plague", "madness", "Grade02" },
-                new string[] { randomTrait });
+                new string[] { "freeze_proof", "fire_proof", randomTrait });
 
             return true;
         }
@@ -1426,7 +1441,7 @@ namespace VideoCopilot.code
 
             upTrait("特质", "Grade7", a,
                 new string[] { "tumorInfection", "cursed", "infected", "mushSpores", "plague", "madness", "Grade6" },
-                new string[] { "freeze_proof", "fire_proof", randomTrait });
+                new string[] { "添加升级外的特质", randomTrait });
 
             return true;
         }
@@ -1504,10 +1519,10 @@ namespace VideoCopilot.code
                 new string[]
                 {
                     "tumorInfection", "cursed", "infected", "mushSpores", "plague", "madness", "Grade9", "sorcery31",
-                    "sorcery32", "sorcery33", "sorcery34", "sorcery35"
+                    "sorcery32", "sorcery33", "sorcery34", "sorcery35", "flair8"
 
                 },
-                new string[] { "添加升级外的特质" });
+                new string[] { "flair91" });
 
             return true;
         }
@@ -1520,13 +1535,13 @@ namespace VideoCopilot.code
             }
 
             string entityName = pTarget.a.getName();
-            //检查是否存在该名字的复活计数，如果不存在则初始化为0
+            //检查是否存在该名字的复活计数，如果不存在则初始化为1
             if (!_reviveCounts.TryGetValue(entityName, out int reviveCount))
             {
-                _reviveCounts[entityName] = 0;
+                _reviveCounts[entityName] = 1;
             }
 
-            if (_reviveCounts[entityName] >= 30) //复活次数是否已达到限制
+            if (_reviveCounts[entityName] >= 15) //复活次数是否已达到限制
             {
                 return false;
             }
@@ -1552,9 +1567,61 @@ namespace VideoCopilot.code
             act.data.setName(entityName);
             teleportRandom(act);
 
-            if (reviveCount < 30) //如果复活次数未达到限制，则添加flair8
+            if (reviveCount < 15) //如果复活次数未达到限制，则添加flair8
             {
                 act.data.traits = new List<string>() { "flair8" };
+            }
+
+            _reviveCounts[entityName] = reviveCount + 1; //增加该名字的复活次数计数器
+
+            PowerLibrary pb = new PowerLibrary();
+            pb.divineLightFX(pTarget.a.currentTile, null);
+
+            return true;
+        }
+        public static bool flair91_death(BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if (pTarget == null)
+            {
+                return false;
+            }
+
+            string entityName = pTarget.a.getName();
+            //检查是否存在该名字的复活计数，如果不存在则初始化为0
+            if (!_reviveCounts.TryGetValue(entityName, out int reviveCount))
+            {
+                _reviveCounts[entityName] = 1;
+            }
+
+            if (_reviveCounts[entityName] >= 100) //复活次数是否已达到限制
+            {
+                return false;
+            }
+
+            if (!pTarget.isActor())
+            {
+                return false;
+            }
+
+            Actor a = pTarget.a;
+            a.removeTrait("tumorInfection");
+            a.removeTrait("cursed");
+            a.removeTrait("infected");
+            a.removeTrait("mushSpores");
+            a.removeTrait("plague");
+            var act = World.world.units.createNewUnit(a.asset.id, pTile, 0f);
+            ActorTool.copyUnitToOtherUnit(a, act);
+            act.data.setName(pTarget.a.getName());
+            act.data.traits = new List<string>() { "flair91", "flair5" };
+            act.data.health = 999;
+            act.data.created_time = World.world.getCreationTime();
+            act.data.age_overgrowth = 18;
+            act.data.setName(entityName);
+            teleportRandom(act);
+
+            if (reviveCount < 100) //如果复活次数未达到限制，则添加flair91
+            {
+                act.data.traits = new List<string>() { "flair91", "flair5" };
             }
 
             _reviveCounts[entityName] = reviveCount + 1; //增加该名字的复活次数计数器

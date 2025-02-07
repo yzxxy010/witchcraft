@@ -230,14 +230,14 @@ internal class patch
         //切记!!!!!!!!!!!!注意先顺序,最前面的优先级比较高,如果同时有多个特性,只判定前面的第一个
         Dictionary<string, string> traitToAnimationFrame = new Dictionary<string, string>
         {
-            { "Ring34", "actors/Ring34_Wizard" },
-            { "Ring24", "actors/Ring24_Wizard" },
             { "Grade91", "actors/Grade91_Wizard" },
+            { "Ring34", "actors/Ring34_Wizard" },
             { "sorcery35", "actors/sorcery35_Wizard" },
             { "sorcery34", "actors/sorcery34_Wizard" },
             { "sorcery33", "actors/sorcery33_Wizard" },
             { "sorcery32", "actors/sorcery32_Wizard" },
-            { "sorcery31", "actors/sorcery31_Wizard" }
+            { "sorcery31", "actors/sorcery31_Wizard" },
+            { "Ring24", "actors/Ring24_Wizard" }
         };
         
         foreach (var trait in traitToAnimationFrame.Keys)

@@ -12,7 +12,7 @@ namespace VideoCopilot.code;
 internal class patch
 {
     public static bool isLoadSave;
-    
+
     [HarmonyPrefix, HarmonyPatch(typeof(SavedMap), "create")]
     public static bool create_prefix()
     {
@@ -24,7 +24,7 @@ internal class patch
 
         return true;
     }
-    
+
     [HarmonyPostfix, HarmonyPatch(typeof(ActorManager), "loadObject")]
     public static void AddCustomData(ref Actor __result, ActorData pData)
     {
@@ -42,11 +42,10 @@ internal class patch
         "fountainhead2",
         "fountainhead3"
     };
+
     [HarmonyPostfix, HarmonyPatch(typeof(Actor), nameof(Actor.newKillAction))]
     private static void newMechanism(Actor __instance, Actor pDeadUnit)
     {
-        
-        
         foreach (string trait in traits)
         {
             if (pDeadUnit.hasTrait(trait) && __instance.hasTrait(trait))
@@ -68,6 +67,7 @@ internal class patch
     }
 
     public static bool displayAreaInitialization = false;
+
     [Hotfixable]
     [HarmonyPostfix, HarmonyPatch(typeof(WindowCreatureInfo), "OnEnable")]
     public static void OnEnable_Postfix(WindowCreatureInfo __instance)
@@ -85,19 +85,19 @@ internal class patch
             rect.anchorMax = new Vector2(0.5f, 1f);
             rect.localPosition = new Vector3(-50, 155, 0);
             rect.sizeDelta = new Vector2(800, 200);
-            
         }
+
         Transform ActorShowYuanNneg = __instance.transform.Find("Background/YuanNnegShow");
         __instance.transform.Find("Background/Clickable obj").gameObject.SetActive(false);
         Text ActorShowYuanNnegText = ActorShowYuanNneg.GetComponent<Text>();
-        ActorShowYuanNnegText.text = LM.Get("yuanneng")+":\t"+__instance.actor.GetYuanNeng();
+        ActorShowYuanNnegText.text = LM.Get("yuanneng") + ":\t" + __instance.actor.GetYuanNeng();
         ActorShowYuanNnegText.font = LocalizedTextManager.currentFont;
         ActorShowYuanNnegText.alignment = TextAnchor.UpperLeft;
         ActorShowYuanNnegText.raycastTarget = false;
-        
-        
-        __instance.showStat("xiaohao",  __instance.actor.stats["xiaohao"]);
-    } 
+
+
+        __instance.showStat("xiaohao", __instance.actor.stats["xiaohao"]);
+    }
 
     [HarmonyPostfix, HarmonyPatch(typeof(MapBox), "updateObjectAge")]
     public static void updateWorldTime_Postfix(MapBox __instance)
@@ -140,9 +140,9 @@ internal class patch
         }
 
         UpdateYuannengBasedOnGrade(__instance, "Grade02", 18.0f);
-        UpdateYuannengBasedOnGrade(__instance, "Grade3",  72.0f);
-        UpdateYuannengBasedOnGrade(__instance, "Grade6",  288.0f);
-        UpdateYuannengBasedOnGrade(__instance, "flair9",  0f);
+        UpdateYuannengBasedOnGrade(__instance, "Grade3", 72.0f);
+        UpdateYuannengBasedOnGrade(__instance, "Grade6", 288.0f);
+        UpdateYuannengBasedOnGrade(__instance, "flair9", 0f);
     }
 
     private static void UpdateYuannengBasedOnGrade(Actor actor, string traitName, float maxYuanneng)
@@ -153,7 +153,7 @@ internal class patch
         }
     }
 
-    
+
     //禁止雷电劈出永生
     [HarmonyPrefix, HarmonyPatch(typeof(MapAction), "checkLightningAction")]
     public static bool checkLightningAction(Vector2Int pPos, int pRad)
@@ -200,14 +200,17 @@ internal class patch
 
         return false;
     }
-    
+
+    private static Dictionary<string, int> actorAnimationValues = new();
+
     //修改单位移动动画
-    [HarmonyPrefix,HarmonyPatch(typeof(ActorBase), "checkAnimationContainer")]
+    [HarmonyPrefix, HarmonyPatch(typeof(ActorBase), "checkAnimationContainer")]
     public static void checkAnimationContainer(ActorBase __instance)
     {
         Actor actor = __instance.a;
 
-        if (actor == null || actor.data == null || actor.asset == null || actor.batch == null || !actor.asset.unit || !actor.isAlive())
+        if (actor == null || actor.data == null || actor.asset == null || actor.batch == null || !actor.asset.unit ||
+            !actor.isAlive())
             return;
 
         string pid = __instance.asset.id;
@@ -239,10 +242,10 @@ internal class patch
             { "sorcery31", "actors/sorcery31_Wizard" },
             { "Ring24", "actors/Ring24_Wizard" }
         };
-        
+
         foreach (var trait in traitToAnimationFrame.Keys)
         {
-            if (actor.hasStatus(trait)||actor.hasTrait(trait))
+            if (actor.hasStatus(trait) || actor.hasTrait(trait))
             {
                 animationContainerPath = traitToAnimationFrame[trait];
                 setAnimationContainer = true;
@@ -251,15 +254,32 @@ internal class patch
                 actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
                 actor.has_rendered_sprite_head = true;
                 actor.dirty_sprite_head = false;
+                actor.dirty_sprite_item = true;
                 break;
             }
-
         }
+
+        if (actor.hasTrait("Grade4") || actor.hasTrait("Grade5") || actor.hasTrait("Grade6"))
+        {
+            if (!actorAnimationValues.ContainsKey(actor.data.id))
+            {
+                actorAnimationValues.Add(actor.data.id,
+                                         Toolbox.randomInt(0, 37));
+            }
+
+            animationContainerPath = $"actors/Grade4_Wizard/Grade4.{actorAnimationValues[actor.data.id]}_Wizard";
+            setAnimationContainer = true;
+            string pPath = "actors/base_head";
+            actor.checkHeadID();
+            actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
+            actor.has_rendered_sprite_head = true;
+            actor.dirty_sprite_head = false;
+            actor.dirty_sprite_item = true;
+        }
+
         if (setAnimationContainer)
         {
-           
             actor.animationContainer = ActorAnimationLoader.loadAnimationUnit(animationContainerPath, actor.asset);
         }
     }
-    
 }

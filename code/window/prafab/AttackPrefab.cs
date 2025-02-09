@@ -140,7 +140,6 @@ public class AttackPrefab : MonoBehaviour
         textRect.anchorMax = new Vector2(1f, 0.5f);
         textRect.pivot = new Vector2(1f, 0.5f);
         textRect.anchoredPosition = new Vector2(2, 0);
-        // textRect.sizeDelta = new Vector2(80, 35);
 
         #endregion
 

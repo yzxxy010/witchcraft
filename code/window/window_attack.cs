@@ -63,7 +63,7 @@ namespace VideoCopilot.code.window
         {
             window.show();
             allActors = World.world.units.getSimpleList();
-            sort_age_allActor();
+            sort_yuanneng_allActor();
             // 根据单位数量调整内容区域的大小，确保足够容纳所有的 UI 元素。
             RectTransform contentRect = content.GetComponent<RectTransform>();
             contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, 15 + itemHeight * allActors.Count);

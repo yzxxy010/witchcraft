@@ -242,6 +242,11 @@ internal class patch
             { "sorcery31", "actors/sorcery31_Wizard" },
             { "Ring24", "actors/Ring24_Wizard" }
         };
+        Texture2D texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+        texture.SetPixel(0, 0, new Color(1, 1, 1, 0)); // RGBA中A为0表示完全透明
+        texture.Apply();
+        Sprite not_sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+
 
         foreach (var trait in traitToAnimationFrame.Keys)
         {
@@ -254,7 +259,10 @@ internal class patch
                 actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
                 actor.has_rendered_sprite_head = true;
                 actor.dirty_sprite_head = false;
-                actor.dirty_sprite_item = true;
+                actor.dirty_sprite_item = false;
+                actor.checkRenderedItem();
+                actor.cached_sprite_item = not_sprite;
+                actor.has_rendered_sprite_item = true;
                 break;
             }
         }
@@ -274,7 +282,10 @@ internal class patch
             actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
             actor.has_rendered_sprite_head = true;
             actor.dirty_sprite_head = false;
-            actor.dirty_sprite_item = true;
+            actor.dirty_sprite_item = false;
+            actor.checkRenderedItem();
+            actor.cached_sprite_item = not_sprite;
+            actor.has_rendered_sprite_item = true;
         }
 
         if (actor.hasTrait("Grade1") || actor.hasTrait("Grade2") || actor.hasTrait("Grade3"))
@@ -292,7 +303,10 @@ internal class patch
             actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
             actor.has_rendered_sprite_head = true;
             actor.dirty_sprite_head = false;
-            actor.dirty_sprite_item = true;
+            actor.dirty_sprite_item = false;
+            actor.checkRenderedItem();
+            actor.cached_sprite_item = not_sprite;
+            actor.has_rendered_sprite_item = true;
         }
 
         if (setAnimationContainer)

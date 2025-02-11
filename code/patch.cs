@@ -83,7 +83,7 @@ internal class patch
             rect.pivot = new Vector2(0f, 1f);
             rect.anchorMin = new Vector2(0.5f, 1f);
             rect.anchorMax = new Vector2(0.5f, 1f);
-            rect.localPosition = new Vector3(-50, 155, 0);
+            rect.localPosition = new Vector3(0, 155, 0);
             rect.sizeDelta = new Vector2(800, 200);
         }
 
@@ -264,10 +264,28 @@ internal class patch
             if (!actorAnimationValues.ContainsKey(actor.data.id))
             {
                 actorAnimationValues.Add(actor.data.id,
-                                         Toolbox.randomInt(0, 37));
+                                         Toolbox.randomInt(0, 22));
             }
 
             animationContainerPath = $"actors/Grade4_Wizard/Grade4.{actorAnimationValues[actor.data.id]}_Wizard";
+            setAnimationContainer = true;
+            string pPath = "actors/base_head";
+            actor.checkHeadID();
+            actor.setHeadSprite(ActorAnimationLoader.getHead(pPath, 0));
+            actor.has_rendered_sprite_head = true;
+            actor.dirty_sprite_head = false;
+            actor.dirty_sprite_item = true;
+        }
+
+        if (actor.hasTrait("Grade1") || actor.hasTrait("Grade2") || actor.hasTrait("Grade3"))
+        {
+            if (!actorAnimationValues.ContainsKey(actor.data.id))
+            {
+                actorAnimationValues.Add(actor.data.id,
+                                         Toolbox.randomInt(0, 14));
+            }
+
+            animationContainerPath = $"actors/Grade1_Wizard/Grade1.{actorAnimationValues[actor.data.id]}_Wizard";
             setAnimationContainer = true;
             string pPath = "actors/base_head";
             actor.checkHeadID();

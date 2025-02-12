@@ -1506,14 +1506,20 @@ namespace VideoCopilot.code
                 }
                 a.data.setName(newName);
             }
+            if (!a.hasTrait("flair91"))
+            {
+                if (!a.hasTrait("flair8"))
+                {
+                    a.addTrait("flair8");
+                }
+            }
 
             upTrait("特质", "Grade9", a,
                 new string[] { "tumorInfection", "cursed", "infected", "mushSpores", "plague", "madness", "Grade8" },
-                new string[] { "flair8" });
+                new string[] { "添加升级外的特质" });
 
             return true;
         }
-
         public static bool Grade91_effectAction(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget == null)
@@ -1531,17 +1537,30 @@ namespace VideoCopilot.code
             {
                 return false;
             }
-            if (!a.hasTrait("flair8") && !a.hasTrait("flair91"))
+
+            // 初始化newName为当前名称
+            string currentName = a.getName();
+            string newName = currentName;
+
+            // 检查名称中是否包含“不灭”，如果包含则替换为“始祖”
+            if (currentName.Contains(" 不灭"))
             {
-                // 修改名称，将“不灭”替换为“始祖”
-                string currentName = pTarget.a.getName();
-                string newName = currentName.Replace(" 不灭", " 始祖");
-                if (!currentName.EndsWith(" 不灭"))
-                {
-                    newName += " 始祖";
-                }
+                newName = currentName.Replace(" 不灭", " 始祖");
                 a.data.setName(newName);
             }
+            // 随机选择一条提示信息
+            System.Random random = new System.Random();
+            int index = random.Next(grade91Tips.Count);
+            string tip = grade91Tips[index];
+
+            // 如果提示信息中包含占位符（比如 {0}），则替换为角色的名称
+            if (tip.Contains("{0}"))
+            {
+                tip = string.Format(tip, newName);
+            }
+
+            // 显示随机选择的提示信息
+            ActionLibrary.showWhisperTip(tip);
 
             upTrait("特质", "Grade91", a,
                 new string[]
@@ -1554,6 +1573,23 @@ namespace VideoCopilot.code
 
             return true;
         }
+        // 定义一组升级提示信息
+        private static readonly List<string> grade91Tips = new List<string>
+        {
+            "「命运之轮倾轧!终焉王庭第九柱石归位!\n虚空记录者低语「{0}」之名,混沌以太为其重塑王座!\n『祂自逆界回廊归来,持「无根之源」擎起新生冠冕!」",
+            "「诸界源河倒卷!七百二十万星辰为其真名见证!\n永寂黑域中,「{0}」撕裂维度帷幕,以始祖法典宣告：「吾即永恒!」",
+            "「古老者们在深渊睁开瞳孔!法则之网因祂而扭曲!\n「{0}」的第九真身踏碎湮灭之环,三千世界湮灭又重生!」",
+            "「以太潮汐倒卷!虚空裂隙烙下「{0}」之真名!\n无根之源沸腾翻涌,其投影撕裂三千位面法则壁垒!",
+            "「混沌退避!永恒星环为「{0}」加冕!\n第九真身自世界核心苏醒,维度锚点尽数崩裂!」",
+            "「诸天法则重构!「{0}」踏碎时空长河逆流而来!\n此方世界已无法承载始祖真身亿万分之一重!」",
+            "「星辰黯淡,万籁俱寂!「{0}」的第九真身,于虚空深渊中觉醒!\n无根之源的力量,撼动诸天万界,冠冕加身,永恒不朽!」",
+            "「逆界之风,吹拂过湮灭的纪元!「{0}」以始祖之名,重塑混沌秩序!\n第九真身降临,万法归宗,宇宙为之震颤!」",
+            "「深渊之下,古神低语!「{0}」踏破虚空,第九真身携无根之源,重塑世界法则!\n冠冕加冕,永恒之座,矗立于星海之巅!」",
+            "「时空扭曲,维度崩塌!「{0}」的第九真身,自世界之外归来!\n无根之源沸腾,冠冕闪耀,诸界为之臣服!」",
+            "「混沌初开,始祖降临!「{0}」以第九真身,踏破虚空枷锁!\n无根之源的力量,涌动于每一寸宇宙,冠冕加身,永恒统治!」",
+            "「星辰逆转,法则重塑!「{0}」的第九真身,于虚空之中显现!\n无根之源沸腾,冠冕璀璨,万界为之震颤,永恒之名,响彻宇宙!」",
+            "「深渊咆哮,始祖觉醒!「{0}」以第九真身,撕裂混沌帷幕!\n无根之源的力量,涌动于诸天万界,冠冕加冕,永恒不朽的誓言!」"
+        };
 
         public static bool flair8_death(BaseSimObject pTarget, WorldTile pTile = null)
         {

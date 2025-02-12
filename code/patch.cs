@@ -311,4 +311,26 @@ internal class patch
             actor.animationContainer = ActorAnimationLoader.loadAnimationUnit(animationContainerPath, actor.asset);
         }
     }
+    [HarmonyPrefix, HarmonyPatch(typeof(ActionLibrary), "showWhisperTip")]
+        public static bool Prefix(string pText)
+        {
+
+
+                // 自定义逻辑：显示停留时间为30秒的提示信息
+                string text = LocalizedTextManager.getText(pText, null);
+                if (Config.whisperA != null)
+                {
+                    text = text.Replace("$kingdom_A$", Config.whisperA.name);
+                }
+                if (Config.whisperB != null)
+                {
+                    text = text.Replace("$kingdom_B$", Config.whisperB.name);
+                }
+                WorldTip.showNow(text, false, "top", 30f);
+
+
+            // 如果不需要跳过原方法，则返回true
+            return false;
+        }
+    
 }

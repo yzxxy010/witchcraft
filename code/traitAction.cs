@@ -1436,6 +1436,8 @@ namespace VideoCopilot.code
                 return false;
             }
 
+            a.data.setName(pTarget.a.getName()+" 大巫师");
+
             string[] additionalTraits = { "sorcery31", "sorcery32", "sorcery33", "sorcery34", "sorcery35" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
@@ -1489,6 +1491,15 @@ namespace VideoCopilot.code
             {
                 return false;
             }
+            a.data.favorite = true;
+            // 修改名称，将“大巫师”替换为“不灭”
+            string currentName = pTarget.a.getName();
+            string newName = currentName.Replace(" 大巫师", " 不灭");
+            if (!currentName.EndsWith(" 大巫师"))
+            {
+                newName += " 不灭";
+            }
+            a.data.setName(newName);
 
             upTrait("特质", "Grade9", a,
                 new string[] { "tumorInfection", "cursed", "infected", "mushSpores", "plague", "madness", "Grade8" },
@@ -1514,6 +1525,14 @@ namespace VideoCopilot.code
             {
                 return false;
             }
+            // 修改名称，将“不灭”替换为“始祖”
+            string currentName = pTarget.a.getName();
+            string newName = currentName.Replace(" 不灭", " 始祖");
+            if (!currentName.EndsWith(" 不灭"))
+            {
+                newName += " 始祖";
+            }
+            a.data.setName(newName);
 
             upTrait("特质", "Grade91", a,
                 new string[]

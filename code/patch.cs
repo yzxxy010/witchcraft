@@ -243,10 +243,12 @@ internal class patch
             { "Ring24", "actors/Ring24_Wizard" }
         };
 
+        bool hasTrait = false;
         foreach (var trait in traitToAnimationFrame.Keys)
         {
             if (actor.hasStatus(trait) || actor.hasTrait(trait))
             {
+                hasTrait = true;
                 animationContainerPath = traitToAnimationFrame[trait];
                 setAnimationContainer = true;
                 string pPath = "actors/base_head";
@@ -262,7 +264,7 @@ internal class patch
             }
         }
 
-        if (actor.hasTrait("Grade4") || actor.hasTrait("Grade5") || actor.hasTrait("Grade6"))
+        if (!hasTrait && (actor.hasTrait("Grade4") || actor.hasTrait("Grade5") || actor.hasTrait("Grade6")))
         {
             if (!actorAnimationValues.ContainsKey(actor.data.id))
             {
@@ -283,7 +285,7 @@ internal class patch
             actor.has_rendered_sprite_item = true;
         }
 
-        if (actor.hasTrait("Grade1") || actor.hasTrait("Grade2") || actor.hasTrait("Grade3"))
+        if (!hasTrait && (actor.hasTrait("Grade1") || actor.hasTrait("Grade2") || actor.hasTrait("Grade3")))
         {
             if (!actorAnimationValues.ContainsKey(actor.data.id))
             {

@@ -33,8 +33,8 @@ namespace VideoCopilot.code
             flair8.base_stats[S.max_children] = -100f;//可生育子女数-100
             flair8.base_stats["xiaohao"] = -2f;//每年-2点世界源力+2点源能
             flair8.action_death = traitAction.flair8_death;//重生效果
-            flair8.action_special_effect = traitAction.flair8_Traits;//随机天赋
-            flair8.action_special_effect = (WorldAction)Delegate.Combine(flair8.action_special_effect,
+            flair8.action_special_effect += traitAction.flair8_Traits;//随机天赋
+            flair8.action_special_effect += (WorldAction)Delegate.Combine(flair8.action_special_effect,
 new WorldAction(traitAction.flair8_Regen)); //再生效果
             AssetManager.traits.add(flair8);
 
@@ -57,7 +57,7 @@ new WorldAction(traitAction.flair8_Regen)); //再生效果
             flair91.base_stats[S.max_children] = -100f;//可生育子女数-100
             flair91.base_stats["xiaohao"] = -2f;//每年-2点世界源力+2点源能
             flair91.action_death = traitAction.flair91_death;//重生效果
-            flair91.action_special_effect = (WorldAction)Delegate.Combine(flair91.action_special_effect,
+            flair91.action_special_effect += (WorldAction)Delegate.Combine(flair91.action_special_effect,
 new WorldAction(traitAction.flair91_Regen)); //再生效果
             AssetManager.traits.add(flair91);
             //巫师境界↓
@@ -70,7 +70,7 @@ new WorldAction(traitAction.flair91_Regen)); //再生效果
             Grade0.base_stats[S.health] = 200f;//生命+40
             Grade0.base_stats[S.intelligence] = 1f;//智力+1
             Grade0.base_stats[S.knockback_reduction] = 0.3f;
-            Grade0.action_special_effect = traitAction.Grade01_effectAction; //学徒•掌控的升级条件
+            Grade0.action_special_effect += traitAction.Grade01_effectAction; //学徒•掌控的升级条件
             AssetManager.traits.add(Grade0);
 
             ActorTrait Grade01 = new ActorTrait();
@@ -84,7 +84,7 @@ new WorldAction(traitAction.flair91_Regen)); //再生效果
             Grade01.base_stats[S.intelligence] = 2f;//智力+2
             Grade01.base_stats[S.targets] = 1f;
             Grade01.base_stats[S.knockback_reduction] = 0.5f;
-            Grade01.action_special_effect = traitAction.Grade02_effectAction; //学徒•精通的升级条件
+            Grade01.action_special_effect += traitAction.Grade02_effectAction; //学徒•精通的升级条件
             AssetManager.traits.add(Grade01);
 
             ActorTrait Grade02 = new ActorTrait();
@@ -101,8 +101,8 @@ new WorldAction(traitAction.flair91_Regen)); //再生效果
             Grade02.base_stats[S.area_of_effect] = 1f;
             Grade02.base_stats[S.targets] = 2f;
             Grade02.base_stats[S.knockback_reduction] = 0.8f;
-            Grade02.action_special_effect = traitAction.Grade1_effectAction; //正式巫师•塑造的升级条件
-            Grade02.action_special_effect = (WorldAction)Delegate.Combine(Grade02.action_special_effect,
+            Grade02.action_special_effect += traitAction.Grade1_effectAction; //正式巫师•塑造的升级条件
+            Grade02.action_special_effect += (WorldAction)Delegate.Combine(Grade02.action_special_effect,
 new WorldAction(traitAction.Grade02_Regen)); //学徒•精通的再生效果
             AssetManager.traits.add(Grade02);
 
@@ -122,8 +122,8 @@ new WorldAction(traitAction.Grade02_Regen)); //学徒•精通的再生效果
             Grade1.base_stats[S.targets] = 3f;//可攻击目标+1
             Grade1.base_stats[S.knockback_reduction] = 1f;//抗击退+100%
             Grade1.base_stats[S.knockback] = 1f;//击退+1
-            Grade1.action_special_effect = traitAction.Grade2_effectAction; //升正式巫师•元素的条件
-            Grade1.action_special_effect = (WorldAction)Delegate.Combine(Grade1.action_special_effect,
+            Grade1.action_special_effect += traitAction.Grade2_effectAction; //升正式巫师•元素的条件
+            Grade1.action_special_effect += (WorldAction)Delegate.Combine(Grade1.action_special_effect,
 new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效果
             AssetManager.traits.add(Grade1);
 
@@ -143,8 +143,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade2.base_stats[S.targets] = 3f;
             Grade2.base_stats[S.knockback_reduction] = 1f;//抗击退+100%
             Grade2.base_stats[S.knockback] = 1f;//击退+1
-            Grade2.action_special_effect = traitAction.Grade3_effectAction; //正式巫师•冥想的条件
-            Grade2.action_special_effect = (WorldAction)Delegate.Combine(Grade2.action_special_effect,
+            Grade2.action_special_effect += traitAction.Grade3_effectAction; //正式巫师•冥想的条件
+            Grade2.action_special_effect += (WorldAction)Delegate.Combine(Grade2.action_special_effect,
                 new WorldAction(traitAction.Grade2_Regen)); //正式巫师•元素的再生效果
             AssetManager.traits.add(Grade2);
 
@@ -166,8 +166,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade3.base_stats[S.knockback] = 1f;//击退+1
             Grade3.base_stats[S.warfare] = 5f;
             Grade3.base_stats[S.stewardship] = 10f;
-            Grade3.action_special_effect = traitAction.Grade4_effectAction; //升高级巫师•黎明的条件
-            Grade3.action_special_effect = (WorldAction)Delegate.Combine(Grade3.action_special_effect,
+            Grade3.action_special_effect += traitAction.Grade4_effectAction; //升高级巫师•黎明的条件
+            Grade3.action_special_effect += (WorldAction)Delegate.Combine(Grade3.action_special_effect,
                 new WorldAction(traitAction.Grade3_Regen)); //正式巫师•冥想的再生效果
             AssetManager.traits.add(Grade3);
 
@@ -190,9 +190,9 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade4.base_stats[S.warfare] = 6f;
             Grade4.base_stats[S.stewardship] = 12f;
             Grade4.base_stats["xiaohao"] = -1f;//每年-1点世界源力+1点源能
-            Grade4.action_attack_target = traitAction.intelligence_attack_Grade4;//法伤
-            Grade4.action_special_effect = traitAction.Grade5_effectAction; //升高级巫师•扩展的条件
-            Grade4.action_special_effect = (WorldAction)Delegate.Combine(Grade4.action_special_effect,
+            Grade4.action_attack_target += traitAction.intelligence_attack_Grade4;//法伤
+            Grade4.action_special_effect += traitAction.Grade5_effectAction; //升高级巫师•扩展的条件
+            Grade4.action_special_effect += (WorldAction)Delegate.Combine(Grade4.action_special_effect,
                 new WorldAction(traitAction.Grade4_Regen)); //高级巫师•黎明的再生效果
             AssetManager.traits.add(Grade4);
 
@@ -216,9 +216,9 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade5.base_stats[S.warfare] = 7f;
             Grade5.base_stats[S.stewardship] = 16f;
             Grade5.base_stats["xiaohao"] = -1f;
-            Grade5.action_attack_target = traitAction.intelligence_attack_Grade5;//法伤
-            Grade5.action_special_effect = traitAction.Grade6_effectAction; //升高级巫师•巅峰的条件
-            Grade5.action_special_effect = (WorldAction)Delegate.Combine(Grade5.action_special_effect,
+            Grade5.action_attack_target += traitAction.intelligence_attack_Grade5;//法伤
+            Grade5.action_special_effect += traitAction.Grade6_effectAction; //升高级巫师•巅峰的条件
+            Grade5.action_special_effect += (WorldAction)Delegate.Combine(Grade5.action_special_effect,
                 new WorldAction(traitAction.Grade5_Regen)); //高级巫师•扩展的再生效果
             AssetManager.traits.add(Grade5);
 
@@ -243,9 +243,9 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade6.base_stats[S.warfare] = 9f;
             Grade6.base_stats[S.stewardship] = 18f;
             Grade6.base_stats["xiaohao"] = -1f;
-            Grade6.action_attack_target = traitAction.intelligence_attack_Grade6;//法伤
-            Grade6.action_special_effect = traitAction.Grade7_effectAction; //升大巫师•铭刻的条件
-            Grade6.action_special_effect = (WorldAction)Delegate.Combine(Grade6.action_special_effect,
+            Grade6.action_attack_target += traitAction.intelligence_attack_Grade6;//法伤
+            Grade6.action_special_effect += traitAction.Grade7_effectAction; //升大巫师•铭刻的条件
+            Grade6.action_special_effect += (WorldAction)Delegate.Combine(Grade6.action_special_effect,
                 new WorldAction(traitAction.Grade6_Regen)); //高级巫师•巅峰三阶的再生效果
             AssetManager.traits.add(Grade6);
 
@@ -272,9 +272,9 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade7.base_stats[S.warfare] = 10f;
             Grade7.base_stats[S.stewardship] = 20f;
             Grade7.base_stats["xiaohao"] = -2f;
-            Grade7.action_attack_target = traitAction.intelligence_attack_Grade7;//法伤
-            Grade7.action_special_effect = traitAction.Grade8_effectAction; //大巫师•巅峰的条件
-            Grade7.action_special_effect = (WorldAction)Delegate.Combine(Grade7.action_special_effect,
+            Grade7.action_attack_target += traitAction.intelligence_attack_Grade7;//法伤
+            Grade7.action_special_effect += traitAction.Grade8_effectAction; //大巫师•巅峰的条件
+            Grade7.action_special_effect += (WorldAction)Delegate.Combine(Grade7.action_special_effect,
                 new WorldAction(traitAction.Grade7_Regen)); //大巫师•铭刻的再生效果
             AssetManager.traits.add(Grade7);
 
@@ -301,9 +301,9 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade8.base_stats[S.warfare] = 12f;
             Grade8.base_stats[S.stewardship] = 23f;
             Grade8.base_stats["xiaohao"] = -2f;
-            Grade8.action_attack_target = traitAction.intelligence_attack_Grade8;//法伤
-            Grade8.action_special_effect = traitAction.Grade9_effectAction; //升大巫师•不死的条件
-            Grade8.action_special_effect = (WorldAction)Delegate.Combine(Grade8.action_special_effect,
+            Grade8.action_attack_target += traitAction.intelligence_attack_Grade8;//法伤
+            Grade8.action_special_effect += traitAction.Grade9_effectAction; //升大巫师•不死的条件
+            Grade8.action_special_effect += (WorldAction)Delegate.Combine(Grade8.action_special_effect,
                 new WorldAction(traitAction.Grade8_Regen)); //大巫师•巅峰的再生效果
             AssetManager.traits.add(Grade8);
 
@@ -330,9 +330,9 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade9.base_stats[S.warfare] = 12f;
             Grade9.base_stats[S.stewardship] = 25f;
             Grade9.base_stats["xiaohao"] = -2f;
-            Grade9.action_attack_target = traitAction.intelligence_attack_Grade9;//法伤      
-            Grade9.action_special_effect = traitAction.Grade91_effectAction; //升始祖的条件
-            Grade9.action_special_effect = (WorldAction)Delegate.Combine(Grade9.action_special_effect,
+            Grade9.action_attack_target += traitAction.intelligence_attack_Grade9;//法伤      
+            Grade9.action_special_effect += traitAction.Grade91_effectAction; //升始祖的条件
+            Grade9.action_special_effect += (WorldAction)Delegate.Combine(Grade9.action_special_effect,
                 new WorldAction(traitAction.Grade9_Regen)); //大巫师•不死的再生效果
             AssetManager.traits.add(Grade9);
 
@@ -361,8 +361,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade91.base_stats["xiaohao"] = -10f;
             Grade91.action_attack_target += traitAction.intelligence_attack_Grade91;//法伤
             Grade91.action_attack_target += new AttackAction((traitAction.attack_Grade91));//随机三环巫术
-            Grade91.action_special_effect = new WorldAction((traitAction.hunger_Grade91));//不会饥饿
-            Grade91.action_special_effect = (WorldAction)Delegate.Combine(Grade91.action_special_effect,
+            Grade91.action_special_effect += new WorldAction((traitAction.hunger_Grade91));//不会饥饿
+            Grade91.action_special_effect += (WorldAction)Delegate.Combine(Grade91.action_special_effect,
                 new WorldAction(traitAction.Grade91_EffectAction)); //始祖的再生效果
             AssetManager.traits.add(Grade91);
 
@@ -372,7 +372,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery01.path_icon = "trait/sorcery01";
             sorcery01.needs_to_be_explored = false;
             sorcery01.group_id = "interesting4";
-            sorcery01.action_attack_target = new AttackAction((traitAction.attack_sorcery01));
+            sorcery01.action_attack_target += new AttackAction((traitAction.attack_sorcery01));
             AssetManager.traits.add(sorcery01);
 
             ActorTrait sorcery02 = new ActorTrait();
@@ -380,7 +380,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery02.path_icon = "trait/sorcery02";
             sorcery02.needs_to_be_explored = false;
             sorcery02.group_id = "interesting4";
-            sorcery02.action_attack_target = new AttackAction((traitAction.attack_sorcery02));
+            sorcery02.action_attack_target += new AttackAction((traitAction.attack_sorcery02));
             AssetManager.traits.add(sorcery02);
 
             ActorTrait sorcery03 = new ActorTrait();
@@ -388,7 +388,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery03.path_icon = "trait/sorcery03";
             sorcery03.needs_to_be_explored = false;
             sorcery03.group_id = "interesting4";
-            sorcery03.action_attack_target = new AttackAction((traitAction.attack_sorcery03));
+            sorcery03.action_attack_target += new AttackAction((traitAction.attack_sorcery03));
             AssetManager.traits.add(sorcery03);
 
             ActorTrait sorcery04 = new ActorTrait();
@@ -397,7 +397,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery04.needs_to_be_explored = false;
             sorcery04.group_id = "interesting4";
             sorcery04.base_stats[S.health] = 100f;
-            sorcery04.action_special_effect = (WorldAction)Delegate.Combine(sorcery04.action_special_effect,
+            sorcery04.action_special_effect += (WorldAction)Delegate.Combine(sorcery04.action_special_effect,
                 new WorldAction(traitAction.sorcery04_Regen)); //再生效果
             AssetManager.traits.add(sorcery04);
 
@@ -406,7 +406,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery05.path_icon = "trait/sorcery05";
             sorcery05.needs_to_be_explored = false;
             sorcery05.group_id = "interesting4";
-            sorcery05.action_attack_target = new AttackAction((traitAction.attack_sorcery05));
+            sorcery05.action_attack_target += new AttackAction((traitAction.attack_sorcery05));
             AssetManager.traits.add(sorcery05);
 
             ActorTrait sorcery06 = new ActorTrait();
@@ -414,7 +414,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery06.path_icon = "trait/sorcery06";
             sorcery06.needs_to_be_explored = false;
             sorcery06.group_id = "interesting4";
-            sorcery06.action_attack_target = new AttackAction((traitAction.attack_sorcery06));
+            sorcery06.action_attack_target += new AttackAction((traitAction.attack_sorcery06));
             AssetManager.traits.add(sorcery06);
 
             ActorTrait sorcery11 = new ActorTrait();
@@ -422,7 +422,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery11.path_icon = "trait/sorcery11";
             sorcery11.needs_to_be_explored = false;
             sorcery11.group_id = "interesting4";
-            sorcery11.action_attack_target = new AttackAction((traitAction.attack_sorcery11));
+            sorcery11.action_attack_target += new AttackAction((traitAction.attack_sorcery11));
             AssetManager.traits.add(sorcery11);
 
             ActorTrait sorcery12 = new ActorTrait();
@@ -430,7 +430,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery12.path_icon = "trait/sorcery12";
             sorcery12.needs_to_be_explored = false;
             sorcery12.group_id = "interesting4";
-            sorcery12.action_attack_target = new AttackAction((traitAction.attack_sorcery12));
+            sorcery12.action_attack_target += new AttackAction((traitAction.attack_sorcery12));
             AssetManager.traits.add(sorcery12);
 
             ActorTrait sorcery13 = new ActorTrait();
@@ -438,7 +438,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery13.path_icon = "trait/sorcery13";
             sorcery13.needs_to_be_explored = false;
             sorcery13.group_id = "interesting4";
-            sorcery13.action_attack_target = new AttackAction((traitAction.attack_sorcery13));
+            sorcery13.action_attack_target += new AttackAction((traitAction.attack_sorcery13));
             AssetManager.traits.add(sorcery13);
             
             ActorTrait sorcery14 = new ActorTrait();
@@ -447,7 +447,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery14.needs_to_be_explored = false;
             sorcery14.group_id = "interesting4";
             sorcery14.base_stats[S.health] = 250f;
-            sorcery14.action_special_effect = (WorldAction)Delegate.Combine(sorcery14.action_special_effect,
+            sorcery14.action_special_effect += (WorldAction)Delegate.Combine(sorcery14.action_special_effect,
                 new WorldAction(traitAction.sorcery14_Regen)); //再生效果
             AssetManager.traits.add(sorcery14);
 
@@ -456,7 +456,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery15.path_icon = "trait/sorcery15";
             sorcery15.needs_to_be_explored = false;
             sorcery15.group_id = "interesting4";
-            sorcery15.action_attack_target = new AttackAction((traitAction.attack_sorcery15));
+            sorcery15.action_attack_target += new AttackAction((traitAction.attack_sorcery15));
             AssetManager.traits.add(sorcery15);
 
             ActorTrait sorcery16 = new ActorTrait();
@@ -464,7 +464,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery16.path_icon = "trait/sorcery16";
             sorcery16.needs_to_be_explored = false;
             sorcery16.group_id = "interesting4";
-            sorcery16.action_attack_target = new AttackAction((traitAction.attack_sorcery16));
+            sorcery16.action_attack_target += new AttackAction((traitAction.attack_sorcery16));
             AssetManager.traits.add(sorcery16);
 
             ActorTrait sorcery22 = new ActorTrait();
@@ -472,7 +472,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery22.path_icon = "trait/sorcery22";
             sorcery22.needs_to_be_explored = false;
             sorcery22.group_id = "interesting4";
-            sorcery22.action_attack_target = new AttackAction((traitAction.attack_sorcery22));
+            sorcery22.action_attack_target += new AttackAction((traitAction.attack_sorcery22));
             AssetManager.traits.add(sorcery22);
             
             ActorTrait sorcery23 = new ActorTrait();
@@ -480,7 +480,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery23.path_icon = "trait/sorcery23";
             sorcery23.needs_to_be_explored = false;
             sorcery23.group_id = "interesting4";
-            sorcery23.action_attack_target = new AttackAction((traitAction.attack_sorcery23));
+            sorcery23.action_attack_target += new AttackAction((traitAction.attack_sorcery23));
             AssetManager.traits.add(sorcery23);
 
             ActorTrait sorcery24 = new ActorTrait();
@@ -488,7 +488,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery24.path_icon = "trait/sorcery24";
             sorcery24.needs_to_be_explored = false;
             sorcery24.group_id = "interesting4";
-            sorcery24.action_attack_target = new AttackAction((traitAction.attack_sorcery24));
+            sorcery24.action_attack_target += new AttackAction((traitAction.attack_sorcery24));
             AssetManager.traits.add(sorcery24);
 
             ActorTrait sorcery25 = new ActorTrait();
@@ -497,7 +497,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery25.needs_to_be_explored = false;
             sorcery25.group_id = "interesting4";
             sorcery25.base_stats[S.health] = 2000f;
-            sorcery25.action_special_effect = (WorldAction)Delegate.Combine(sorcery25.action_special_effect,
+            sorcery25.action_special_effect += (WorldAction)Delegate.Combine(sorcery25.action_special_effect,
                 new WorldAction(traitAction.sorcery25_Regen)); //再生效果
             AssetManager.traits.add(sorcery25);
 
@@ -506,7 +506,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery26.path_icon = "trait/sorcery26";
             sorcery26.needs_to_be_explored = false;
             sorcery26.group_id = "interesting4";
-            sorcery26.action_attack_target = new AttackAction((traitAction.attack_sorcery26));
+            sorcery26.action_attack_target += new AttackAction((traitAction.attack_sorcery26));
             AssetManager.traits.add(sorcery26);
 
             ActorTrait sorcery31 = new ActorTrait();
@@ -516,8 +516,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery31.group_id = "interesting4";
             sorcery31.base_stats[S.damage] = 100f;
             sorcery31.base_stats[S.scale] = -0.05f;//巫师贴图过大，缩小一下
-            sorcery31.action_attack_target = new AttackAction((traitAction.attack_sorcery31));
-            sorcery31.action_attack_target = (AttackAction)Delegate.Combine(sorcery31.action_attack_target,
+            sorcery31.action_attack_target += new AttackAction((traitAction.attack_sorcery31));
+            sorcery31.action_attack_target += (AttackAction)Delegate.Combine(sorcery31.action_attack_target,
                 new AttackAction(traitAction.sorcery31_Attack)); //三环•斥力场攻击效果
             AssetManager.traits.add(sorcery31);
 
@@ -528,8 +528,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery32.group_id = "interesting4";
             sorcery32.base_stats[S.damage] = 100f;
             sorcery32.base_stats[S.scale] = -0.05f;
-            sorcery32.action_attack_target = new AttackAction((traitAction.attack_sorcery32));
-            sorcery32.action_attack_target = (AttackAction)Delegate.Combine(sorcery32.action_attack_target,
+            sorcery32.action_attack_target += new AttackAction((traitAction.attack_sorcery32));
+            sorcery32.action_attack_target += (AttackAction)Delegate.Combine(sorcery32.action_attack_target,
                 new AttackAction(traitAction.sorcery32_Attack));
             AssetManager.traits.add(sorcery32);
 
@@ -540,8 +540,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery33.group_id = "interesting4";
             sorcery33.base_stats[S.damage] = 100f;
             sorcery33.base_stats[S.scale] = -0.05f;
-            sorcery33.action_attack_target = new AttackAction((traitAction.attack_sorcery33));
-            sorcery33.action_attack_target = (AttackAction)Delegate.Combine(sorcery33.action_attack_target,
+            sorcery33.action_attack_target += new AttackAction((traitAction.attack_sorcery33));
+            sorcery33.action_attack_target += (AttackAction)Delegate.Combine(sorcery33.action_attack_target,
                 new AttackAction(traitAction.sorcery33_Attack));
             AssetManager.traits.add(sorcery33);
 
@@ -561,7 +561,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery35.group_id = "interesting4";
             sorcery35.base_stats[S.damage] = 100f;
             sorcery35.base_stats[S.scale] = -0.03f;
-            sorcery35.action_attack_target = (AttackAction)Delegate.Combine(sorcery35.action_attack_target,
+            sorcery35.action_attack_target += (AttackAction)Delegate.Combine(sorcery35.action_attack_target,
                 new AttackAction(traitAction.sorcery35_Attack));
             AssetManager.traits.add(sorcery35);
         }
@@ -576,7 +576,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             flair.group_id = "interesting3";
             flair.base_stats["xiaohao"] = base_stat_value;
             flair.opposite = opposite_stats_value;
-            flair.action_special_effect = traitAction.Grade0_effectAction; //学徒•初识的升级条件
+            flair.action_special_effect += traitAction.Grade0_effectAction; //学徒•初识的升级条件
             AssetManager.traits.add(flair);
         }
     }

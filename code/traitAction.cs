@@ -1435,8 +1435,9 @@ namespace VideoCopilot.code
             {
                 return false;
             }
-
-            if (!a.hasTrait("flair8") && !a.hasTrait("flair91"))
+            // 检查名字中是否已包含“大巫师”
+            string actorName = a.getName();
+            if (!actorName.Contains("大巫师") && !a.hasTrait("flair8") && !a.hasTrait("flair91"))
             {
                 a.data.setName(pTarget.a.getName()+" 大巫师");
             }

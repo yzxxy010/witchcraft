@@ -1,12 +1,17 @@
-0.2.7更新:
-添加始祖贴图，添加始祖之灵（复活100次）
-正式巫师随机10+巫师贴图,高级巫师随机20+巫师贴图
-二环大地壁垒状态添加岩石巨人动画（从吃鱼作者奇幻里要的，已同意）
-不灭灵魂+20智力，复活次数削弱至15，二环血液汲取由325下调为150，二环星之致幻加强（添加削弱敌人指挥值50用来对付骑士）
-始祖攻击改为陨石
-升大巫师获得防火防冻改为从正式开始就获得
-加强不灭灵魂与真灵前期苟活能力，不灭灵魂回血300、真灵1000
-升大巫师后，名字后加个大巫师，升不灭时大巫师会改为不灭，升始祖时不灭会改为始祖，不灭开始自动收藏
+0.2.8更新:
+        添加新特质"安享晚年":天赋不再消耗源力
+        超限制寿命后每年20%概率获得安享晚年，极大程度上平衡了四族的巫师境界上限
+        学徒•皆为68年龄
+        正式巫师•塑造 88年龄
+        正式巫师•元素 93年龄
+        正式巫师•冥想 98年龄
+        高级巫师•黎明 158年龄
+        高级巫师•扩展 173年龄
+        高级巫师•巅峰 188年龄
+        大巫师•铭刻 238年龄
+        大巫师•巅峰 288年龄
+        大巫师•不死 398年龄
+
 
 主要内容：
     在生物属性下方添加：
@@ -24,15 +29,19 @@
     有巫师天赋的小人在魔法之地上会获得"元素共呜"状态，每年源能+0.5
     "禁巫之族"可用来给不想让其出现巫术天赋的种族用，100%遗传
 
-    0.2.7 Update:
-    Added Ancestor sprites and Ancestor Spirit (Revive 100 times)
-    Official Wizards now randomly receive 10+ Wizard sprites, and Advanced Wizards randomly receive 20+ Wizard sprites
-    Added Rock Giant animation to the Second Ring Earth Barrier status (requested from the author of "Eating Fish Fantasy", permission granted)
-    Eternal Soul now grants +20 Intelligence, revive count reduced to 15, Second Ring Blood Drain reduced from 325 to 150, and Second Ring Star Hallucination enhanced (added ability to reduce enemy Command Value by 50 to counter Knights)
-    Ancestor's attack changed to Meteor
-    Fire and Frost Resistance acquired upon promotion to Great Wizard is now granted from the beginning of the game
-    Enhanced the early-game survival abilities of Eternal Soul and True Spirit, with Eternal Soul restoring 300 HP and True Spirit restoring 1000 HP
-    Upon promotion to Great Wizard, "Great Wizard" is added to the name. When promoted to Eternal Soul, "Great Wizard" is changed to "Eternal Soul". When promoted to Ancestor, "Eternal Soul" is changed to "Ancestor". Eternal Soul begins automatic collection
+    Update 0.2.8:
+            Added new trait "Enjoying Late Years": Talent no longer consumes source power.
+            After exceeding the life limit, there is a 20% chance of obtaining "Enjoying Late Years" each year, greatly balancing the upper limits of wizard realms among the four races.
+            Apprentice • All are 68 years old.
+            Formal Wizard • Shaping: 88 years old.
+            Formal Wizard • Elemental: 93 years old.
+            Formal Wizard • Meditation: 98 years old.
+            Senior Wizard • Dawn: 158 years old.
+            Senior Wizard • Expansion: 173 years old.
+            Senior Wizard • Peak: 188 years old.
+            Great Wizard • Inscription: 238 years old.
+            Great Wizard • Peak: 288 years old.
+            Great Wizard • Immortal: 398 years old.
 
 Add under creature attributes:
     ①"World Origin Power (Global)" currently starts at 10000 and increases by 2000 annually. If it is lower than the initial value, it will no longer increase the wizard's origin power.

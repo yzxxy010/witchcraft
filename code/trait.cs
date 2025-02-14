@@ -38,6 +38,13 @@ namespace VideoCopilot.code
 new WorldAction(traitAction.flair8_Regen)); //再生效果
             AssetManager.traits.add(flair8);
 
+            ActorTrait flair81 = new ActorTrait();
+            flair81.id = "flair81";//禁巫
+            flair81.path_icon = "trait/flair81";
+            flair81.needs_to_be_explored = false;
+            flair81.group_id = "interesting3";
+            AssetManager.traits.add(flair81);
+
             ActorTrait flair9 = new ActorTrait();
             flair9.id = "flair9";//禁巫之族
             flair9.inherit = 100f;
@@ -66,6 +73,7 @@ new WorldAction(traitAction.flair91_Regen)); //再生效果
             Grade0.path_icon = "trait/Grade0";
             Grade0.needs_to_be_explored = false;
             Grade0.group_id = "interesting2";
+            Grade0.base_stats[S.max_age] = 10f;//寿命+10
             Grade0.base_stats[S.damage] = 20f;//伤害+20
             Grade0.base_stats[S.health] = 200f;//生命+40
             Grade0.base_stats[S.intelligence] = 1f;//智力+1
@@ -78,6 +86,7 @@ new WorldAction(traitAction.flair91_Regen)); //再生效果
             Grade01.path_icon = "trait/Grade01";
             Grade01.needs_to_be_explored = false;
             Grade01.group_id = "interesting2";
+            Grade01.base_stats[S.max_age] = 20f;//寿命+20
             Grade01.base_stats[S.damage] = 40f;//伤害+40
             Grade01.base_stats[S.health] = 400f;//生命+400
             Grade01.base_stats[S.armor] = 10f;
@@ -92,6 +101,7 @@ new WorldAction(traitAction.flair91_Regen)); //再生效果
             Grade02.path_icon = "trait/Grade02";
             Grade02.needs_to_be_explored = false;
             Grade02.group_id = "interesting2";
+            Grade02.base_stats[S.max_age] = 30f;//寿命+30
             Grade02.base_stats[S.damage] = 100f;
             Grade02.base_stats[S.health] = 1000f;
             Grade02.base_stats[S.armor] = 15f;
@@ -111,7 +121,7 @@ new WorldAction(traitAction.Grade02_Regen)); //学徒•精通的再生效果
             Grade1.path_icon = "trait/Grade1";
             Grade1.needs_to_be_explored = false;
             Grade1.group_id = "interesting2";
-            Grade1.base_stats[S.max_age] = 20f;//寿命+20
+            Grade1.base_stats[S.max_age] = 70f;//寿命+20
             Grade1.base_stats[S.damage] = 300f;//
             Grade1.base_stats[S.health] = 3000f;
             Grade1.base_stats[S.armor] = 20f;
@@ -132,7 +142,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade2.path_icon = "trait/Grade2";
             Grade2.needs_to_be_explored = false;
             Grade2.group_id = "interesting2";
-            Grade2.base_stats[S.max_age] = 25f;
+            Grade2.base_stats[S.max_age] = 80f;
             Grade2.base_stats[S.damage] = 600f;
             Grade2.base_stats[S.health] = 6000f;
             Grade2.base_stats[S.armor] = 20f;
@@ -153,7 +163,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade3.path_icon = "trait/Grade3";
             Grade3.needs_to_be_explored = false;
             Grade3.group_id = "interesting2";
-            Grade3.base_stats[S.max_age] = 30f;
+            Grade3.base_stats[S.max_age] = 90f;
             Grade3.base_stats[S.damage] = 1200f;
             Grade3.base_stats[S.health] = 12000f;
             Grade3.base_stats[S.armor] = 30f;
@@ -176,7 +186,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade4.path_icon = "trait/Grade4";
             Grade4.needs_to_be_explored = false;
             Grade4.group_id = "interesting2";
-            Grade4.base_stats[S.max_age] = 90f;
+            Grade4.base_stats[S.max_age] = 140f;
             Grade4.base_stats[S.damage] = 3000f;
             Grade4.base_stats[S.health] = 30000f;
             Grade4.base_stats[S.armor] = 40f;
@@ -202,7 +212,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade5.path_icon = "trait/Grade5";
             Grade5.needs_to_be_explored = false;
             Grade5.group_id = "interesting2";
-            Grade5.base_stats[S.max_age] = 105f;
+            Grade5.base_stats[S.max_age] = 155f;
             Grade5.base_stats[S.damage] = 6000f;
             Grade5.base_stats[S.health] = 60000f;
             Grade5.base_stats[S.armor] = 40f;
@@ -228,7 +238,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade6.path_icon = "trait/Grade6";
             Grade6.needs_to_be_explored = false;
             Grade6.group_id = "interesting2";
-            Grade6.base_stats[S.max_age] = 120f;
+            Grade6.base_stats[S.max_age] = 170f;
             Grade6.base_stats[S.damage] = 12000f;
             Grade6.base_stats[S.health] = 120000f;
             Grade6.base_stats[S.armor] = 50f;
@@ -255,7 +265,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade7.path_icon = "trait/Grade7";
             Grade7.needs_to_be_explored = false;
             Grade7.group_id = "interesting2";
-            Grade7.base_stats[S.max_age] = 170f;
+            Grade7.base_stats[S.max_age] = 220f;
             Grade7.base_stats[S.damage] = 30000f;
             Grade7.base_stats[S.health] = 300000f;
             Grade7.base_stats[S.intelligence] = 250f;
@@ -284,7 +294,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade8.path_icon = "trait/Grade8";
             Grade8.needs_to_be_explored = false;
             Grade8.group_id = "interesting2";
-            Grade8.base_stats[S.max_age] = 220f;
+            Grade8.base_stats[S.max_age] = 270f;
             Grade8.base_stats[S.damage] = 60000f;
             Grade8.base_stats[S.health] = 600000f;
             Grade8.base_stats[S.intelligence] = 350f;
@@ -313,7 +323,7 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade9.path_icon = "trait/Grade9";
             Grade9.needs_to_be_explored = false;
             Grade9.group_id = "interesting2";
-            Grade9.base_stats[S.max_age] = 330f;
+            Grade9.base_stats[S.max_age] = 380f;
             Grade9.base_stats[S.damage] = 120000f;
             Grade9.base_stats[S.health] = 1200000f;
             Grade9.base_stats[S.armor] = 100f;
@@ -358,7 +368,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade91.base_stats[S.knockback] = 10f;//击退
             Grade91.base_stats[S.warfare] = 15f;//指挥
             Grade91.base_stats[S.stewardship] = 30f;//组织
-            Grade91.base_stats["xiaohao"] = -10f;
+            Grade91.base_stats["xiaohao"] = -30f;
+            Grade91.base_stats[S.scale] = -0.02f;
             Grade91.action_attack_target += traitAction.intelligence_attack_Grade91;//法伤
             Grade91.action_attack_target += new AttackAction((traitAction.attack_Grade91));//随机三环巫术
             Grade91.action_special_effect += new WorldAction((traitAction.hunger_Grade91));//不会饥饿

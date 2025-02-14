@@ -128,9 +128,17 @@ internal class patch
             return;
         }
 
+        float age = (float)actor.getAge(); 
+        bool hasFlair81 = actor.hasTrait("flair81");
+
         if (!Globals.Actors.ContainsKey(actor.data.id))
         {
             Globals.Actors.Add(actor.data.id, actor);
+        }
+        // 检查 flair81和flair9 特质，如果存在则不执行后续操作，也就是不消耗
+        if (actor.hasTrait("flair81") || actor.hasTrait("flair9"))
+        {
+            return;
         }
 
         if (Globals.Tsotw >= actor.stats["xiaohao"])
@@ -138,11 +146,48 @@ internal class patch
             Globals.Tsotw += actor.stats["xiaohao"];
             actor.ChangeYuanNeng(-actor.stats["xiaohao"]);
         }
+        // 特质的年龄阈值
+        var traitThresholds = new Dictionary<string, float >
+        {
+            { "Grade0", 68f },
+            { "Grade01", 68f },
+            { "Grade02", 68f },
+            { "Grade1", 88f },
+            { "Grade2", 93f },
+            { "Grade3", 98f },
+            { "Grade4", 158f },
+            { "Grade5", 173f },
+            { "Grade6", 188f },
+            { "Grade7", 238f },
+            { "Grade8", 288f },
+            { "Grade9", 398f }
+        };
+        const float flair81Probability = 0.2f;//获得"flair81"概率
+        bool hasGradeTrait = false;// 检查演员是否具有"Grade0"到"Grade9"之间的任一特质
+        foreach (var grade in traitThresholds.Keys)
+        {
+            if (actor.hasTrait(grade))
+            {
+                hasGradeTrait = true;
+                break;
+            }
+        }
+        if (!hasGradeTrait)
+        {
+            return;
+        }
+        foreach (var (grade, ageThreshold) in traitThresholds)
+        {
+            if (actor.hasTrait(grade) && age > ageThreshold && Toolbox.randomChance(flair81Probability))
+            {
+                __instance.addTrait("flair81", false);
+                break;
+            }
+        }
 
         UpdateYuannengBasedOnGrade(__instance, "Grade02", 18.0f);
         UpdateYuannengBasedOnGrade(__instance, "Grade3", 72.0f);
         UpdateYuannengBasedOnGrade(__instance, "Grade6", 288.0f);
-        UpdateYuannengBasedOnGrade(__instance, "flair9", 0f);
     }
 
     private static void UpdateYuannengBasedOnGrade(Actor actor, string traitName, float maxYuanneng)
@@ -316,7 +361,7 @@ internal class patch
         {
 
 
-                // 自定义逻辑：显示停留时间为30秒的提示信息
+                // 自定义逻辑：显示停留时间为15秒的提示信息
                 string text = LocalizedTextManager.getText(pText, null);
                 if (Config.whisperA != null)
                 {
@@ -326,7 +371,7 @@ internal class patch
                 {
                     text = text.Replace("$kingdom_B$", Config.whisperB.name);
                 }
-                WorldTip.showNow(text, false, "top", 30f);
+                WorldTip.showNow(text, false, "top", 15f);
 
 
             // 如果不需要跳过原方法，则返回true

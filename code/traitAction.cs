@@ -1893,23 +1893,28 @@ namespace VideoCopilot.code
         {
             if (pTarget.a != null)
             {
-                if (!actorTipsShown.ContainsKey(pTarget.a))
+                string actorName = pTarget.a.getName();
+                if (!actorName.Contains("2S"))
                 {
-                    actorTipsShown[pTarget.a] = (false, false); // 初始化状态
-                }
+                    if (!actorTipsShown.ContainsKey(pTarget.a))
+                    {
+                        actorTipsShown[pTarget.a] = (false, false); // 初始化状态
+                    }
 
-                var tipsShown = actorTipsShown[pTarget.a];
-                if (!tipsShown.hasShownSSTip)
-                {
-                    pTarget.a.data.favorite = true;
-                    pTarget.a.addTrait("Grade01");
-                    string modFolderPath = @"D:\Mods\witchcraft\code\Sound";
-                    string fileName = "S+Sound.wav";
-                    string filePath = Path.Combine(modFolderPath, fileName);
-                    PlayWavDirectly.Instance.PlaySoundFromFile  (filePath);
-                    ActionLibrary.showWhisperTip("叮,SS出世");
-                    pTarget.a.data.setName(pTarget.a.getName() + " 2S");
-                    actorTipsShown[pTarget.a] = (true, tipsShown.hasShownSSSTip); // 更新状态
+                    var tipsShown = actorTipsShown[pTarget.a];
+                    if (!tipsShown.hasShownSSTip)
+                    {
+                        pTarget.a.data.favorite = true;
+                        pTarget.a.addTrait("Grade01");
+                        string modFolderPath = @"D:\Mods\witchcraft\code\Sound";
+                        string fileName = "S+Sound.wav";
+                        string filePath = Path.Combine(modFolderPath, fileName);
+                        PlayWavDirectly.Instance.PlaySoundFromFile  (filePath);
+                        ActionLibrary.showWhisperTip("叮,SS出世");
+                        pTarget.a.data.setName(pTarget.a.getName() + " 2S");
+                        actorTipsShown[pTarget.a] = (true, tipsShown.hasShownSSSTip); // 更新状态
+                    }
+                    return false;
                 }
             }
             return true;
@@ -1918,24 +1923,29 @@ namespace VideoCopilot.code
         {
             if (pTarget.a != null)
             {
-                if (!actorTipsShown.ContainsKey(pTarget.a))
+                string actorName = pTarget.a.getName();
+                if (!actorName.Contains("3S"))
                 {
-                    actorTipsShown[pTarget.a] = (false, false); // 初始化状态
-                }
+                    if (!actorTipsShown.ContainsKey(pTarget.a))
+                    {
+                        actorTipsShown[pTarget.a] = (false, false); // 初始化状态
+                    }
 
-                var tipsShown = actorTipsShown[pTarget.a];
-                if (!tipsShown.hasShownSSSTip)
-                {
-                    pTarget.a.data.favorite = true;
-                    pTarget.a.addTrait("Grade02");
-                    string modFolderPath = @"D:\Mods\witchcraft\code\Sound";
-                    string fileName = "S+Sound.wav";
-                    string filePath = Path.Combine(modFolderPath, fileName);
-                    PlayWavDirectly.Instance.PlaySoundFromFile  (filePath);
-                    ActionLibrary.showWhisperTip("叮,SSS出世");
-                    pTarget.a.data.setName(pTarget.a.getName() + " 3S");
-                    actorTipsShown[pTarget.a] = (tipsShown.hasShownSSTip, true); // 更新状态
-                    return true;
+                    var tipsShown = actorTipsShown[pTarget.a];
+                    if (!tipsShown.hasShownSSSTip)
+                    {
+                        pTarget.a.data.favorite = true;
+                        pTarget.a.addTrait("Grade02");
+                        string modFolderPath = @"D:\Mods\witchcraft\code\Sound";
+                        string fileName = "S+Sound.wav";
+                        string filePath = Path.Combine(modFolderPath, fileName);
+                        PlayWavDirectly.Instance.PlaySoundFromFile  (filePath);
+                        ActionLibrary.showWhisperTip("叮,SSS出世");
+                        pTarget.a.data.setName(pTarget.a.getName() + " 3S");
+                        actorTipsShown[pTarget.a] = (tipsShown.hasShownSSTip, true); // 更新状态
+                        return true;
+                    }
+                    return false;
                 }
             }
             return false;

@@ -6,6 +6,22 @@ public static class ActorExtensions
 {
     private const string yuanneng_key = "wushu.yuannengNum";
     private const string benyuan_key  = "wushu.benyuanNum";
+    private const string meditation_key = "wushu.meditationNum";
+    public static float GetMeditation(this Actor actor)
+    {
+        actor.data.get(meditation_key, out float val, 0);
+        return val;
+    }
+    public static void SetMeditation(this Actor actor, float val)
+    {
+        actor.data.set(meditation_key, val);
+    }
+    public static void ChangeMeditation(this Actor actor, float delta)
+    {
+        actor.data.get(meditation_key, out float val, 0);
+        val += delta;
+        actor.data.set(meditation_key, val);
+    }
 
     public static float GetYuanNeng(this Actor actor)
     {

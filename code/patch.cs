@@ -37,10 +37,10 @@ internal class patch
 
     public static string[] traits =
     {
-        "extraordinary9",
-        "fountainhead1",
-        "fountainhead2",
-        "fountainhead3"
+        "Grade7",
+        "Grade8",
+        "Grade9",
+        "Grade91"
     };
 
     [HarmonyPostfix, HarmonyPatch(typeof(Actor), nameof(Actor.newKillAction))]
@@ -50,7 +50,7 @@ internal class patch
         {
             if (pDeadUnit.hasTrait(trait) && __instance.hasTrait(trait))
             {
-                __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
+                __instance.ChangeMeditation(pDeadUnit.GetMeditation() + 20);
             }
             else
             {
@@ -59,7 +59,7 @@ internal class patch
                 {
                     if (trait != otherTrait && pDeadUnit.hasTrait(trait) && __instance.hasTrait(otherTrait))
                     {
-                        __instance.ChangeBenYuan(pDeadUnit.GetBenYuan() + 1);
+                        __instance.ChangeMeditation(pDeadUnit.GetMeditation() + 20);
                     }
                 }
             }
@@ -75,27 +75,64 @@ internal class patch
         if (!displayAreaInitialization)
         {
             displayAreaInitialization = true;
-            var obj = new GameObject("YuanNnegShow", typeof(Text), typeof(ContentSizeFitter));
-            obj.transform.SetParent(__instance.transform.Find("Background"));
-            obj.transform.localScale = Vector3.one;
-            RectTransform rect = obj.GetComponent<RectTransform>();
+            var yuanNnegObj = new GameObject("YuanNnegShow", typeof(Text), typeof(ContentSizeFitter));
+            yuanNnegObj.transform.SetParent(__instance.transform.Find("Background"));
+            yuanNnegObj.transform.localScale = Vector3.one;
+            RectTransform yuanNnegRect = yuanNnegObj.GetComponent<RectTransform>();
+            yuanNnegRect.pivot = new Vector2(0f, 1f);
+            yuanNnegRect.anchorMin = new Vector2(0.5f, 1f);
+            yuanNnegRect.anchorMax = new Vector2(0.5f, 1f);
+            yuanNnegRect.localPosition = new Vector3(0, 155, 0);
+            yuanNnegRect.sizeDelta = new Vector2(800, 200);
+            yuanNnegObj.SetActive(false);
 
-            rect.pivot = new Vector2(0f, 1f);
-            rect.anchorMin = new Vector2(0.5f, 1f);
-            rect.anchorMax = new Vector2(0.5f, 1f);
-            rect.localPosition = new Vector3(0, 155, 0);
-            rect.sizeDelta = new Vector2(800, 200);
+            var meditationObj = new GameObject("MeditationShow", typeof(Text));
+            meditationObj.transform.SetParent(__instance.transform.Find("Background"));
+            meditationObj.transform.localScale = Vector3.one;
+            RectTransform meditationRect = meditationObj.GetComponent<RectTransform>();
+            meditationRect.pivot = new Vector2(0f, 0f); // 假设放在底部
+            meditationRect.anchorMin = new Vector2(0.5f, 0f);
+            meditationRect.anchorMax = new Vector2(0.5f, 0f);
+            meditationRect.localPosition = new Vector3(120, -200, 0); // 假设的位置，可能需要调整
+            meditationRect.sizeDelta = new Vector2(800, 50); // 假设的大小，可能需要根据字体大小调整
+            meditationObj.SetActive(false);
         }
 
         Transform ActorShowYuanNneg = __instance.transform.Find("Background/YuanNnegShow");
-        __instance.transform.Find("Background/Clickable obj").gameObject.SetActive(false);
         Text ActorShowYuanNnegText = ActorShowYuanNneg.GetComponent<Text>();
-        ActorShowYuanNnegText.text = LM.Get("yuanneng") + ":\t" + __instance.actor.GetYuanNeng();
-        ActorShowYuanNnegText.font = LocalizedTextManager.currentFont;
-        ActorShowYuanNnegText.alignment = TextAnchor.UpperLeft;
-        ActorShowYuanNnegText.raycastTarget = false;
+        ActorShowYuanNnegText.text = string.Empty;// 重置文本内容，确保不会显示旧数据
+        if (__instance.actor.GetYuanNeng() > 0f)
+        {
+            ActorShowYuanNneg.gameObject.SetActive(true); // 当值大于0时激活对象
+            ActorShowYuanNnegText.color = new Color(1f, 1f, 0f);
+            ActorShowYuanNnegText.text = LM.Get("yuanneng") + ":\t" + __instance.actor.GetYuanNeng();
+            ActorShowYuanNnegText.font = LocalizedTextManager.currentFont;
+            ActorShowYuanNnegText.alignment = TextAnchor.UpperLeft;
+            ActorShowYuanNnegText.raycastTarget = false;
+        }
+        else
+        {
+            ActorShowYuanNneg.gameObject.SetActive(false);
+        }
 
-
+        Transform ActormeditationTextTransform = __instance.transform.Find("Background/MeditationShow");
+        Text ActormeditationTextComponent = ActormeditationTextTransform.GetComponent<Text>();
+        ActormeditationTextComponent.text = string.Empty; // 重置文本内容，确保不会显示旧数据
+        if (__instance.actor.GetMeditation() > 0f)
+        {
+            ActormeditationTextTransform.gameObject.SetActive(true);
+            ActormeditationTextComponent.color = new Color(128f / 255f, 0f / 255f, 128f / 255f);
+            float ActormeditationValue = __instance.actor.GetMeditation(); // 假设Actor有GetMeditation方法
+            ActormeditationTextComponent.text = LM.Get("meditation") + ":\t" + __instance.actor.GetMeditation();
+            ActormeditationTextComponent.font = LocalizedTextManager.currentFont;
+            ActormeditationTextComponent.alignment = TextAnchor.UpperLeft;
+            ActormeditationTextComponent.raycastTarget = false;
+        }
+        else
+        {
+            ActormeditationTextTransform.gameObject.SetActive(false);
+        }
+        __instance.transform.Find("Background/Clickable obj").gameObject.SetActive(false);
         __instance.showStat("xiaohao", __instance.actor.stats["xiaohao"]);
     }
 
@@ -128,27 +165,63 @@ internal class patch
             return;
         }
 
-        float age = (float)actor.getAge(); 
-        bool hasFlair81 = actor.hasTrait("flair81");
+        float age = (float)actor.getAge();
 
-        if (!Globals.Actors.ContainsKey(actor.data.id))
-        {
-            Globals.Actors.Add(actor.data.id, actor);
-        }
-        // 检查 flair81和flair9 特质，如果存在则不执行后续操作，也就是不消耗
+        // 检查 flair81 和 flair9 特质，如果存在则不执行后续操作
         if (actor.hasTrait("flair81") || actor.hasTrait("flair9"))
         {
             return;
         }
 
-        if (Globals.Tsotw >= actor.stats["xiaohao"])
+        // 境界源能上限
+        var grades = new Dictionary<string, float>
         {
-            Globals.Tsotw += actor.stats["xiaohao"];
-            actor.ChangeYuanNeng(-actor.stats["xiaohao"]);
+            { "Grade02", 18.0f },
+            { "Grade3", 77.0f },
+            { "Grade6", 288.0f },
+            { "Grade7", 300.0f },
+            { "Grade8", 600.0f },
+            { "Grade9", 1200.0f },
+            { "Grade91", 3000.0f }
+        };
+        foreach (var grade in grades)
+        {
+            UpdateYuannengBasedOnGrade(actor, grade.Key, grade.Value);
         }
-        // 特质的年龄阈值
-        var traitThresholds = new Dictionary<string, float >
+
+        // 境界巫力上限（不受Grade7和Grade8限制的逻辑）
+        float maxMeditation = 0f;
+        if (actor.hasTrait("flair8"))
         {
+            maxMeditation = 1000.0f;
+        }
+        else if (actor.hasTrait("flair91"))
+        {
+            maxMeditation = 2000.0f;
+        }
+        else
+        {
+            var meditationLimits = new Dictionary<string, float>
+            {
+                { "Grade7", 160.0f },
+                { "Grade8", 360.0f }
+            };
+            foreach (var grade in meditationLimits)
+            {
+                if (actor.hasTrait(grade.Key))
+                {
+                    maxMeditation = grade.Value;
+                    break;
+                }
+            }
+        }
+        actor.SetMeditation(Mathf.Min(maxMeditation, actor.GetMeditation()));
+
+        // 到年龄后执行 flair81 的逻辑
+        var traitThresholds = new Dictionary<string, float>
+        {
+            { "flair6", 100f },
+            { "flair7", 70f },
             { "Grade0", 68f },
             { "Grade01", 68f },
             { "Grade02", 68f },
@@ -158,12 +231,12 @@ internal class patch
             { "Grade4", 158f },
             { "Grade5", 173f },
             { "Grade6", 188f },
-            { "Grade7", 238f },
-            { "Grade8", 288f },
-            { "Grade9", 398f }
+            { "Grade7", 288f },
+            { "Grade8", 388f },
+            { "Grade9", 500f }
         };
-        const float flair81Probability = 0.2f;//获得"flair81"概率
-        bool hasGradeTrait = false;// 检查演员是否具有"Grade0"到"Grade9"之间的任一特质
+        const float flair81Probability = 0.2f;
+        bool hasGradeTrait = false;
         foreach (var grade in traitThresholds.Keys)
         {
             if (actor.hasTrait(grade))
@@ -172,24 +245,79 @@ internal class patch
                 break;
             }
         }
-        if (!hasGradeTrait)
+        if (hasGradeTrait)
         {
-            return;
-        }
-        foreach (var (grade, ageThreshold) in traitThresholds)
-        {
-            if (actor.hasTrait(grade) && age > ageThreshold && Toolbox.randomChance(flair81Probability))
+            foreach (var (grade, ageThreshold) in traitThresholds)
             {
-                __instance.addTrait("flair81", false);
-                break;
+                if (actor.hasTrait(grade) && age > ageThreshold && Toolbox.randomChance(flair81Probability))
+                {
+                    actor.addTrait("flair81", false);
+                    break;
+                }
             }
         }
 
-        UpdateYuannengBasedOnGrade(__instance, "Grade02", 18.0f);
-        UpdateYuannengBasedOnGrade(__instance, "Grade3", 72.0f);
-        UpdateYuannengBasedOnGrade(__instance, "Grade6", 288.0f);
-    }
+        // 检查 xiaohao 值
+        if (Globals.Tsotw >= actor.stats["xiaohao"])
+        {
+            Globals.Tsotw += actor.stats["xiaohao"];
+            actor.ChangeYuanNeng(-actor.stats["xiaohao"]);
+        }
+        if (actor.hasTrait("flair8"))
+        {
+            actor.ChangeMeditation(1f);
+        }
+        else if (actor.hasTrait("flair91"))
+        {
+            actor.ChangeMeditation(2f);
+        }
+        // 检查 meditation1 到 meditation3 特质
+        if (actor.hasTrait("meditation1") || actor.hasTrait("meditation2") || actor.hasTrait("meditation3"))
+        {
+            float randomMeditationChange = UnityEngine.Random.Range(1f, 5f); // 随机值为1到5
+            actor.ChangeMeditation(randomMeditationChange);
+        }
 
+        // 检查 flair1 到 flair7 特质，并设置随机的 ["xiaohao"] 值
+        if (SetRandomXiaohaoBasedOnFlair(actor))
+        {
+            if (Globals.Tsotw >= actor.stats["xiaohao"])
+            {
+                Globals.Tsotw += actor.stats["xiaohao"];
+                actor.ChangeYuanNeng(-actor.stats["xiaohao"]);
+            }
+        }
+        else
+        {
+            return; // 如果没有 flair1 到 flair7 特质，则不执行后续与 ["xiaohao"] 相关的操作
+        }
+    }
+    private static bool SetRandomXiaohaoBasedOnFlair(Actor actor)
+    {
+        // 定义flair特质对应的["xiaohao"]随机范围
+        var flairXiaohaoRanges = new Dictionary<string, (float min, float max)>
+        {
+            { "flair1", (-0.2f, -0.4f) },
+            { "flair2", (-0.5f, -0.7f) },
+            { "flair3", (-0.8f, -1.0f) },
+            { "flair4", (-1.1f, -1.3f) },
+            { "flair5", (-1.4f, -1.6f) },
+            { "flair6", (-1.8f, -3.5f) }, 
+            { "flair7", (-3.8f, -5.5f) }
+        };
+        // 遍历flair特质，检查演员是否拥有，并设置随机的["xiaohao"]值
+        foreach (var (flair, (min, max)) in flairXiaohaoRanges)
+        {
+            if (actor.hasTrait(flair))
+            {
+                float randomXiaohao = UnityEngine.Random.Range(min, max);
+                actor.stats["xiaohao"] = randomXiaohao;
+                return true; // 设置成功，返回true
+            }
+        }
+        // 如果没有找到匹配的flair特质，则返回false
+        return false;
+    }
     private static void UpdateYuannengBasedOnGrade(Actor actor, string traitName, float maxYuanneng)
     {
         if (actor.hasTrait(traitName))
@@ -357,25 +485,24 @@ internal class patch
         }
     }
     [HarmonyPrefix, HarmonyPatch(typeof(ActionLibrary), "showWhisperTip")]
-        public static bool Prefix(string pText)
-        {
+    public static bool Prefix(string pText)
+    {
 
 
-                // 自定义逻辑：显示停留时间为15秒的提示信息
-                string text = LocalizedTextManager.getText(pText, null);
-                if (Config.whisperA != null)
-                {
-                    text = text.Replace("$kingdom_A$", Config.whisperA.name);
-                }
-                if (Config.whisperB != null)
-                {
-                    text = text.Replace("$kingdom_B$", Config.whisperB.name);
-                }
-                WorldTip.showNow(text, false, "top", 15f);
+        // 自定义逻辑：显示停留时间为x秒的提示信息
+        string text = LocalizedTextManager.getText(pText, null);
+            if (Config.whisperA != null)
+            {
+                text = text.Replace("$kingdom_A$", Config.whisperA.name);
+            }
+            if (Config.whisperB != null)
+            {
+                text = text.Replace("$kingdom_B$", Config.whisperB.name);
+            }
+            WorldTip.showNow(text, false, "top", 6f);
 
 
-            // 如果不需要跳过原方法，则返回true
-            return false;
-        }
-    
+        // 如果不需要跳过原方法，则返回true
+        return false;
+    }
 }

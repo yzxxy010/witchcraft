@@ -124,9 +124,20 @@ public class AttackPrefab : MonoBehaviour
         Text textComponent = textObject.AddComponent<Text>();
 
         // 设置文本属性
-        textComponent.text = $"<color=#FF9B1C>{LM.Get("name_xy")}:</color>\t{actor.getName()}\n" +
-                             $"<color=#FF9B1C>{LM.Get("age_xy")}:</color>\t{actor.getAge()}\n" +
-                             $"<color=#FF9B1C>{LM.Get("yuanneng")}:</color>\t{(int)actor.GetYuanNeng()}";
+        string textContent = $"<color=#FF9B1C>{LM.Get("name_xy")}:</color>\t{actor.getName()}\n" +
+                             $"<color=#FF9B1C>{LM.Get("age_xy")}:</color>\t{actor.getAge()}\n";
+        if (actor.GetMeditation() <= 0)
+        {
+            if (actor.GetYuanNeng() > 0)
+            {
+                textContent += $"<color=#FFFF00>{LM.Get("yuanneng")}:</color>\t{(int)actor.GetYuanNeng()}\n";
+            }
+        }
+        if (actor.GetMeditation() > 0)
+        {
+            textContent += $"<color=#9932CC>{LM.Get("meditation")}:</color>\t{(int)actor.GetMeditation()}";
+        }
+        textComponent.text = textContent;
         textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
         textComponent.fontSize = 6;
         textComponent.alignment = TextAnchor.MiddleLeft;

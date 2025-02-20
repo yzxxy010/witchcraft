@@ -1,17 +1,7 @@
-0.2.8更新:
-        添加新特质"安享晚年":天赋不再消耗源力
-        超限制寿命后每年20%概率获得安享晚年，极大程度上平衡了四族的巫师境界上限
-        学徒•皆为68年龄
-        正式巫师•塑造 88年龄
-        正式巫师•元素 93年龄
-        正式巫师•冥想 98年龄
-        高级巫师•黎明 158年龄
-        高级巫师•扩展 173年龄
-        高级巫师•巅峰 188年龄
-        大巫师•铭刻 238年龄
-        大巫师•巅峰 288年龄
-        大巫师•不死 398年龄
-
+0.2.9更新:
+        1.D到S随机消耗源力，SS和SSS可自然诞生
+        2.新增冥想法与冥想法的巫力
+        3.调整了升级难度与所需
 
 主要内容：
     在生物属性下方添加：
@@ -29,19 +19,12 @@
     有巫师天赋的小人在魔法之地上会获得"元素共呜"状态，每年源能+0.5
     "禁巫之族"可用来给不想让其出现巫术天赋的种族用，100%遗传
 
-    Update 0.2.8:
-            Added new trait "Enjoying Late Years": Talent no longer consumes source power.
-            After exceeding the life limit, there is a 20% chance of obtaining "Enjoying Late Years" each year, greatly balancing the upper limits of wizard realms among the four races.
-            Apprentice • All are 68 years old.
-            Formal Wizard • Shaping: 88 years old.
-            Formal Wizard • Elemental: 93 years old.
-            Formal Wizard • Meditation: 98 years old.
-            Senior Wizard • Dawn: 158 years old.
-            Senior Wizard • Expansion: 173 years old.
-            Senior Wizard • Peak: 188 years old.
-            Great Wizard • Inscription: 238 years old.
-            Great Wizard • Peak: 288 years old.
-            Great Wizard • Immortal: 398 years old.
+    Update 0.2.9:
+            1.Random source power consumption from D to S, SS and SSS can be naturally born.
+
+            2.Added meditation methods and meditation power.
+
+            3.Adjusted the difficulty and requirements for leveling up.
 
 Add under creature attributes:
     ①"World Origin Power (Global)" currently starts at 10000 and increases by 2000 annually. If it is lower than the initial value, it will no longer increase the wizard's origin power.

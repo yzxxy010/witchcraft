@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using ai;
 using ReflectionUtility;
 using UnityEngine;
 using VideoCopilot.code.utils;
+using System.IO;
 
 namespace VideoCopilot.code
 {
@@ -571,13 +573,12 @@ namespace VideoCopilot.code
         }
 
         //以下为境界带的再生
-        public static bool Grade02_Regen(BaseSimObject pTarget, WorldTile pTile = null)
+        public static bool Grade0_Regen(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget.a.hasTrait("infected"))
             {
                 return true;
             }
-
             bool flag = true;
             if (pTarget.a.asset.needFood)
             {
@@ -586,13 +587,33 @@ namespace VideoCopilot.code
 
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(5);
+                pTarget.a.restoreHealth(2);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
             return true;
         }
-        public static bool Grade1_Regen(BaseSimObject pTarget, WorldTile pTile = null)
+        public static bool Grade01_Regen(BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if (pTarget.a.hasTrait("infected"))
+            {
+                return true;
+            }
+            bool flag = true;
+            if (pTarget.a.asset.needFood)
+            {
+                flag = (pTarget.a.data.hunger > 0);
+            }
+
+            if (pTarget.a.data.health != pTarget.getMaxHealth())
+            {
+                pTarget.a.restoreHealth(6);
+                pTarget.a.spawnParticle(Toolbox.color_heal);
+            }
+
+            return true;
+        }
+        public static bool Grade02_Regen(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget.a.hasTrait("infected"))
             {
@@ -613,8 +634,7 @@ namespace VideoCopilot.code
 
             return true;
         }
-
-        public static bool Grade2_Regen(BaseSimObject pTarget, WorldTile pTile = null)
+        public static bool Grade1_Regen(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget.a.hasTrait("infected"))
             {
@@ -636,7 +656,7 @@ namespace VideoCopilot.code
             return true;
         }
 
-        public static bool Grade3_Regen(BaseSimObject pTarget, WorldTile pTile = null)
+        public static bool Grade2_Regen(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget.a.hasTrait("infected"))
             {
@@ -658,6 +678,28 @@ namespace VideoCopilot.code
             return true;
         }
 
+        public static bool Grade3_Regen(BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if (pTarget.a.hasTrait("infected"))
+            {
+                return true;
+            }
+
+            bool flag = true;
+            if (pTarget.a.asset.needFood)
+            {
+                flag = (pTarget.a.data.hunger > 0);
+            }
+
+            if (pTarget.a.data.health != pTarget.getMaxHealth())
+            {
+                pTarget.a.restoreHealth(40);
+                pTarget.a.spawnParticle(Toolbox.color_heal);
+            }
+
+            return true;
+        }
+
         public static bool Grade4_Regen(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget.a.hasTrait("infected"))
@@ -673,7 +715,7 @@ namespace VideoCopilot.code
 
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(200);
+                pTarget.a.restoreHealth(220);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -695,7 +737,7 @@ namespace VideoCopilot.code
 
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(400);
+                pTarget.a.restoreHealth(420);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -717,7 +759,7 @@ namespace VideoCopilot.code
 
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(600);
+                pTarget.a.restoreHealth(620);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -728,7 +770,7 @@ namespace VideoCopilot.code
         {
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(2000);
+                pTarget.a.restoreHealth(2100);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -739,7 +781,7 @@ namespace VideoCopilot.code
         {
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(5000);
+                pTarget.a.restoreHealth(5200);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -750,7 +792,7 @@ namespace VideoCopilot.code
         {
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(10000);
+                pTarget.a.restoreHealth(12000);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -1004,7 +1046,6 @@ namespace VideoCopilot.code
 
             return true;
         }
-
         public static bool Grade91_attackAction(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (Toolbox.randomChance(0.1f))
@@ -1014,38 +1055,6 @@ namespace VideoCopilot.code
 
             return true;
         }
-
-        public static bool fountainhead3_action(BaseSimObject pTarget, WorldTile pTile = null)
-        {
-            if (pTarget == null)
-            {
-                return false;
-            }
-
-            if (!pTarget.isActor())
-            {
-                return false;
-            }
-
-            Actor a = pTarget.a;
-            if (a.GetBenYuan() <= 9)
-            {
-                return false;
-            }
-
-
-            a.addTrait("fountainhead3");
-            a.removeTrait("fountainhead2");
-            a.removeTrait("tumorInfection");
-            a.removeTrait("cursed");
-            a.removeTrait("infected");
-            a.removeTrait("mushSpores");
-            a.removeTrait("plague");
-            a.removeTrait("madness");
-
-            return true;
-        }
-
         private static string GetRandomTrait(string[] additionalTraits)
         {
             return additionalTraits[UnityEngine.Random.Range(0, additionalTraits.Length)];
@@ -1175,27 +1184,35 @@ namespace VideoCopilot.code
             }
 
             a.ChangeYuanNeng(-1);
-            double successRate = 0.9; //默认概率
+            double successRate = 0.6; //默认概率
             //根据天赋调整概率
-            if (a.hasTrait("flair1"))
+            if (a.hasTrait("flair91"))
             {
-                successRate = 0.05;
+                successRate = 0.8;
+            }
+            else if (a.hasTrait("flair8"))
+            {
+                successRate = 0.7;
+            }
+            else if (a.hasTrait("flair1"))
+            {
+                successRate = 0.01;
             }
             else if (a.hasTrait("flair2"))
             {
-                successRate = 0.1;
+                successRate = 0.05;
             }
             else if (a.hasTrait("flair3"))
             {
-                successRate = 0.3;
+                successRate = 0.1;
             }
             else if (a.hasTrait("flair4"))
             {
-                successRate = 0.6;
+                successRate = 0.3;
             }
             else if (a.hasTrait("flair5"))
             {
-                successRate = 0.9;
+                successRate = 0.6;
             }
 
             double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
@@ -1228,10 +1245,11 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetYuanNeng() <= 26.99)
+            if (a.GetYuanNeng() <= 29.99)
             {
                 return false;
             }
+            a.ChangeYuanNeng(-2);
 
             string[] additionalTraits =
                 { "sorcery11", "sorcery12", "sorcery13", "sorcery14", "sorcery15", "sorcery16" };
@@ -1257,10 +1275,11 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetYuanNeng() <= 35.99)
+            if (a.GetYuanNeng() <= 44.99)
             {
                 return false;
             }
+            a.ChangeYuanNeng(-3);
 
             string[] additionalTraits =
                 { "sorcery11", "sorcery12", "sorcery13", "sorcery14", "sorcery15", "sorcery16" };
@@ -1287,33 +1306,40 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetYuanNeng() <= 71.99)
+            if (a.GetYuanNeng() <= 76.99)
             {
                 return false;
             }
-
-            a.ChangeYuanNeng(-2);
-            double successRate = 0.9; //默认概率
+            a.ChangeYuanNeng(-8);
+            double successRate = 0.3; //默认概率
             //根据天赋调整概率
-            if (a.hasTrait("flair1"))
+            if (a.hasTrait("flair91"))
             {
                 successRate = 0.5;
             }
+            else if (a.hasTrait("flair8"))
+            {
+                successRate = 0.4;
+            }
+            else if (a.hasTrait("flair1"))
+            {
+                successRate = 0.001;
+            }
             else if (a.hasTrait("flair2"))
             {
-                successRate = 0.2;
+                successRate = 0.01;
             }
             else if (a.hasTrait("flair3"))
             {
-                successRate = 0.2;
+                successRate = 0.06;
             }
             else if (a.hasTrait("flair4"))
             {
-                successRate = 0.3;
+                successRate = 0.2;
             }
             else if (a.hasTrait("flair5"))
             {
-                successRate = 0.4;
+                successRate = 0.3;
             }
 
             double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
@@ -1345,10 +1371,11 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetYuanNeng() <= 107.99)
+            if (a.GetYuanNeng() <= 139.99)
             {
                 return false;
             }
+            a.ChangeYuanNeng(-10);
 
             string[] additionalTraits = { "sorcery22", "sorcery23", "sorcery24", "sorcery25", "sorcery26" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
@@ -1373,10 +1400,11 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetYuanNeng() <= 143.99)
+            if (a.GetYuanNeng() <= 209.99)
             {
                 return false;
             }
+            a.ChangeYuanNeng(-20);
 
             string[] additionalTraits = { "sorcery22", "sorcery23", "sorcery24", "sorcery25", "sorcery26" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
@@ -1405,29 +1433,36 @@ namespace VideoCopilot.code
             {
                 return false;
             }
-
-            a.ChangeYuanNeng(-3);
-            double successRate = 0.9; //默认概率
+            a.ChangeYuanNeng(-30);
+            double successRate = 0.2; //默认概率 
             //根据天赋调整概率
-            if (a.hasTrait("flair1"))
+            if (a.hasTrait("flair91"))
             {
-                successRate = 0.6;
+                successRate = 0.3;
             }
-            else if (a.hasTrait("flair2"))
-            {
-                successRate = 0.4;
-            }
-            else if (a.hasTrait("flair3"))
+            else if (a.hasTrait("flair8"))
             {
                 successRate = 0.25;
             }
+            else if (a.hasTrait("flair1"))
+            {
+                successRate = 0.001;
+            }
+            else if (a.hasTrait("flair2"))
+            {
+                successRate = 0.002;
+            }
+            else if (a.hasTrait("flair3"))
+            {
+                successRate = 0.005;
+            }
             else if (a.hasTrait("flair4"))
             {
-                successRate = 0.2;
+                successRate = 0.02;
             }
             else if (a.hasTrait("flair5"))
             {
-                successRate = 0.3;
+                successRate = 0.2;
             }
 
             double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
@@ -1442,12 +1477,19 @@ namespace VideoCopilot.code
                 a.data.setName(pTarget.a.getName()+" 大巫师");
             }
 
-            string[] additionalTraits = { "sorcery31", "sorcery32", "sorcery33", "sorcery34", "sorcery35" };
-            string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
+            string[] sorceryTraits = { "sorcery31", "sorcery32", "sorcery33", "sorcery34", "sorcery35" };
+            string[] meditationTraits = { "meditation1", "meditation2", "meditation3" };
+            string randomSorceryTrait = GetNewRandomTrait(sorceryTraits);
+            bool hasMeditationTrait = meditationTraits.Any(trait => a.hasTrait(trait));
+            string randomMeditationTrait = "";
+            if (!hasMeditationTrait)
+            {
+                randomMeditationTrait = GetNewRandomTrait(meditationTraits); //获取新随机特质
+            }
 
             upTrait("特质", "Grade7", a,
-                new string[] { "tumorInfection", "cursed", "infected", "mushSpores", "plague", "madness", "Grade6" },
-                new string[] { "添加升级外的特质", randomTrait });
+                new string[] { "tumorInfection", "cursed", "infected", "mushSpores", "plague", "madness", "Grade6", "flair1", "flair2", "flair3", "flair4", "flair5", "flair6", "flair7" },
+                new string[] { "添加升级外的特质", randomSorceryTrait, randomMeditationTrait });
 
             return true;
         }
@@ -1465,7 +1507,22 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetYuanNeng() <= 519.99)
+            if (a.GetMeditation() <= 159.99)//突破需求
+            {
+                return false;
+            }
+            a.ChangeMeditation(-10);//突破消耗
+            double successRate = 0.2; //突破默认概率
+            if (a.hasTrait("flair91"))
+            {
+                successRate = 0.4;
+            }
+            else if (a.hasTrait("flair8"))
+            {
+                successRate = 0.3;
+            }
+            double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
+            if (randomValue > successRate)
             {
                 return false;
             }
@@ -1491,7 +1548,22 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetYuanNeng() <= 819.99)
+            if (a.GetMeditation() <= 359.99)//突破需求
+            {
+                return false;
+            }
+            a.ChangeMeditation(-50);//突破消耗
+            double successRate = 0.1; //突破默认概率
+            if (a.hasTrait("flair91"))
+            {
+                successRate = 0.25;
+            }
+            else if (a.hasTrait("flair8"))
+            {
+                successRate = 0.2;
+            }
+            double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
+            if (randomValue > successRate)
             {
                 return false;
             }
@@ -1534,7 +1606,15 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetYuanNeng() <= 2069.99)
+            if (a.GetMeditation() <= 999.99)
+            {
+                return false;
+            }
+
+            a.ChangeMeditation(-700);
+            double successRate = 0.1; //突破默认概率
+            double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
+            if (randomValue > successRate)
             {
                 return false;
             }
@@ -1596,10 +1676,9 @@ namespace VideoCopilot.code
             }
 
             string entityName = pTarget.a.getName();
-            //检查是否存在该名字的复活计数，如果不存在则初始化为1
             if (!_reviveCounts.TryGetValue(entityName, out int reviveCount))
             {
-                _reviveCounts[entityName] = 1;
+                _reviveCounts[entityName] = 1;//检查是否存在该名字的复活计数，如果不存在则初始化为1
             }
 
             if (_reviveCounts[entityName] >= 15) //复活次数是否已达到限制
@@ -1618,20 +1697,27 @@ namespace VideoCopilot.code
             a.removeTrait("infected");
             a.removeTrait("mushSpores");
             a.removeTrait("plague");
+            var meditationTraits = new[] { "meditation1", "meditation2", "meditation3" };// 定义要检查的 meditation 特质列表
+            var traitsToAdd = new List<string> { "flair8" };// 创建一个新的列表来存储新对象将要添加的特质
+            foreach (var trait in meditationTraits)
+            {
+                if (a.hasTrait(trait))
+                {
+                    traitsToAdd.Add(trait);// 检查目标对象是否具有 meditation 特质，并将其添加到新列表中
+                }
+            }
+            string[] flairTraits = { "flair3", "flair4", "flair5" };
+            int randomIndex = UnityEngine.Random.Range(0, flairTraits.Length);
+            traitsToAdd.Add(flairTraits[randomIndex]);
             var act = World.world.units.createNewUnit(a.asset.id, pTile, 0f);
             ActorTool.copyUnitToOtherUnit(a, act);
             act.data.setName(pTarget.a.getName());
-            act.data.traits = new List<string>() { "flair8" };
+            act.data.traits = traitsToAdd;
             act.data.health = 999;
             act.data.created_time = World.world.getCreationTime();
             act.data.age_overgrowth = 18;
             act.data.setName(entityName);
             teleportRandom(act);
-
-            if (reviveCount < 15) //如果复活次数未达到限制，则添加flair8
-            {
-                act.data.traits = new List<string>() { "flair8" };
-            }
 
             _reviveCounts[entityName] = reviveCount + 1; //增加该名字的复活次数计数器
 
@@ -1670,20 +1756,25 @@ namespace VideoCopilot.code
             a.removeTrait("infected");
             a.removeTrait("mushSpores");
             a.removeTrait("plague");
+            var meditationTraits = new[] { "meditation1", "meditation2", "meditation3" }; // 定义要检查的 meditation 特质列表
+            var traitsToAdd = new List<string> { "flair91" }; // 创建一个新的列表来存储新对象将要添加的特质，初始包含 "flair8"
+            foreach (var trait in meditationTraits)
+            {
+                if (a.hasTrait(trait))
+                {
+                    traitsToAdd.Add(trait); // 检查目标对象是否具有 meditation 特质，并将其添加到新列表中
+                }
+            }
             var act = World.world.units.createNewUnit(a.asset.id, pTile, 0f);
             ActorTool.copyUnitToOtherUnit(a, act);
             act.data.setName(pTarget.a.getName());
-            act.data.traits = new List<string>() { "flair91", "flair5" };
+            act.data.traits = traitsToAdd;
             act.data.health = 999;
             act.data.created_time = World.world.getCreationTime();
             act.data.age_overgrowth = 18;
             act.data.setName(entityName);
             teleportRandom(act);
-
-            if (reviveCount < 100) //如果复活次数未达到限制，则添加flair91
-            {
-                act.data.traits = new List<string>() { "flair91", "flair5" };
-            }
+            
 
             _reviveCounts[entityName] = reviveCount + 1; //增加该名字的复活次数计数器
 
@@ -1692,7 +1783,78 @@ namespace VideoCopilot.code
 
             return true;
         }
+        public static bool Grade91_death(BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if (pTarget == null || !pTarget.isActor())
+            {
+                return false;
+            }
+            Actor a = pTarget.a;
+            Grade91_Action(a);
+            return true;
+        }
+        private static bool Grade91_Action(Actor a)
+        {
+            int num = 0;
+            int num2 = 0;
+            List<Actor> simpleList = World.world.units.getSimpleList();
+            for (int i = 0; i < simpleList.Count; i++)
+            {
+                Actor actor = simpleList[i];
+                if (actor.isAlive() && !actor.data.favorite && !actor.asset.ignoredByInfinityCoin)
+                {
+                    num++;
+                }
+            }
+            num2 = (int)Math.Ceiling(num * 0.90);// 计算90%的小人数量
+            int num3 = 0;
+            foreach (City city in World.world.cities.list)
+            {
+                int num4 = city.killHalfPopPoints();
+                num3 += num4;
+            }
+            EffectInfinityCoin.temp_list.Clear();
+            EffectInfinityCoin.temp_list.AddRange(World.world.units);
+            EffectInfinityCoin.temp_list.Shuffle<Actor>();
+            foreach (Actor actor2 in EffectInfinityCoin.temp_list)
+            {
+                if (num2 == 0)
+                {
+                    break;
+                }
+                if (actor2.isAlive() && !actor2.data.favorite && !actor2.asset.ignoredByInfinityCoin)
+                {
+                    num3++;
+                    num2--;
+                    actor2.getHit((float)(actor2.data.health * 1000 + 1), true, AttackType.Other, null, false, false);
+                }
+            }
+            // 初始化newName为当前名称
+            string currentName = a.getName();
+            string newName = currentName;
+            // 随机选择一条提示信息
+            System.Random random = new System.Random();
+            int index = random.Next(Grade91deathTips.Count);
+            string tip = Grade91deathTips[index];
 
+            // 如果提示信息中包含占位符（比如 {0}），则替换为角色的名称
+            if (tip.Contains("{0}"))
+            {
+                tip = string.Format(tip, newName);
+            }
+            // 显示随机选择的提示信息
+            ActionLibrary.showWhisperTip(tip);
+            return true;
+        }
+        private static readonly List<string> Grade91deathTips = new List<string>
+        {
+            "「告死星轨贯穿苍穹！「{0}」真身崩解于血狱回廊！\n——时空长河冻结其陨落刹那，三千世界剥离始祖真名！",
+            "「星海哀鸣！「{0}」冠冕碎裂于混沌战争残响！\n——光之祖陨落余烬中，唯留无根之源刻印轮回坐标！」",
+            "「维度墓碑降临！「{0}」永寂于被污染的始祖王座！\n——然其真灵已遁入第七混沌纪，万劫后当重燃战旗！」",
+            "「终末之钟响彻万渊！以太基石在「{0}」脚下崩裂！\n——群星为其举行葬仪，深渊遗骸化作第七十三柱混沌丰碑！『然真灵坠入湮灭洪流，静待逆时针的荣光…」",
+            "「永夜尖塔倾塌！时空经纬线在「{0}」陨落处断裂！\n——九重奏哀歌于深渊回响，血月沉沦处唯留真名烙印！『无根之源将铭记此次轮回溃灭』」",
+            "「群鸦衔来腐朽冠冕！万界之血在「{0}」陨星下凝固！\n——虚空档案官用灰烬撰写：「第十九纪元末，又一位永恒者堕入重生之涡」『混沌终焉之战再添残响』」"
+        };
         public static bool teleportRandom(Actor a)
         {
             MapBox mapBox = World.world as MapBox;
@@ -1727,24 +1889,58 @@ namespace VideoCopilot.code
             a.spawnOn(cityCenterTile, 0f);
             return true;
         }
-
-        public static bool flair8_Traits(BaseSimObject pTarget, WorldTile pTile = null)
+        public static bool SS_Collection(BaseSimObject pTarget, WorldTile pTile = null)
         {
-            Actor a = pTarget.a;
-            string[] possibleTraits = { "flair3", "flair4", "flair5" };
-            System.Random random = new System.Random();
-            string traitToAdd = possibleTraits[random.Next(possibleTraits.Length)];
-            bool hasAnyTrait = possibleTraits.Any(t => a.hasTrait(t));
-            if (!hasAnyTrait)
+            if (pTarget.a != null)
             {
-                a.addTrait(traitToAdd);
-            }
+                if (!actorTipsShown.ContainsKey(pTarget.a))
+                {
+                    actorTipsShown[pTarget.a] = (false, false); // 初始化状态
+                }
 
+                var tipsShown = actorTipsShown[pTarget.a];
+                if (!tipsShown.hasShownSSTip)
+                {
+                    pTarget.a.data.favorite = true;
+                    pTarget.a.addTrait("Grade01");
+                    string modFolderPath = @"D:\Mods\witchcraft\code\Sound";
+                    string fileName = "S+Sound.wav";
+                    string filePath = Path.Combine(modFolderPath, fileName);
+                    PlayWavDirectly.Instance.PlaySoundFromFile  (filePath);
+                    ActionLibrary.showWhisperTip("叮,SS出世");
+                    pTarget.a.data.setName(pTarget.a.getName() + " 2S");
+                    actorTipsShown[pTarget.a] = (true, tipsShown.hasShownSSSTip); // 更新状态
+                }
+            }
+            return true;
+        }
+        public static bool SSS_Collection(BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if (pTarget.a != null)
+            {
+                if (!actorTipsShown.ContainsKey(pTarget.a))
+                {
+                    actorTipsShown[pTarget.a] = (false, false); // 初始化状态
+                }
+
+                var tipsShown = actorTipsShown[pTarget.a];
+                if (!tipsShown.hasShownSSSTip)
+                {
+                    pTarget.a.data.favorite = true;
+                    pTarget.a.addTrait("Grade02");
+                    string modFolderPath = @"D:\Mods\witchcraft\code\Sound";
+                    string fileName = "S+Sound.wav";
+                    string filePath = Path.Combine(modFolderPath, fileName);
+                    PlayWavDirectly.Instance.PlaySoundFromFile  (filePath);
+                    ActionLibrary.showWhisperTip("叮,SSS出世");
+                    pTarget.a.data.setName(pTarget.a.getName() + " 3S");
+                    actorTipsShown[pTarget.a] = (tipsShown.hasShownSSTip, true); // 更新状态
+                    return true;
+                }
+            }
             return false;
         }
-
-        /// <summary>
-        /// 
+        private static Dictionary<Actor, (bool hasShownSSTip, bool hasShownSSSTip)> actorTipsShown = new Dictionary<Actor, (bool, bool)>();
         /// </summary>
         /// <param name="old_trait">升级前的特质</param>
         /// <param name="new_trait">升级到的特质</param>

@@ -266,7 +266,9 @@ namespace VideoCopilot.code.window
         {
             actors.Clear();
             actors = allActors.Where(actor => actor.race.civilization)
-                .OrderByDescending(actor => actor.GetYuanNeng()).ToList();
+                .OrderByDescending(actor => actor.GetMeditation())
+                .ThenByDescending(actor => actor.GetYuanNeng())
+                .ToList();
             title.GetComponent<Text>().text = LM.Get("sort_civActor_yuanneng");
             reOnNormalEnable();
         }
@@ -285,7 +287,9 @@ namespace VideoCopilot.code.window
         {
             actors.Clear();
             actors = allActors
-                .OrderByDescending(actor => actor.GetYuanNeng()).ToList();
+                .OrderByDescending(actor => actor.GetMeditation())
+                .ThenByDescending(actor => actor.GetYuanNeng())
+                .ToList();
             title.GetComponent<Text>().text = LM.Get("sort_allActor_yuanneng");
             reOnNormalEnable();
         }

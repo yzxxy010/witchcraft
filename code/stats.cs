@@ -8,8 +8,8 @@ namespace VideoCopilot.code
             BaseStatAsset yuanneng = new BaseStatAsset();
             yuanneng.id = "yuanneng";
             yuanneng.normalize = true;
-            yuanneng.normalize_min = -999999;
-            yuanneng.normalize_max = 999999;
+            yuanneng.normalize_min = -99999;
+            yuanneng.normalize_max = 1000;
             yuanneng.mod = true;
             yuanneng.used_only_for_civs = false;
             AssetManager.base_stats_library.add(yuanneng);
@@ -17,20 +17,20 @@ namespace VideoCopilot.code
             BaseStatAsset xiaohao = new BaseStatAsset();
             xiaohao.id = "xiaohao";
             xiaohao.normalize = true;
-            xiaohao.normalize_min = -999999;
-            xiaohao.normalize_max = 999999;
+            xiaohao.normalize_min = -99999;
+            xiaohao.normalize_max = 99999;
             xiaohao.mod = true;
             xiaohao.used_only_for_civs = false;
             AssetManager.base_stats_library.add(xiaohao);
 
-            BaseStatAsset benyuan = new BaseStatAsset();
-            benyuan.id = "benyuan";
-            benyuan.normalize = true;
-            benyuan.normalize_min = -999999;
-            benyuan.normalize_max = 999999;
-            benyuan.mod = true;
-            benyuan.used_only_for_civs = false;
-            AssetManager.base_stats_library.add(benyuan);
+            BaseStatAsset meditation = new BaseStatAsset();
+            meditation.id = "meditation";
+            meditation.normalize = true;
+            meditation.normalize_min = -99999;
+            meditation.normalize_max = 99999;
+            meditation.mod = true;
+            meditation.used_only_for_civs = false;
+            AssetManager.base_stats_library.add(meditation);
         }
     }
 }

@@ -531,6 +531,20 @@ namespace VideoCopilot.code
             return true;
         }
 
+        public static bool Grade91_Attack(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            if ((float)pSelf.base_data.health < (float)pSelf.getMaxHealth() * 0.8f)
+            {
+                pSelf.a.addStatusEffect("Ring92", 30f);// 检查血量是否低于80%
+            }
+            if ((float)pSelf.base_data.health < (float)pSelf.getMaxHealth() * 0.5f)
+            {
+                pSelf.a.addStatusEffect("Ring93", 30f);// 检查血量是否低于80%
+            }
+
+            return true;
+        }
+
         public static bool attack_Grade91(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pSelf == null || pTarget == null)
@@ -545,7 +559,10 @@ namespace VideoCopilot.code
             {
                 return false;
             }
-            EffectsLibrary.spawn("fx_meteorite", pTile, "meteorite", null, 0f, -1f, -1f);
+            if (Toolbox.randomChance(0.2f))
+            {
+                EffectsLibrary.spawn("fx_meteorite", pTile, "meteorite", null, 0f, -1f, -1f);
+            }
             return true;
         }
 
@@ -814,7 +831,7 @@ namespace VideoCopilot.code
         {
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(300);
+                pTarget.a.restoreHealth(60);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -825,7 +842,7 @@ namespace VideoCopilot.code
         {
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(1000);
+                pTarget.a.restoreHealth(180);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -1795,24 +1812,47 @@ namespace VideoCopilot.code
         }
         private static bool Grade91_Action(Actor a)
         {
-            int num = 0;
-            int num2 = 0;
+            // 首先计算所有存活的小人总数
+            int totalAliveCount = 0;
             List<Actor> simpleList = World.world.units.getSimpleList();
-            for (int i = 0; i < simpleList.Count; i++)
+            foreach (Actor actor in simpleList)
             {
-                Actor actor = simpleList[i];
+                if (actor.isAlive())
+                {
+                    totalAliveCount++;
+                    // 所有存活且有相应特质的增加源能和巫力
+                    if (actor.hasTrait("flair1") || actor.hasTrait("flair2") || actor.hasTrait("flair3") ||
+                        actor.hasTrait("flair4") || actor.hasTrait("flair5") || actor.hasTrait("flair6") || actor.hasTrait("flair7"))
+                    {
+                        // 随机增加50~100源能
+                        int yuanNengIncrease = UnityEngine.Random.Range(50, 101);
+                        actor.ChangeYuanNeng(yuanNengIncrease);
+                    }
+                    if (actor.hasTrait("meditation1") || actor.hasTrait("meditation2") || actor.hasTrait("meditation3"))
+                    {
+                        // 随机增加500~1000巫力
+                        int meditationIncrease = UnityEngine.Random.Range(500, 1001);
+                        actor.ChangeMeditation(meditationIncrease);
+                    }
+                }
+            }
+            
+            int num = 0;
+            foreach (Actor actor in simpleList)
+            {
                 if (actor.isAlive() && !actor.data.favorite && !actor.asset.ignoredByInfinityCoin)
                 {
                     num++;
                 }
             }
-            num2 = (int)Math.Ceiling(num * 0.90);// 计算90%的小人数量
+
+            int num2 = (int)Math.Ceiling(num * 0.30); // 计算30%的小人数量
             int num3 = 0;
             foreach (City city in World.world.cities.list)
             {
-                int num4 = city.killHalfPopPoints();
-                num3 += num4;
+                num3 += city.killHalfPopPoints();
             }
+
             EffectInfinityCoin.temp_list.Clear();
             EffectInfinityCoin.temp_list.AddRange(World.world.units);
             EffectInfinityCoin.temp_list.Shuffle<Actor>();
@@ -1829,9 +1869,11 @@ namespace VideoCopilot.code
                     actor2.getHit((float)(actor2.data.health * 1000 + 1), true, AttackType.Other, null, false, false);
                 }
             }
+
             // 初始化newName为当前名称
             string currentName = a.getName();
             string newName = currentName;
+
             // 随机选择一条提示信息
             System.Random random = new System.Random();
             int index = random.Next(Grade91deathTips.Count);
@@ -1842,10 +1884,12 @@ namespace VideoCopilot.code
             {
                 tip = string.Format(tip, newName);
             }
+
             // 显示随机选择的提示信息
             ActionLibrary.showWhisperTip(tip);
             return true;
         }
+
         private static readonly List<string> Grade91deathTips = new List<string>
         {
             "「告死星轨贯穿苍穹！「{0}」真身崩解于血狱回廊！\n——时空长河冻结其陨落刹那，三千世界剥离始祖真名！",

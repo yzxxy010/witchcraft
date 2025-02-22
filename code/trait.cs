@@ -83,8 +83,12 @@ namespace VideoCopilot.code
             flair8.group_id = "interesting3";
             flair8.base_stats[S.intelligence] = 20f;
             flair8.base_stats[S.max_age] = 10f;//寿命+10
+            flair8.base_stats[S.damage] = 50f;
+            flair8.base_stats[S.knockback_reduction] = 1f;
+            flair8.base_stats[S.armor] = 5f;
             flair8.base_stats[S.fertility] = -100f;//生育力-100
             flair8.base_stats[S.max_children] = -100f;//可生育子女数-100
+            flair8.base_stats[S.health] = 300f;
             flair8.base_stats["xiaohao"] = -2f;//每年-2点世界源力+2点源能
             flair8.action_death = traitAction.flair8_death;//重生效果+随机BAS
             flair8.action_special_effect += (WorldAction)Delegate.Combine(flair8.action_special_effect,
@@ -113,6 +117,10 @@ new WorldAction(traitAction.flair8_Regen)); //再生效果
             flair91.group_id = "interesting3";
             flair91.base_stats[S.intelligence] = 60f;
             flair91.base_stats[S.max_age] = 10f;//寿命+10
+            flair91.base_stats[S.damage] = 120f;
+            flair91.base_stats[S.knockback_reduction] = 1f;
+            flair91.base_stats[S.armor] = 10f;
+            flair91.base_stats[S.health] = 900f;
             flair91.base_stats[S.fertility] = -100f;//生育力-100
             flair91.base_stats[S.max_children] = -100f;//可生育子女数-100
             flair91.base_stats["xiaohao"] = -2f;//每年-2点世界源力+2点源能
@@ -425,8 +433,9 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade91.base_stats[S.scale] = -0.05f;
             Grade91.action_attack_target += traitAction.intelligence_attack_Grade91;//法伤
             Grade91.action_death = traitAction.Grade91_death;
-            Grade91.action_attack_target += new AttackAction((traitAction.attack_Grade91));//随机三环巫术
+            Grade91.action_attack_target += new AttackAction((traitAction.attack_Grade91));
             Grade91.action_special_effect += new WorldAction((traitAction.hunger_Grade91));//不会饥饿
+            Grade91.action_get_hit += new GetHitAction(traitAction.Grade91_Attack);
             Grade91.action_special_effect += (WorldAction)Delegate.Combine(Grade91.action_special_effect,
                 new WorldAction(traitAction.Grade91_EffectAction)); //始祖的再生效果
             AssetManager.traits.add(Grade91);

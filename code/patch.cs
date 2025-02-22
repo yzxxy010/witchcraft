@@ -36,10 +36,9 @@ internal class patch
 
     public static string[] traits =
     {
-        "Grade7",
-        "Grade8",
-        "Grade9",
-        "Grade91"
+        "meditation1",
+        "meditation2",
+        "meditation3"
     };
 
     [HarmonyPostfix, HarmonyPatch(typeof(Actor), nameof(Actor.newKillAction))]
@@ -49,7 +48,9 @@ internal class patch
         {
             if (pDeadUnit.hasTrait(trait) && __instance.hasTrait(trait))
             {
-                __instance.ChangeMeditation(pDeadUnit.GetMeditation() + 20);
+                float deadUnitMeditation = pDeadUnit.GetMeditation();
+                float additionalWuLi = deadUnitMeditation * UnityEngine.Random.Range(0.1f, 0.3f);
+                __instance.ChangeMeditation(additionalWuLi);
             }
             else
             {
@@ -58,7 +59,9 @@ internal class patch
                 {
                     if (trait != otherTrait && pDeadUnit.hasTrait(trait) && __instance.hasTrait(otherTrait))
                     {
-                        __instance.ChangeMeditation(pDeadUnit.GetMeditation() + 20);
+                        float deadUnitMeditation = pDeadUnit.GetMeditation();
+                        float additionalWuLi = deadUnitMeditation * UnityEngine.Random.Range(0.1f, 0.3f);
+                        __instance.ChangeMeditation(additionalWuLi);
                     }
                 }
             }
@@ -266,7 +269,7 @@ internal class patch
         {
             actor.ChangeMeditation(1f);
         }
-        else if (actor.hasTrait("flair91"))
+        if (actor.hasTrait("flair91"))
         {
             actor.ChangeMeditation(2f);
         }
@@ -405,6 +408,8 @@ internal class patch
         //切记!!!!!!!!!!!!注意先顺序,最前面的优先级比较高,如果同时有多个特性,只判定前面的第一个
         Dictionary<string, string> traitToAnimationFrame = new Dictionary<string, string>
         {
+            { "Ring93", "actors/Ring93_Wizard" },
+            { "Ring92", "actors/Ring92_Wizard" },
             { "Grade91", "actors/Grade91_Wizard" },
             { "Ring34", "actors/Ring34_Wizard" },
             { "sorcery35", "actors/sorcery35_Wizard" },

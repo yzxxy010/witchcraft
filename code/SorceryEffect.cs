@@ -202,6 +202,22 @@ namespace VideoCopilot.code
             Ring35.path_icon = "Ring/Ring35";
             Ring35.base_stats[S.armor] = -20f;
             AssetManager.status.add(pAsset:Ring35);
+
+            StatusEffect Ring92 = new StatusEffect();
+            Ring92.id = "Ring92";
+            Ring92.name = "status_title_Ring92";
+            Ring92.description = "status_desc_Ring92";
+            Ring92.path_icon = "Ring/Ring92";
+            Ring92.base_stats[S.scale] = 0.03f;
+            AssetManager.status.add(pAsset:Ring92);
+
+            StatusEffect Ring93 = new StatusEffect();
+            Ring93.id = "Ring93";
+            Ring93.name = "status_title_Ring93";
+            Ring93.description = "status_desc_Ring93";
+            Ring93.path_icon = "Ring/Ring93";
+            Ring93.base_stats[S.scale] = 0.02f;
+            AssetManager.status.add(pAsset:Ring93);
         }
     }
 }

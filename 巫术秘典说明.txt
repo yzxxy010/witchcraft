@@ -1,7 +1,9 @@
 0.2.9更新:
-        1.D到S随机消耗源力，SS和SSS可自然诞生
-        2.新增冥想法与冥想法的巫力
+        1.D到S随机消耗源力，SS和SSS可自然诞生（全图提示+收藏+提示音）
+        2.新增冥想法与冥想法的无根之源（随机1~5）
         3.调整了升级难度与所需
+        4.突破大巫师不死添加全图提示+提示音
+        5.突破始祖添加提示音+一阶段与二阶段，添加死亡时全世界巫师大幅增加源能+大巫师大幅增加无根之源+随机30%小人死亡
 
 主要内容：
     在生物属性下方添加：
@@ -19,12 +21,16 @@
     有巫师天赋的小人在魔法之地上会获得"元素共呜"状态，每年源能+0.5
     "禁巫之族"可用来给不想让其出现巫术天赋的种族用，100%遗传
 
-    Update 0.2.9:
-            1.Random source power consumption from D to S, SS and SSS can be naturally born.
+    0.2.9 Update:
+            1. Randomly consume Source Power to evolve from D to s. SS and SSS can naturally spawn (with full map notification + favorite + sound effect).
 
-            2.Added meditation methods and meditation power.
+            2. Added Meditation and the Rootless Origin of Meditation (randomly generate 1-5).
 
-            3.Adjusted the difficulty and requirements for leveling up.
+            3. Adjusted the leveling difficulty and requirements.
+
+            4. Added full map notification + sound effect for achieving the Arch-Mage without dying.
+
+            5. Added sound effect + first and second stages for achieving the Ancestor. Upon death, significantly increased Source Energy for all Wizards in the world + significantly increased the Rootless Origin for Arch-Mages, and a 30% chance of instant death for small enemies.
 
 Add under creature attributes:
     ①"World Origin Power (Global)" currently starts at 10000 and increases by 2000 annually. If it is lower than the initial value, it will no longer increase the wizard's origin power.

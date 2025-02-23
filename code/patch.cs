@@ -191,7 +191,7 @@ internal class patch
             UpdateYuannengBasedOnGrade(actor, grade.Key, grade.Value);
         }
 
-        // 境界巫力上限（不受Grade7和Grade8限制的逻辑）
+        // 境界无根之源上限（不受Grade7和Grade8限制的逻辑）
         float maxMeditation = 0f;
         if (actor.hasTrait("flair8"))
         {

@@ -1238,6 +1238,12 @@ namespace VideoCopilot.code
                 return false;
             }
 
+            string actorName = a.getName();
+            if (!actorName.Contains("正式") && !a.hasTrait("flair8") && !a.hasTrait("flair91"))
+            {
+                a.data.setName(pTarget.a.getName()+" 正式");
+            }
+
             string[] additionalTraits =
                 { "sorcery11", "sorcery12", "sorcery13", "sorcery14", "sorcery15", "sorcery16" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
@@ -1364,6 +1370,19 @@ namespace VideoCopilot.code
             {
                 return false;
             }
+            string actorName = a.getName();
+            if (!a.hasTrait("flair8") && !a.hasTrait("flair91"))
+            {
+                a.data.favorite = true;
+                // 修改名称，将“正式”替换为“高级”
+                string currentName = pTarget.a.getName();
+                string newName = currentName.Replace(" 正式", " 高级");
+                if (!currentName.EndsWith(" 正式"))
+                {
+                    newName += " 高级";
+                }
+                a.data.setName(newName);
+            }
 
             string[] additionalTraits = { "sorcery22", "sorcery23", "sorcery24", "sorcery25", "sorcery26" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
@@ -1481,17 +1500,23 @@ namespace VideoCopilot.code
             {
                 successRate = 0.2;
             }
-
             double randomValue = UnityEngine.Random.Range(0.0f, 1.0f); //生成0到1之间的随机数
             if (randomValue > successRate)
             {
                 return false;
             }
-            // 检查名字中是否已包含“大巫师”
             string actorName = a.getName();
-            if (!actorName.Contains("大巫师") && !a.hasTrait("flair8") && !a.hasTrait("flair91"))
+            if (!a.hasTrait("flair8") && !a.hasTrait("flair91"))
             {
-                a.data.setName(pTarget.a.getName()+" 大巫师");
+                a.data.favorite = true;
+                // 修改名称，将“高级”替换为“大巫师”
+                string currentName = pTarget.a.getName();
+                string newName = currentName.Replace(" 高级", " 大巫师");
+                if (!currentName.EndsWith(" 高级"))
+                {
+                    newName += " 大巫师";
+                }
+                a.data.setName(newName);
             }
 
             string[] sorceryTraits = { "sorcery31", "sorcery32", "sorcery33", "sorcery34", "sorcery35" };
@@ -1584,12 +1609,13 @@ namespace VideoCopilot.code
             {
                 return false;
             }
+            // 初始化newName为当前名称
+            string currentName = a.getName();
+            string newName = currentName;
             if (!a.hasTrait("flair8") && !a.hasTrait("flair91"))
             {
                 a.data.favorite = true;
                 // 修改名称，将“大巫师”替换为“不灭”
-                string currentName = pTarget.a.getName();
-                string newName = currentName.Replace(" 大巫师", " 不灭");
                 if (!currentName.EndsWith(" 大巫师"))
                 {
                     newName += " 不灭";
@@ -1603,6 +1629,21 @@ namespace VideoCopilot.code
                     a.addTrait("flair8");
                 }
             }
+            PlayWavDirectly.Instance.PlaySoundFromFile(VideoCopilotClass.modDeclare.FolderPath + @"\code\Sound\Sound_1.wav");
+
+            // 随机选择一条提示信息
+            System.Random random = new System.Random();
+            int index = random.Next(grade9Tips.Count);
+            string tip = grade9Tips[index];
+
+            // 如果提示信息中包含占位符（比如 {0}），则替换为角色的名称
+            if (tip.Contains("{0}"))
+            {
+                tip = string.Format(tip, newName);
+            }
+
+            // 显示随机选择的提示信息
+            ActionLibrary.showWhisperTip(tip);
 
             upTrait("特质", "Grade9", a,
                 new string[] { "tumorInfection", "cursed", "infected", "mushSpores", "plague", "madness", "Grade8", "talent6" },
@@ -1610,6 +1651,15 @@ namespace VideoCopilot.code
 
             return true;
         }
+        private static readonly List<string> grade9Tips = new List<string>
+        {
+            "「轮回之渊震颤！星海魂火为「{0}」重燃！\n不灭真灵穿透三千湮灭劫波，其名已镌刻于永恒碑界————\n『纵使法则崩殒，吾魂仍将踏碎终焉之路！』」",
+            "「诸界法则轰鸣！虚空回响九万次魂裂之音！\n「{0}」携破碎冠冕立于星骸之巅，向始祖王座发出第七次叩问————\n『此身不烬，此誓不渝！』",
+            "「时空裂隙中亮起亘古魂焰！维度壁垒烙印「{0}」之真印！\n混沌观测者见证：其灵历经七百二十次寂灭，仍执剑劈开归墟长夜！」",
+            "「星海潮汐逆流！永劫试炼场第九万阶被踏碎！\n「{0}」撕开裂魂风暴长啸：「纵无冠冕加身，此魂亦当焚尽诸天桎梏！」",
+            "「深渊回廊震荡！不朽魂核迸发第七重涅槃辉光！\n「{0}」以破碎王座为基，在湮灭长河中重构三千次登神阶梯！」",
+            "「诸界观测塔震颤！灵魂波长突破永恒阈值！\n「{0}」的涅槃烙印照亮维度裂隙，虚空回响着第卅六次冲冠宣言————\n『此魂不熄，此道不绝！』」"
+        };
         public static bool Grade91_effectAction(BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (pTarget == null)
@@ -1646,6 +1696,7 @@ namespace VideoCopilot.code
                 newName = currentName.Replace(" 不灭", " 始祖");
                 a.data.setName(newName);
             }
+            PlayWavDirectly.Instance.PlaySoundFromFile(VideoCopilotClass.modDeclare.FolderPath + @"\code\Sound\Sound_1.wav");
             // 随机选择一条提示信息
             System.Random random = new System.Random();
             int index = random.Next(grade91Tips.Count);
@@ -1820,7 +1871,7 @@ namespace VideoCopilot.code
                 if (actor.isAlive())
                 {
                     totalAliveCount++;
-                    // 所有存活且有相应特质的增加源能和巫力
+                    // 所有存活且有相应特质的增加源能和无根之源
                     if (actor.hasTrait("flair1") || actor.hasTrait("flair2") || actor.hasTrait("flair3") ||
                         actor.hasTrait("flair4") || actor.hasTrait("flair5") || actor.hasTrait("flair6") || actor.hasTrait("flair7"))
                     {
@@ -1830,7 +1881,7 @@ namespace VideoCopilot.code
                     }
                     if (actor.hasTrait("meditation1") || actor.hasTrait("meditation2") || actor.hasTrait("meditation3"))
                     {
-                        // 随机增加500~1000巫力
+                        // 随机增加500~1000无根之源
                         int meditationIncrease = UnityEngine.Random.Range(500, 1001);
                         actor.ChangeMeditation(meditationIncrease);
                     }
@@ -1950,10 +2001,7 @@ namespace VideoCopilot.code
                     {
                         pTarget.a.data.favorite = true;
                         pTarget.a.addTrait("Grade01");
-                        string modFolderPath = @"D:\Mods\witchcraft\code\Sound";
-                        string fileName = "S+Sound.wav";
-                        string filePath = Path.Combine(modFolderPath, fileName);
-                        PlayWavDirectly.Instance.PlaySoundFromFile  (filePath);
+                        PlayWavDirectly.Instance.PlaySoundFromFile(VideoCopilotClass.modDeclare.FolderPath + @"\code\Sound\Sound_1.wav");
                         ActionLibrary.showWhisperTip("叮,SS出世");
                         pTarget.a.data.setName(pTarget.a.getName() + " 2S");
                         actorTipsShown[pTarget.a] = (true, tipsShown.hasShownSSSTip); // 更新状态
@@ -1980,10 +2028,7 @@ namespace VideoCopilot.code
                     {
                         pTarget.a.data.favorite = true;
                         pTarget.a.addTrait("Grade02");
-                        string modFolderPath = @"D:\Mods\witchcraft\code\Sound";
-                        string fileName = "S+Sound.wav";
-                        string filePath = Path.Combine(modFolderPath, fileName);
-                        PlayWavDirectly.Instance.PlaySoundFromFile  (filePath);
+                        PlayWavDirectly.Instance.PlaySoundFromFile(VideoCopilotClass.modDeclare.FolderPath + @"\code\Sound\Sound_1.wav");
                         ActionLibrary.showWhisperTip("叮,SSS出世");
                         pTarget.a.data.setName(pTarget.a.getName() + " 3S");
                         actorTipsShown[pTarget.a] = (tipsShown.hasShownSSTip, true); // 更新状态

@@ -237,8 +237,11 @@ internal class patch
             { "Grade8", 388f },
             { "Grade9", 500f }
         };
+
         const float flair81Probability = 0.2f;
         bool hasGradeTrait = false;
+
+// 第一层遍历：检查是否存在任意等级特质
         foreach (var grade in traitThresholds.Keys)
         {
             if (actor.hasTrait(grade))
@@ -247,14 +250,21 @@ internal class patch
                 break;
             }
         }
+
         if (hasGradeTrait)
         {
-            foreach (var (grade, ageThreshold) in traitThresholds)
+            // 第二层遍历：使用 KeyValuePair 替代解构语法
+            foreach (var kvp in traitThresholds)
             {
-                if (actor.hasTrait(grade) && age > ageThreshold && Toolbox.randomChance(flair81Probability))
+                string grade = kvp.Key;
+                float ageThreshold = kvp.Value;
+
+                if (actor.hasTrait(grade) &&
+                    age > ageThreshold &&
+                    Toolbox.randomChance(flair81Probability))
                 {
                     actor.addTrait("flair81", false);
-                    break;
+                    break; // 添加后立即退出循环
                 }
             }
         }
@@ -304,12 +314,17 @@ internal class patch
             { "flair3", (-0.8f, -1.0f) },
             { "flair4", (-1.1f, -1.3f) },
             { "flair5", (-1.4f, -1.6f) },
-            { "flair6", (-1.8f, -3.5f) }, 
+            { "flair6", (-1.8f, -3.5f) },
             { "flair7", (-3.8f, -5.5f) }
         };
+
         // 遍历flair特质，检查演员是否拥有，并设置随机的["xiaohao"]值
-        foreach (var (flair, (min, max)) in flairXiaohaoRanges)
+        foreach (var kvp in flairXiaohaoRanges)
         {
+            string flair = kvp.Key;
+            float min = kvp.Value.min;
+            float max = kvp.Value.max;
+
             if (actor.hasTrait(flair))
             {
                 float randomXiaohao = UnityEngine.Random.Range(min, max);
@@ -317,6 +332,7 @@ internal class patch
                 return true; // 设置成功，返回true
             }
         }
+
         // 如果没有找到匹配的flair特质，则返回false
         return false;
     }

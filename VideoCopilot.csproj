@@ -14,6 +14,12 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\worldbox_Data\StreamingAssets\mods\NML\Assembly-CSharp-Publicized.dll</HintPath>
     </Reference>
+    <Reference Include="FMODUnity">
+      <HintPath>..\..\worldbox_Data\Managed\FMODUnity.dll</HintPath>
+    </Reference>
+    <Reference Include="FMODUnityResonance">
+      <HintPath>..\..\worldbox_Data\Managed\FMODUnityResonance.dll</HintPath>
+    </Reference>
     <Reference Include="NeoModLoader">
       <HintPath>..\..\worldbox_Data\StreamingAssets\mods\NeoModLoader.dll</HintPath>
     </Reference>

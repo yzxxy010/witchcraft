@@ -519,7 +519,7 @@ internal class patch
             {
                 text = text.Replace("$kingdom_B$", Config.whisperB.name);
             }
-            WorldTip.showNow(text, false, "top", 6f);
+            WorldTip.showNow(text, false, "top", 15f);
 
 
         // 如果不需要跳过原方法，则返回true

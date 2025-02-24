@@ -1373,7 +1373,6 @@ namespace VideoCopilot.code
             string actorName = a.getName();
             if (!a.hasTrait("flair8") && !a.hasTrait("flair91"))
             {
-                a.data.favorite = true;
                 // 修改名称，将“正式”替换为“高级”
                 string currentName = pTarget.a.getName();
                 string newName = currentName.Replace(" 正式", " 高级");
@@ -1508,7 +1507,6 @@ namespace VideoCopilot.code
             string actorName = a.getName();
             if (!a.hasTrait("flair8") && !a.hasTrait("flair91"))
             {
-                a.data.favorite = true;
                 // 修改名称，将“高级”替换为“大巫师”
                 string currentName = pTarget.a.getName();
                 string newName = currentName.Replace(" 高级", " 大巫师");

@@ -157,6 +157,8 @@ new WorldAction(traitAction.flair91_Regen)); //再生效果
             flair92.base_stats[S.fertility] = -100f;//生育力-100
             flair92.base_stats[S.max_children] = -100f;//可生育子女数-100
             flair92.action_death = traitAction.flair92_death; //重生效果
+            flair92.action_special_effect += (WorldAction)Delegate.Combine(flair92.action_special_effect,
+new WorldAction(traitAction.flair92_Regen)); //再生效果
             AssetManager.traits.add(flair92);
             //巫师境界↓
             ActorTrait Grade0 = new ActorTrait();

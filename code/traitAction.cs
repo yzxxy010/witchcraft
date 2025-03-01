@@ -853,7 +853,7 @@ namespace VideoCopilot.code
         {
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(25);
+                pTarget.a.restoreHealth(10);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -2070,7 +2070,6 @@ namespace VideoCopilot.code
                     if (!tipsShown.hasShownSSTip)
                     {
                         pTarget.a.data.favorite = true;
-                        pTarget.a.addTrait("Grade01");
                         PlayWavDirectly.Instance.PlaySoundFromFile(VideoCopilotClass.modDeclare.FolderPath + @"\code\Sound\Sound_1.wav");
                         ActionLibrary.showWhisperTip("叮,SS出世");
                         pTarget.a.data.setName(pTarget.a.getName() + " 2S");
@@ -2107,7 +2106,6 @@ namespace VideoCopilot.code
                     if (!tipsShown.hasShownSSSTip)
                     {
                         pTarget.a.data.favorite = true;
-                        pTarget.a.addTrait("Grade02");
                         PlayWavDirectly.Instance.PlaySoundFromFile(VideoCopilotClass.modDeclare.FolderPath + @"\code\Sound\Sound_1.wav");
                         ActionLibrary.showWhisperTip("叮,SSS出世");
                         pTarget.a.data.setName(pTarget.a.getName() + " 3S");

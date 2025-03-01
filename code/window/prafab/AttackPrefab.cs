@@ -130,12 +130,12 @@ public class AttackPrefab : MonoBehaviour
         {
             if (actor.GetYuanNeng() > 0)
             {
-                textContent += $"<color=#FFFF00>{LM.Get("yuanneng")}:</color>\t{(int)actor.GetYuanNeng()}\n";
+                textContent += $"<color=#00FFFF>{LM.Get("yuanneng")}:</color>\t{(int)actor.GetYuanNeng()}\n";
             }
         }
         if (actor.GetMeditation() > 0)
         {
-            textContent += $"<color=#9932CC>{LM.Get("meditation")}:</color>\t{(int)actor.GetMeditation()}";
+            textContent += $"<color=#FFFF00>{LM.Get("meditation")}:</color>\t{(int)actor.GetMeditation()}";
         }
         textComponent.text = textContent;
         textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf");

@@ -49,7 +49,7 @@ internal class patch
             if (pDeadUnit.hasTrait(trait) && __instance.hasTrait(trait))
             {
                 float deadUnitMeditation = pDeadUnit.GetMeditation();
-                float additionalWuLi = deadUnitMeditation * UnityEngine.Random.Range(0.1f, 0.3f);
+                float additionalWuLi = deadUnitMeditation * UnityEngine.Random.Range(0.3f, 0.7f);
                 __instance.ChangeMeditation(additionalWuLi);
             }
             else
@@ -60,11 +60,17 @@ internal class patch
                     if (trait != otherTrait && pDeadUnit.hasTrait(trait) && __instance.hasTrait(otherTrait))
                     {
                         float deadUnitMeditation = pDeadUnit.GetMeditation();
-                        float additionalWuLi = deadUnitMeditation * UnityEngine.Random.Range(0.1f, 0.3f);
+                        float additionalWuLi = deadUnitMeditation * UnityEngine.Random.Range(0.3f, 0.7f);
                         __instance.ChangeMeditation(additionalWuLi);
                     }
                 }
             }
+        }
+        if (__instance.hasTrait("flair91") && pDeadUnit.hasTrait("flair91"))
+        {
+            // 假设Actor类有ChangeResurrection方法用于修改“世”的数值
+            __instance.ChangeResurrection(10); // 击杀者增加10点“世”
+            pDeadUnit.ChangeResurrection(-10); // 被击杀者减少10点“世”（可选，根据游戏逻辑决定是否需要）
         }
     }
 
@@ -95,18 +101,29 @@ internal class patch
             meditationRect.pivot = new Vector2(0f, 0f); // 假设放在底部
             meditationRect.anchorMin = new Vector2(0.5f, 0f);
             meditationRect.anchorMax = new Vector2(0.5f, 0f);
-            meditationRect.localPosition = new Vector3(120, -200, 0); // 假设的位置，可能需要调整
+            meditationRect.localPosition = new Vector3(150, -70, 0); // 假设的位置，可能需要调整
             meditationRect.sizeDelta = new Vector2(800, 50); // 假设的大小，可能需要根据字体大小调整
             meditationObj.SetActive(false);
+
+            var resurrectionObj = new GameObject("ResurrectionShow", typeof(Text));
+            resurrectionObj.transform.SetParent(__instance.transform.Find("Background"));
+            resurrectionObj.transform.localScale = Vector3.one;
+            RectTransform resurrectionRect = resurrectionObj.GetComponent<RectTransform>();
+            resurrectionRect.pivot = new Vector2(0f, 0f); // 假设放在底部
+            resurrectionRect.anchorMin = new Vector2(0.5f, 0f);
+            resurrectionRect.anchorMax = new Vector2(0.5f, 0f);
+            resurrectionRect.localPosition = new Vector3(150, -90, 0); // 假设的位置，可能需要调整
+            resurrectionRect.sizeDelta = new Vector2(800, 50); // 假设的大小，可能需要根据字体大小调整
+            resurrectionObj.SetActive(false);
         }
 
         Transform ActorShowYuanNneg = __instance.transform.Find("Background/YuanNnegShow");
         Text ActorShowYuanNnegText = ActorShowYuanNneg.GetComponent<Text>();
         ActorShowYuanNnegText.text = string.Empty;// 重置文本内容，确保不会显示旧数据
-        if (__instance.actor.GetYuanNeng() > 0f)
+        if (__instance.actor.GetYuanNeng() > 0f) // 检查是否有x值需要显示
         {
             ActorShowYuanNneg.gameObject.SetActive(true); // 当值大于0时激活对象
-            ActorShowYuanNnegText.color = new Color(1f, 1f, 0f);
+            ActorShowYuanNnegText.color = new Color(0f, 255f, 255f);
             ActorShowYuanNnegText.text = LM.Get("yuanneng") + ":\t" + __instance.actor.GetYuanNeng();
             ActorShowYuanNnegText.font = LocalizedTextManager.currentFont;
             ActorShowYuanNnegText.alignment = TextAnchor.UpperLeft;
@@ -120,10 +137,10 @@ internal class patch
         Transform ActormeditationTextTransform = __instance.transform.Find("Background/MeditationShow");
         Text ActormeditationTextComponent = ActormeditationTextTransform.GetComponent<Text>();
         ActormeditationTextComponent.text = string.Empty; // 重置文本内容，确保不会显示旧数据
-        if (__instance.actor.GetMeditation() > 0f)
+        if (__instance.actor.GetMeditation() > 0f) // 检查是否有x值需要显示
         {
             ActormeditationTextTransform.gameObject.SetActive(true);
-            ActormeditationTextComponent.color = new Color(128f / 255f, 0f / 255f, 128f / 255f);
+            ActormeditationTextComponent.color = new Color(1f, 1f, 0f);
             float ActormeditationValue = __instance.actor.GetMeditation(); // 假设Actor有GetMeditation方法
             ActormeditationTextComponent.text = LM.Get("meditation") + ":\t" + __instance.actor.GetMeditation();
             ActormeditationTextComponent.font = LocalizedTextManager.currentFont;
@@ -133,6 +150,33 @@ internal class patch
         else
         {
             ActormeditationTextTransform.gameObject.SetActive(false);
+        }
+        Transform ActorresurrectionTextTransform = __instance.transform.Find("Background/ResurrectionShow");
+        Text ActorresurrectionTextComponent = ActorresurrectionTextTransform.GetComponent<Text>();
+        ActorresurrectionTextComponent.text = string.Empty; // 重置文本内容，确保不会显示旧数据
+        if (__instance.actor.hasTrait("flair92"))// 首先检查是否有flair92特质
+        {
+            ActorresurrectionTextTransform.gameObject.SetActive(true);
+            ActorresurrectionTextComponent.color = new Color(1f, 0f, 0f); // 假设红色为重生信息的颜色
+            float ActorresurrectionValue = __instance.actor.GetResurrection();
+            ActorresurrectionTextComponent.text = "第 " + ActorresurrectionValue + " 世";// 更新文本为“第 x 世”
+            ActorresurrectionTextComponent.font = LocalizedTextManager.currentFont;
+            ActorresurrectionTextComponent.alignment = TextAnchor.UpperLeft;
+            ActorresurrectionTextComponent.raycastTarget = false;
+        }
+        else if (__instance.actor.hasTrait("flair8") || __instance.actor.hasTrait("flair91")) // 检查是否有x值需要显示
+        {// 如果没有flair92，则检查flair8或flair91
+            ActorresurrectionTextTransform.gameObject.SetActive(true);
+            ActorresurrectionTextComponent.color = new Color(1f, 0f, 0f);
+            float ActorresurrectionValue = __instance.actor.GetResurrection();
+            ActorresurrectionTextComponent.text = LM.Get("resurrection") + ":\t" + ActorresurrectionValue;
+            ActorresurrectionTextComponent.font = LocalizedTextManager.currentFont;
+            ActorresurrectionTextComponent.alignment = TextAnchor.UpperLeft;
+            ActorresurrectionTextComponent.raycastTarget = false;
+        }
+        else
+        {
+            ActorresurrectionTextTransform.gameObject.SetActive(false);
         }
         __instance.transform.Find("Background/Clickable obj").gameObject.SetActive(false);
         __instance.showStat("xiaohao", __instance.actor.stats["xiaohao"]);
@@ -200,6 +244,10 @@ internal class patch
         else if (actor.hasTrait("flair91"))
         {
             maxMeditation = 2000.0f;
+        }
+        else if (actor.hasTrait("flair92"))
+        {
+            maxMeditation = 1000.0f;
         }
         else
         {
@@ -283,6 +331,14 @@ internal class patch
         {
             actor.ChangeMeditation(2f);
         }
+        if (actor.hasTrait("flair92"))
+        {
+            if (actor.hasTrait("meditation1") || actor.hasTrait("meditation2") || actor.hasTrait("meditation3"))
+            {
+                actor.ChangeMeditation(1f);
+                actor.ChangeYuanNeng(2f);
+            }
+        }
         // 检查 meditation1 到 meditation3 特质
         if (actor.hasTrait("meditation1") || actor.hasTrait("meditation2") || actor.hasTrait("meditation3"))
         {
@@ -309,11 +365,11 @@ internal class patch
         // 定义flair特质对应的["xiaohao"]随机范围
         var flairXiaohaoRanges = new Dictionary<string, (float min, float max)>
         {
-            { "flair1", (-0.2f, -0.4f) },
-            { "flair2", (-0.5f, -0.7f) },
-            { "flair3", (-0.8f, -1.0f) },
-            { "flair4", (-1.1f, -1.3f) },
-            { "flair5", (-1.4f, -1.6f) },
+            { "flair1", (-0.2f, -0.5f) },
+            { "flair2", (-0.5f, -0.8f) },
+            { "flair3", (-0.8f, -1.1f) },
+            { "flair4", (-1.1f, -1.4f) },
+            { "flair5", (-1.4f, -1.7f) },
             { "flair6", (-1.8f, -3.5f) },
             { "flair7", (-3.8f, -5.5f) }
         };

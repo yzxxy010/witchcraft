@@ -31,6 +31,15 @@ namespace VideoCopilot.code
             meditation.mod = true;
             meditation.used_only_for_civs = false;
             AssetManager.base_stats_library.add(meditation);
+            // 复活次数
+            BaseStatAsset resurrection = new BaseStatAsset();
+            resurrection.id = "resurrection";
+            resurrection.normalize = true;
+            resurrection.normalize_min = -99999;
+            resurrection.normalize_max = 99999;
+            resurrection.mod = true;
+            resurrection.used_only_for_civs = false;
+            AssetManager.base_stats_library.add(resurrection);
         }
     }
 }

@@ -28,31 +28,51 @@ namespace VideoCopilot.code
         {                          
                         //特质id↓ //贴图路径↓ //诞生率↓ //排斥的特质↓
             AddActorTrait("flair1", "trait/flair1", 3f, "flair2,flair3,flair4,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//D天赋
-            AddActorTrait("flair2", "trait/flair2", 1.5f, "flair1,flair3,flair4,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//C天赋
-            AddActorTrait("flair3", "trait/flair3", 0.5f, "flair1,flair2,flair4,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//B天赋
-            AddActorTrait("flair4", "trait/flair4", 0.1f, "flair1,flair2,flair3,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//A天赋
-            AddActorTrait("flair5", "trait/flair5", 0.03f, "flair1,flair2,flair3,flair4,flair6,flair7,talent1,talent2,talent3,talent4");//S天赋
+            AddActorTrait("flair2", "trait/flair2", 2f, "flair1,flair3,flair4,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//C天赋
+            AddActorTrait("flair3", "trait/flair3", 1f, "flair1,flair2,flair4,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//B天赋
+            AddActorTrait("flair4", "trait/flair4", 0.5f, "flair1,flair2,flair3,flair5,flair6,flair7,talent1,talent2,talent3,talent4");//A天赋
+            AddActorTrait("flair5", "trait/flair5", 0.05f, "flair1,flair2,flair3,flair4,flair6,flair7,talent1,talent2,talent3,talent4");//S天赋
 
             ActorTrait flair6 = new ActorTrait();
             flair6.id = "flair6";// SS天赋
             flair6.path_icon = "trait/flair6";
-            flair6.base_stats[S.max_age] = -50f;
             flair6.needs_to_be_explored = false;
             flair6.birth = 0.003f;
             flair6.group_id = "interesting3";
             flair6.opposite = "flair1,flair2,flair3,flair4,flair5,flair7,talent1,talent2,talent3,talent4";
+            flair6.base_stats[S.max_age] = -60f;
+            flair6.base_stats[S.intelligence] = 15f;
+            flair6.base_stats[S.damage] = 60f;
+            flair6.base_stats[S.critical_chance] = 0.2f;
+            flair6.base_stats[S.health] = 300f;
+            flair6.base_stats[S.armor] = 10f;
+            flair6.base_stats[S.knockback_reduction] = 1f;
+            flair6.base_stats[S.targets] = 2f;
             flair6.action_special_effect += traitAction.SS_Collection;//收藏
+            flair6.action_special_effect += traitAction.Grade0_effectAction;//学徒•初识的升级条件
+            flair6.action_special_effect += (WorldAction)Delegate.Combine(flair6.action_special_effect,
+new WorldAction(traitAction.flair6_Regen)); //再生效果
             AssetManager.traits.add(flair6);
 
             ActorTrait flair7 = new ActorTrait();
             flair7.id = "flair7";// SSS天赋
             flair7.path_icon = "trait/flair7";
-            flair7.base_stats[S.max_age] = -80f;
             flair7.needs_to_be_explored = false;
             flair7.birth = 0.001f;
             flair7.group_id = "interesting3";
             flair7.opposite = "flair1,flair2,flair3,flair4,flair5,flair6,talent1,talent2,talent3,talent4";
+            flair7.base_stats[S.max_age] = -65f;
+            flair7.base_stats[S.intelligence] = 30f;
+            flair7.base_stats[S.damage] = 100f;
+            flair7.base_stats[S.critical_chance] = 0.5f;
+            flair7.base_stats[S.health] = 500f;
+            flair7.base_stats[S.armor] = 20f;
+            flair7.base_stats[S.knockback_reduction] = 1f;
+            flair7.base_stats[S.targets] = 3f;
             flair7.action_special_effect += traitAction.SSS_Collection;//收藏
+            flair7.action_special_effect += traitAction.Grade0_effectAction;//学徒•初识的升级条件
+            flair7.action_special_effect += (WorldAction)Delegate.Combine(flair7.action_special_effect,
+new WorldAction(traitAction.flair7_Regen)); //再生效果
             AssetManager.traits.add(flair7);
 
             ActorTrait meditation1 = new ActorTrait();
@@ -81,11 +101,11 @@ namespace VideoCopilot.code
             flair8.path_icon = "trait/flair8";
             flair8.needs_to_be_explored = false;
             flair8.group_id = "interesting3";
-            flair8.base_stats[S.intelligence] = 20f;
+            flair8.base_stats[S.intelligence] = 30f;
             flair8.base_stats[S.max_age] = 10f;//寿命+10
-            flair8.base_stats[S.damage] = 50f;
+            flair8.base_stats[S.damage] = 60f;
             flair8.base_stats[S.knockback_reduction] = 1f;
-            flair8.base_stats[S.armor] = 5f;
+            flair8.base_stats[S.armor] = 20f;
             flair8.base_stats[S.fertility] = -100f;//生育力-100
             flair8.base_stats[S.max_children] = -100f;//可生育子女数-100
             flair8.base_stats[S.health] = 300f;
@@ -115,11 +135,11 @@ new WorldAction(traitAction.flair8_Regen)); //再生效果
             flair91.path_icon = "trait/flair91";
             flair91.needs_to_be_explored = false;
             flair91.group_id = "interesting3";
-            flair91.base_stats[S.intelligence] = 60f;
+            flair91.base_stats[S.intelligence] = 88f;
             flair91.base_stats[S.max_age] = 10f;//寿命+10
             flair91.base_stats[S.damage] = 120f;
             flair91.base_stats[S.knockback_reduction] = 1f;
-            flair91.base_stats[S.armor] = 10f;
+            flair91.base_stats[S.armor] = 30f;
             flair91.base_stats[S.health] = 900f;
             flair91.base_stats[S.fertility] = -100f;//生育力-100
             flair91.base_stats[S.max_children] = -100f;//可生育子女数-100
@@ -128,6 +148,16 @@ new WorldAction(traitAction.flair8_Regen)); //再生效果
             flair91.action_special_effect += (WorldAction)Delegate.Combine(flair91.action_special_effect,
 new WorldAction(traitAction.flair91_Regen)); //再生效果
             AssetManager.traits.add(flair91);
+
+            ActorTrait flair92 = new ActorTrait();
+            flair92.id = "flair92";
+            flair92.path_icon = "trait/flair92";
+            flair92.needs_to_be_explored = false;
+            flair92.group_id = "interesting3";
+            flair92.base_stats[S.fertility] = -100f;//生育力-100
+            flair92.base_stats[S.max_children] = -100f;//可生育子女数-100
+            flair92.action_death = traitAction.flair92_death; //重生效果
+            AssetManager.traits.add(flair92);
             //巫师境界↓
             ActorTrait Grade0 = new ActorTrait();
             Grade0.id = "Grade0"; //学徒•初识

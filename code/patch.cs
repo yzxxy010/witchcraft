@@ -6,6 +6,7 @@ using UnityEngine;
 using ReflectionUtility;
 using UnityEngine.UI;
 using VideoCopilot.code.utils;
+using VideoCopilot.code.window;
 
 namespace VideoCopilot.code;
 internal class patch
@@ -180,6 +181,23 @@ internal class patch
         }
         __instance.transform.Find("Background/Clickable obj").gameObject.SetActive(false);
         __instance.showStat("xiaohao", __instance.actor.stats["xiaohao"]);
+    }
+
+
+
+    public static bool window_creature_info_initialized;
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(WindowCreatureInfo), nameof(WindowCreatureInfo.OnEnable))]
+    private static void WindowCreatureInfo_OnEnable_postfix(WindowCreatureInfo __instance)
+    {
+        if (__instance.actor == null || !__instance.actor.isAlive()) return;
+        if (!window_creature_info_initialized)
+        {
+            window_creature_info_initialized = true;
+            WindowCreatureInfoPatchHelper.Initialize(__instance);
+        }
+
+        WindowCreatureInfoPatchHelper.OnEnable(__instance);
     }
 
     [HarmonyPostfix, HarmonyPatch(typeof(MapBox), "updateObjectAge")]

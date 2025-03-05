@@ -787,7 +787,7 @@ namespace VideoCopilot.code
         {
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(2100);
+                pTarget.a.restoreHealth(3000);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -798,7 +798,7 @@ namespace VideoCopilot.code
         {
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(5200);
+                pTarget.a.restoreHealth(7000);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -809,7 +809,7 @@ namespace VideoCopilot.code
         {
             if (pTarget.a.data.health != pTarget.getMaxHealth())
             {
-                pTarget.a.restoreHealth(12000);
+                pTarget.a.restoreHealth(30000);
                 pTarget.a.spawnParticle(Toolbox.color_heal);
             }
 
@@ -966,8 +966,8 @@ namespace VideoCopilot.code
                 pSelf.a.stats != null)
             {
                 // 智力值的随机倍数，范围在x到x之间
-                float intelligenceMultiplierMin = 10f;
-                float intelligenceMultiplierMax = 30f;
+                float intelligenceMultiplierMin = 15f;
+                float intelligenceMultiplierMax = 35f;
                 float intelligenceMultiplier =
                     UnityEngine.Random.Range(intelligenceMultiplierMin, intelligenceMultiplierMax);
 
@@ -995,8 +995,8 @@ namespace VideoCopilot.code
                 pSelf.a.stats != null)
             {
                 // 智力值的随机倍数，范围在x到x之间
-                float intelligenceMultiplierMin = 20f;
-                float intelligenceMultiplierMax = 40f;
+                float intelligenceMultiplierMin = 25f;
+                float intelligenceMultiplierMax = 45f;
                 float intelligenceMultiplier =
                     UnityEngine.Random.Range(intelligenceMultiplierMin, intelligenceMultiplierMax);
 
@@ -1024,8 +1024,8 @@ namespace VideoCopilot.code
                 pSelf.a.stats != null)
             {
                 // 智力值的随机倍数，范围在x到x之间
-                float intelligenceMultiplierMin = 40f;
-                float intelligenceMultiplierMax = 50f;
+                float intelligenceMultiplierMin = 62f;
+                float intelligenceMultiplierMax = 72f;
                 float intelligenceMultiplier =
                     UnityEngine.Random.Range(intelligenceMultiplierMin, intelligenceMultiplierMax);
 
@@ -1218,9 +1218,21 @@ namespace VideoCopilot.code
             a.ChangeYuanNeng(-1);
             double successRate = 0.6; //默认概率
             //根据天赋调整概率
+            string currentName = a.getName();
             if (a.hasTrait("flair91"))
             {
                 successRate = 0.9;
+            }
+            else if (a.hasTrait("flair92"))
+            {
+                if (currentName.Contains(" 始祖"))
+                {
+                    successRate = 0.9;
+                }
+                if (currentName.Contains(" 不灭"))
+                {
+                    successRate = 0.8;
+                }
             }
             else if (a.hasTrait("flair8"))
             {
@@ -1254,9 +1266,7 @@ namespace VideoCopilot.code
             }
 
             // 初始化newName为当前名称
-            string currentName = a.getName();
             string newName = currentName;
-
             // 检查名称中是否包含“学徒”，如果包含则替换为“正式”
             if (currentName.Contains(" 学徒"))
             {
@@ -1356,9 +1366,21 @@ namespace VideoCopilot.code
             a.ChangeYuanNeng(-6);
             double successRate = 0.5; //默认概率
             //根据天赋调整概率
+            string currentName = a.getName();
             if (a.hasTrait("flair91"))
             {
                 successRate = 0.8;
+            }
+            else if (a.hasTrait("flair92"))
+            {
+                if (currentName.Contains(" 始祖"))
+                {
+                    successRate = 0.8;
+                }
+                if (currentName.Contains(" 不灭"))
+                {
+                    successRate = 0.7;
+                }
             }
             else if (a.hasTrait("flair8"))
             {
@@ -1391,9 +1413,7 @@ namespace VideoCopilot.code
                 return false;
             }
             // 初始化newName为当前名称
-            string currentName = a.getName();
             string newName = currentName;
-
             // 检查名称中是否包含“正式”，如果包含则替换为“高级”
             if (currentName.Contains(" 正式"))
             {
@@ -1489,9 +1509,21 @@ namespace VideoCopilot.code
             a.ChangeYuanNeng(-30);
             double successRate = 0.2; //默认概率 
             //根据天赋调整概率
+            string currentName = a.getName();
             if (a.hasTrait("flair91"))
             {
                 successRate = 0.5;
+            }
+            else if (a.hasTrait("flair92"))
+            {
+                if (currentName.Contains(" 始祖"))
+                {
+                    successRate = 0.5;
+                }
+                if (currentName.Contains(" 不灭"))
+                {
+                    successRate = 0.4;
+                }
             }
             else if (a.hasTrait("flair8"))
             {
@@ -1503,11 +1535,11 @@ namespace VideoCopilot.code
             }
             else if (a.hasTrait("flair2"))
             {
-                successRate = 0.002;
+                successRate = 0.005;
             }
             else if (a.hasTrait("flair3"))
             {
-                successRate = 0.005;
+                successRate = 0.01;
             }
             else if (a.hasTrait("flair4"))
             {
@@ -1523,7 +1555,6 @@ namespace VideoCopilot.code
                 return false;
             }
             // 初始化newName为当前名称
-            string currentName = a.getName();
             string newName = currentName;
 
             // 检查名称中是否包含“高级”，如果包含则替换为“不灭”
@@ -1563,15 +1594,27 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetMeditation() <= 159.99)//突破需求
+            if (a.GetMeditation() <= 179.99)//突破需求
             {
                 return false;
             }
-            a.ChangeMeditation(-10);//突破消耗
-            double successRate = 0.2; //突破默认概率
+            a.ChangeMeditation(-20);//突破消耗
+            double successRate = 0.1; //突破默认概率
+            string currentName = a.getName();
             if (a.hasTrait("flair91"))
             {
                 successRate = 0.5;
+            }
+            else if (a.hasTrait("flair92"))
+            {
+                if (currentName.Contains(" 始祖"))
+                {
+                    successRate = 0.5;
+                }
+                if (currentName.Contains(" 不灭"))
+                {
+                    successRate = 0.4;
+                }
             }
             else if (a.hasTrait("flair8"))
             {
@@ -1604,15 +1647,27 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetMeditation() <= 359.99)//突破需求
+            if (a.GetMeditation() <= 379.99)//突破需求
             {
                 return false;
             }
             a.ChangeMeditation(-50);//突破消耗
-            double successRate = 0.15; //突破默认概率
+            double successRate = 0.1; //突破默认概率
+            string currentName = a.getName();
             if (a.hasTrait("flair91"))
             {
                 successRate = 0.35;
+            }
+            else if (a.hasTrait("flair92"))
+            {
+                if (currentName.Contains(" 始祖"))
+                {
+                    successRate = 0.35;
+                }
+                if (currentName.Contains(" 不灭"))
+                {
+                    successRate = 0.3;
+                }
             }
             else if (a.hasTrait("flair8"))
             {
@@ -1624,9 +1679,7 @@ namespace VideoCopilot.code
                 return false;
             }
             // 初始化newName为当前名称
-            string currentName = a.getName();
             string newName = currentName;
-
             // 检查名称中是否包含“大巫师”，如果包含则替换为“不灭”
             if (currentName.Contains(" 大巫师"))
             {
@@ -1706,7 +1759,6 @@ namespace VideoCopilot.code
             // 检查名称中是否包含“不灭”，如果包含则替换为“始祖”
             if (currentName.Contains(" 不灭"))
             {
-                a.ChangeResurrection(100);
                 newName = currentName.Replace(" 不灭", " 始祖");
                 a.data.setName(newName);
             }
@@ -1771,9 +1823,10 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
+            int currentRresurrectionCount = (int)a.GetRresurrection();
             int currentResurrectionCount = (int)a.GetResurrection();
-            // 检查GetResurrection值，如果为0则不执行复活
-            if (a.GetResurrection() <= 0)
+            // 检查GetResurrection值，如果为1则不执行复活
+            if (a.GetResurrection() <= 1)
             {
                 return false;
             }
@@ -1804,6 +1857,7 @@ namespace VideoCopilot.code
             act.data.age_overgrowth = 8;
             teleportRandom(act);
             act.ChangeResurrection(currentResurrectionCount - 1);
+            act.ChangeRresurrection(currentRresurrectionCount + 1);
 
             PowerLibrary pb = new PowerLibrary();
             pb.divineLightFX(pTarget.a.currentTile, null);
@@ -1823,9 +1877,10 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
+            int currentRresurrectionCount = (int)a.GetRresurrection();
             int currentResurrectionCount = (int)a.GetResurrection();
-            // 检查GetResurrection值，如果为0则不执行复活
-            if (a.GetResurrection() <= 0)
+            // 检查GetResurrection值，如果为1则不执行复活
+            if (a.GetResurrection() <= 1)
             {
                 return false;
             }
@@ -1853,6 +1908,7 @@ namespace VideoCopilot.code
             act.data.age_overgrowth = 8;
             teleportRandom(act);
             act.ChangeResurrection(currentResurrectionCount - 1);
+            act.ChangeRresurrection(currentRresurrectionCount + 1);
 
             PowerLibrary pb = new PowerLibrary();
             pb.divineLightFX(pTarget.a.currentTile, null);
@@ -1872,7 +1928,7 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            int currentResurrectionCount = (int)a.GetResurrection();
+            int currentRresurrectionCount = (int)a.GetRresurrection();
 
             a.removeTrait("tumorInfection");
             a.removeTrait("cursed");
@@ -1904,7 +1960,7 @@ namespace VideoCopilot.code
             act.data.created_time = World.world.getCreationTime();
             act.data.age_overgrowth = 8;
             teleportRandom(act);
-            act.ChangeResurrection(currentResurrectionCount + 1);
+            act.ChangeRresurrection(currentRresurrectionCount + 1);
 
             PowerLibrary pb = new PowerLibrary();
             pb.divineLightFX(pTarget.a.currentTile, null);

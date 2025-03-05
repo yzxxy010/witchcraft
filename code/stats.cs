@@ -40,6 +40,15 @@ namespace VideoCopilot.code
             resurrection.mod = true;
             resurrection.used_only_for_civs = false;
             AssetManager.base_stats_library.add(resurrection);
+
+            BaseStatAsset Rresurrection = new BaseStatAsset();
+            Rresurrection.id = "Rresurrection";
+            Rresurrection.normalize = true;
+            Rresurrection.normalize_min = 1;
+            Rresurrection.normalize_max = 99999;
+            Rresurrection.mod = true;
+            Rresurrection.used_only_for_civs = false;
+            AssetManager.base_stats_library.add(Rresurrection);
         }
     }
 }

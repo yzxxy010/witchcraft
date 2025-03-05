@@ -7,6 +7,23 @@ public static class ActorExtensions
     private const string yuanneng_key = "wushu.yuannengNum";
     private const string meditation_key = "wushu.meditationNum";
     private const string resurrection_key = "wushu.resurrectionNum";
+    private const string Rresurrection_key = "wushu.RresurrectionNum";
+    public static float GetRresurrection(this Actor actor)
+    {
+        actor.data.get(Rresurrection_key, out float val, 1);
+        return val;
+    }
+    public static void SetRresurrection(this Actor actor, float val)
+    {
+        actor.data.set(Rresurrection_key, val);
+    }
+    public static void ChangeRresurrection(this Actor actor, float delta)
+    {
+        actor.data.get(Rresurrection_key, out float val, 0);
+        val += delta;
+        actor.data.set(Rresurrection_key, Mathf.Max(1, val));
+    }
+
     public static float GetResurrection(this Actor actor)
     {
         actor.data.get(resurrection_key, out float val, 0);

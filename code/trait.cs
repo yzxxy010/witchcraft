@@ -388,8 +388,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade8.needs_to_be_explored = false;
             Grade8.group_id = "interesting2";
             Grade8.base_stats[S.max_age] = 340f;
-            Grade8.base_stats[S.damage] = 60000f;
-            Grade8.base_stats[S.health] = 600000f;
+            Grade8.base_stats[S.damage] = 70000f;
+            Grade8.base_stats[S.health] = 700000f;
             Grade8.base_stats[S.intelligence] = 350f;
             Grade8.base_stats[S.critical_chance] = 0.10f;
             Grade8.base_stats[S.armor] = 100f;
@@ -417,8 +417,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade9.needs_to_be_explored = false;
             Grade9.group_id = "interesting2";
             Grade9.base_stats[S.max_age] = 500f;
-            Grade9.base_stats[S.damage] = 120000f;
-            Grade9.base_stats[S.health] = 1200000f;
+            Grade9.base_stats[S.damage] = 300000f;
+            Grade9.base_stats[S.health] = 3000000f;
             Grade9.base_stats[S.armor] = 200f;
             Grade9.base_stats[S.speed] = 55f;
             Grade9.base_stats[S.intelligence] = 550f;

@@ -1,7 +1,7 @@
-0.3.0更新:
-        1.添加新特质"混沌快递·不灭特惠包"：无限重生并随机D~SS或下~极或原版游戏特质
-        2.更新"复活次数"：将直观看到还可以复活多少次
-        3.各天赋微调
+0.3.1更新:
+        1.调整"源能、复活次数、无根之源、轮回记录整"的ui
+        2.大巫师三个阶段稍强化
+        3.有"混沌快递·不灭特惠包"特质的曾升过大巫师不死境或始祖的话会更容易
 
 主要内容：
     在生物属性下方添加：
@@ -16,10 +16,10 @@
     有巫师天赋的小人在魔法之地上会获得"元素共呜"状态，每年源能+0.5
     "禁巫之族"可用来给不想让其出现巫术天赋的种族用，100%遗传
 
-    Update 0.3.0:
-        1. Added new trait "Chaos Courier·Immortal Special Package": Infinite rebirth with random traits ranging from D to SS or original game traits.
-        2. Updated "Revival Count": Now you can intuitively see how many more times you can revive.
-        3. Minor adjustments to various talents.
+    Update 0.3.1:
+        1. Adjusted the UI for "Yuan Neng, Resurrection Count, Rootless Origin, and Reincarnation Record".
+        2. Slightly strengthened the three stages of the Great Wizard.
+        3.Characters with the "Chaotic Courier · Unyielding Special Package" trait who have previously ascended to the Great Wizard's Undying Realm or Ancestor level will find it easier.
 
     Main Content:
         Added below creature attributes:

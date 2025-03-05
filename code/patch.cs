@@ -75,113 +75,13 @@ internal class patch
         }
     }
 
-    public static bool displayAreaInitialization = false;
-
-    [Hotfixable]
-    [HarmonyPostfix, HarmonyPatch(typeof(WindowCreatureInfo), "OnEnable")]
-    public static void OnEnable_Postfix(WindowCreatureInfo __instance)
-    {
-        if (!displayAreaInitialization)
-        {
-            displayAreaInitialization = true;
-            var yuanNnegObj = new GameObject("YuanNnegShow", typeof(Text), typeof(ContentSizeFitter));
-            yuanNnegObj.transform.SetParent(__instance.transform.Find("Background"));
-            yuanNnegObj.transform.localScale = Vector3.one;
-            RectTransform yuanNnegRect = yuanNnegObj.GetComponent<RectTransform>();
-            yuanNnegRect.pivot = new Vector2(0f, 1f);
-            yuanNnegRect.anchorMin = new Vector2(0.5f, 1f);
-            yuanNnegRect.anchorMax = new Vector2(0.5f, 1f);
-            yuanNnegRect.localPosition = new Vector3(0, 155, 0);
-            yuanNnegRect.sizeDelta = new Vector2(800, 200);
-            yuanNnegObj.SetActive(false);
-
-            var meditationObj = new GameObject("MeditationShow", typeof(Text));
-            meditationObj.transform.SetParent(__instance.transform.Find("Background"));
-            meditationObj.transform.localScale = Vector3.one;
-            RectTransform meditationRect = meditationObj.GetComponent<RectTransform>();
-            meditationRect.pivot = new Vector2(0f, 0f); // 假设放在底部
-            meditationRect.anchorMin = new Vector2(0.5f, 0f);
-            meditationRect.anchorMax = new Vector2(0.5f, 0f);
-            meditationRect.localPosition = new Vector3(150, -70, 0); // 假设的位置，可能需要调整
-            meditationRect.sizeDelta = new Vector2(800, 50); // 假设的大小，可能需要根据字体大小调整
-            meditationObj.SetActive(false);
-
-            var resurrectionObj = new GameObject("ResurrectionShow", typeof(Text));
-            resurrectionObj.transform.SetParent(__instance.transform.Find("Background"));
-            resurrectionObj.transform.localScale = Vector3.one;
-            RectTransform resurrectionRect = resurrectionObj.GetComponent<RectTransform>();
-            resurrectionRect.pivot = new Vector2(0f, 0f); // 假设放在底部
-            resurrectionRect.anchorMin = new Vector2(0.5f, 0f);
-            resurrectionRect.anchorMax = new Vector2(0.5f, 0f);
-            resurrectionRect.localPosition = new Vector3(150, -90, 0); // 假设的位置，可能需要调整
-            resurrectionRect.sizeDelta = new Vector2(800, 50); // 假设的大小，可能需要根据字体大小调整
-            resurrectionObj.SetActive(false);
-        }
-
-        Transform ActorShowYuanNneg = __instance.transform.Find("Background/YuanNnegShow");
-        Text ActorShowYuanNnegText = ActorShowYuanNneg.GetComponent<Text>();
-        ActorShowYuanNnegText.text = string.Empty;// 重置文本内容，确保不会显示旧数据
-        if (__instance.actor.GetYuanNeng() > 0f) // 检查是否有x值需要显示
-        {
-            ActorShowYuanNneg.gameObject.SetActive(true); // 当值大于0时激活对象
-            ActorShowYuanNnegText.color = new Color(0f, 255f, 255f);
-            ActorShowYuanNnegText.text = LM.Get("yuanneng") + ":\t" + __instance.actor.GetYuanNeng();
-            ActorShowYuanNnegText.font = LocalizedTextManager.currentFont;
-            ActorShowYuanNnegText.alignment = TextAnchor.UpperLeft;
-            ActorShowYuanNnegText.raycastTarget = false;
-        }
-        else
-        {
-            ActorShowYuanNneg.gameObject.SetActive(false);
-        }
-
-        Transform ActormeditationTextTransform = __instance.transform.Find("Background/MeditationShow");
-        Text ActormeditationTextComponent = ActormeditationTextTransform.GetComponent<Text>();
-        ActormeditationTextComponent.text = string.Empty; // 重置文本内容，确保不会显示旧数据
-        if (__instance.actor.GetMeditation() > 0f) // 检查是否有x值需要显示
-        {
-            ActormeditationTextTransform.gameObject.SetActive(true);
-            ActormeditationTextComponent.color = new Color(1f, 1f, 0f);
-            float ActormeditationValue = __instance.actor.GetMeditation(); // 假设Actor有GetMeditation方法
-            ActormeditationTextComponent.text = LM.Get("meditation") + ":\t" + __instance.actor.GetMeditation();
-            ActormeditationTextComponent.font = LocalizedTextManager.currentFont;
-            ActormeditationTextComponent.alignment = TextAnchor.UpperLeft;
-            ActormeditationTextComponent.raycastTarget = false;
-        }
-        else
-        {
-            ActormeditationTextTransform.gameObject.SetActive(false);
-        }
-        Transform ActorresurrectionTextTransform = __instance.transform.Find("Background/ResurrectionShow");
-        Text ActorresurrectionTextComponent = ActorresurrectionTextTransform.GetComponent<Text>();
-        ActorresurrectionTextComponent.text = string.Empty; // 重置文本内容，确保不会显示旧数据
-        if (__instance.actor.hasTrait("flair92"))// 首先检查是否有flair92特质
-        {
-            ActorresurrectionTextTransform.gameObject.SetActive(true);
-            ActorresurrectionTextComponent.color = new Color(1f, 0f, 0f); // 假设红色为重生信息的颜色
-            float ActorresurrectionValue = __instance.actor.GetResurrection();
-            ActorresurrectionTextComponent.text = "第 " + ActorresurrectionValue + " 世";// 更新文本为“第 x 世”
-            ActorresurrectionTextComponent.font = LocalizedTextManager.currentFont;
-            ActorresurrectionTextComponent.alignment = TextAnchor.UpperLeft;
-            ActorresurrectionTextComponent.raycastTarget = false;
-        }
-        else if (__instance.actor.hasTrait("flair8") || __instance.actor.hasTrait("flair91")) // 检查是否有x值需要显示
-        {// 如果没有flair92，则检查flair8或flair91
-            ActorresurrectionTextTransform.gameObject.SetActive(true);
-            ActorresurrectionTextComponent.color = new Color(1f, 0f, 0f);
-            float ActorresurrectionValue = __instance.actor.GetResurrection();
-            ActorresurrectionTextComponent.text = LM.Get("resurrection") + ":\t" + ActorresurrectionValue;
-            ActorresurrectionTextComponent.font = LocalizedTextManager.currentFont;
-            ActorresurrectionTextComponent.alignment = TextAnchor.UpperLeft;
-            ActorresurrectionTextComponent.raycastTarget = false;
-        }
-        else
-        {
-            ActorresurrectionTextTransform.gameObject.SetActive(false);
-        }
-        __instance.transform.Find("Background/Clickable obj").gameObject.SetActive(false);
-        __instance.showStat("xiaohao", __instance.actor.stats["xiaohao"]);
-    }
+/*代码弃用,使用新的方法实现显示功能*/
+    // [Hotfixable]
+    // [HarmonyPostfix, HarmonyPatch(typeof(WindowCreatureInfo), "OnEnable")]
+    // public static void OnEnable_Postfix(WindowCreatureInfo __instance)
+    // {
+    //
+    // }
 
 
 

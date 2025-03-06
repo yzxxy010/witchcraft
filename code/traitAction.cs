@@ -1594,11 +1594,11 @@ namespace VideoCopilot.code
             }
 
             Actor a = pTarget.a;
-            if (a.GetMeditation() <= 179.99)//突破需求
+            if (a.GetMeditation() <= 199.99)//突破需求
             {
                 return false;
             }
-            a.ChangeMeditation(-20);//突破消耗
+            a.ChangeMeditation(-30);//突破消耗
             double successRate = 0.1; //突破默认概率
             string currentName = a.getName();
             if (a.hasTrait("flair91"))

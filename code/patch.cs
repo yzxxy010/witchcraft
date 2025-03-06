@@ -75,6 +75,16 @@ internal class patch
         }
     }
 
+/*代码弃用,使用新的方法实现显示功能*/
+    // [Hotfixable]
+    // [HarmonyPostfix, HarmonyPatch(typeof(WindowCreatureInfo), "OnEnable")]
+    // public static void OnEnable_Postfix(WindowCreatureInfo __instance)
+    // {
+    //
+    // }
+
+
+
     public static bool window_creature_info_initialized;
     [HarmonyPostfix]
     [HarmonyPatch(typeof(WindowCreatureInfo), nameof(WindowCreatureInfo.OnEnable))]
@@ -164,12 +174,20 @@ internal class patch
             {
                 maxMeditation = 1000.0f;
             }
+            else if (actor.hasTrait("Grade8"))
+            {
+                maxMeditation = 380.0f;
+            }
+            else if (actor.hasTrait("Grade7"))
+            {
+                maxMeditation = 200.0f;
+            }
         }
         else
         {
             var meditationLimits = new Dictionary<string, float>
             {
-                { "Grade7", 180.0f },
+                { "Grade7", 200.0f },
                 { "Grade8", 380.0f }
             };
             foreach (var grade in meditationLimits)

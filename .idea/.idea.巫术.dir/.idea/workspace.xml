@@ -5,22 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4a49af6-76d2-4dc3-afc8-95c5b535cc4a" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.InterestingTrait/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.InterestingTrait/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.InterestingTrait/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.InterestingTrait/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.InterestingTrait/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.InterestingTrait/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.巫术.dir/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.巫术.dir/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.巫术.dir/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.巫术.dir/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.巫术.dir/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/InterestingTrait.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VideoCopilot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InterestingTrait.sln" beforeDir="false" afterPath="$PROJECT_DIR$/VideoCopilot.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InterestingTrait.sln.DotSettings.user" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WindowAttack.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VideoCopilot.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/patch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/code/patch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.巫术.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.巫术.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Folder.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Locales/ch.json" beforeDir="false" afterPath="$PROJECT_DIR$/Locales/ch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Locales/cz.json" beforeDir="false" afterPath="$PROJECT_DIR$/Locales/cz.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Locales/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/Locales/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Locales/ja.json" beforeDir="false" afterPath="$PROJECT_DIR$/Locales/ja.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/window/WindowCreatureInfoPatchHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/code/window/WindowCreatureInfoPatchHelper.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,42 +21,51 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "yzxxy010"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;yzxxy010&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/yzxxy010/witchcraft.git",
-    "accountId": "60b6c8bf-22d1-4c9b-a1af-eceeb91e5579"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yzxxy010/witchcraft.git&quot;,
+    &quot;accountId&quot;: &quot;60b6c8bf-22d1-4c9b-a1af-eceeb91e5579&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/48981bcd2f4c43299deecf42053a306220ec00/5a/03948a13/CityIcon.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/48981bcd2f4c43299deecf42053a306220ec00/86/7d43c92f/WindowCreatureInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/48981bcd2f4c43299deecf42053a306220ec00/d3/90fc7d51/TraitButton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b18a8b3398e74bca86895881dd02956c573648/42/e6ca17ae/Int32.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c9078c34e8984c1f81636cfb8a73f0c91257800/7e/deb14a15/ModDeclare.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e8ad740a36e94573bdfd43b46060477711d018/3c/39d8b162/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e8ad740a36e94573bdfd43b46060477711d018/4f/cb23c130/Transform.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/code/window/WindowCreatureInfoPatchHelper.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2tR45xrK9doHSevR4xya3ikp6V7" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="附加到 Unity 编辑器" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
@@ -90,17 +90,55 @@
       <option name="presentableId" value="Default" />
       <updated>1740301375771</updated>
       <workItem from="1740301376498" duration="738000" />
+      <workItem from="1741102098848" duration="176000" />
+      <workItem from="1741102292605" duration="6223000" />
+      <workItem from="1741146476854" duration="388000" />
+      <workItem from="1741251469352" duration="548000" />
+      <workItem from="1741322821384" duration="1563000" />
+      <workItem from="1741324432880" duration="157000" />
+      <workItem from="1741324624598" duration="2460000" />
+      <workItem from="1741334363214" duration="941000" />
+      <workItem from="1741335428438" duration="708000" />
+      <workItem from="1741611178395" duration="435000" />
+      <workItem from="1741611647228" duration="5163000" />
+      <workItem from="1741699516474" duration="39000" />
+      <workItem from="1741699594252" duration="3321000" />
+      <workItem from="1741880792967" duration="2646000" />
+      <workItem from="1741883551568" duration="813000" />
     </task>
+    <task id="LOCAL-00001" summary="refactor(code): 重构 WindowCreatureInfo 显示逻辑&#10;&#10;- 移除原有的直接在 OnEnable 中创建和更新显示对象的代码&#10;- 新增 WindowCreatureInfoPatchHelper 类，负责初始化和更新显示内容- 引入 StatIcon 结构体，用于描述统计图标的信息- 通过循环创建统计图标，提高代码复用性和可维护性&#10;- 优化布局和间距设置，提高界面显示效果">
+      <option name="closed" value="true" />
+      <created>1741146620730</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1741146620730</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityProjectDiscoverer">
     <option name="hasUnityReference" value="true" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="refactor(code): 重构 WindowCreatureInfo 显示逻辑&#10;&#10;- 移除原有的直接在 OnEnable 中创建和更新显示对象的代码&#10;- 新增 WindowCreatureInfoPatchHelper 类，负责初始化和更新显示内容- 引入 StatIcon 结构体，用于描述统计图标的信息- 通过循环创建统计图标，提高代码复用性和可维护性&#10;- 优化布局和间距设置，提高界面显示效果" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(code): 重构 WindowCreatureInfo 显示逻辑&#10;&#10;- 移除原有的直接在 OnEnable 中创建和更新显示对象的代码&#10;- 新增 WindowCreatureInfoPatchHelper 类，负责初始化和更新显示内容- 引入 StatIcon 结构体，用于描述统计图标的信息- 通过循环创建统计图标，提高代码复用性和可维护性&#10;- 优化布局和间距设置，提高界面显示效果" />
   </component>
 </project>

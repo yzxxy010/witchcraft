@@ -1814,7 +1814,7 @@ namespace VideoCopilot.code
                     traitsToAdd.Add(trait); // 检查目标对象是否具有 meditation 特质，并将其添加到新列表中
                 }
             }
-            string[] flairTraits = { "flair1", "flair2", "flair3", "flair4", "flair5", "flair6", "talent1", "talent2", "talent3", "talent4", "blessed", "flower_prints" };
+            string[] flairTraits = { "flair1", "flair2", "flair3", "flair4", "flair5", "flair6", "blessed", "flower_prints" };
             int randomIndex = UnityEngine.Random.Range(0, flairTraits.Length);
             traitsToAdd.Add(flairTraits[randomIndex]);
             var act = World.world.units.createNewUnit(a.asset.id, pTile, 0f);

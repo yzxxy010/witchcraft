@@ -8,6 +8,43 @@ public static class ActorExtensions
     private const string meditation_key = "wushu.meditationNum";
     private const string resurrection_key = "wushu.resurrectionNum";
     private const string Rresurrection_key = "wushu.RresurrectionNum";
+    private const string accuracy_key = "wushu.accuracy";
+    private const string dodge_key = "wushu.dodge";
+    public static float GetAccuracy(this Actor actor)
+    {
+        actor.data.get(accuracy_key, out float val, 0);
+        return val;
+    }
+
+    public static void SetAccuracy(this Actor actor, float val)
+    {
+        actor.data.set(accuracy_key, val);
+    }
+
+    public static void ChangeAccuracy(this Actor actor, float delta)
+    {
+        actor.data.get(accuracy_key, out float val, 0);
+        val += delta;
+        actor.data.set(accuracy_key, Mathf.Max(0, val));
+    }
+
+    public static float GetDodge(this Actor actor)
+    {
+        actor.data.get(dodge_key, out float val, 0);
+        return val;
+    }
+
+    public static void SetDodge(this Actor actor, float val)
+    {
+        actor.data.set(dodge_key, val);
+    }
+
+    public static void ChangeDodge(this Actor actor, float delta)
+    {
+        actor.data.get(dodge_key, out float val, 0);
+        val += delta;
+        actor.data.set(dodge_key, Mathf.Max(0, val));
+    }
     public static float GetRresurrection(this Actor actor)
     {
         actor.data.get(Rresurrection_key, out float val, 1);

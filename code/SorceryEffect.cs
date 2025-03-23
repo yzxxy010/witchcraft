@@ -30,6 +30,7 @@ namespace VideoCopilot.code
             Ring01.base_stats[S.speed] = 10f;//速度+10
             Ring01.base_stats[S.attack_speed] = 10f;//攻击速度+10
             Ring01.base_stats[S.armor] = -5f;//防御-5
+            Ring01.base_stats["Dodge"] = 10f;
             Ring01.base_stats[S.knockback_reduction] = -0.05f;//抗击退-5%
             AssetManager.status.add(pAsset:Ring01);
 
@@ -71,6 +72,15 @@ namespace VideoCopilot.code
             Ring05.path_icon = "Ring/Ring05";
             Ring05.action = new WorldAction(traitAction.attack_Ring05);
             AssetManager.status.add(pAsset:Ring05);
+
+            StatusEffect Ring06 = new StatusEffect();
+            Ring06.id = "Ring06";//零环•鹰隼凝视
+            Ring06.name = "status_title_Ring06";
+            Ring06.description = "status_desc_Ring06";
+            Ring06.path_icon = "Ring/Ring06";
+            Ring06.base_stats[S.intelligence] = 10f;
+            Ring06.base_stats["Accuracy"] = 20f;
+            AssetManager.status.add(pAsset:Ring06);
             //一环
             StatusEffect Ring11 = new StatusEffect();
             Ring11.id = "Ring11";//一环•疲惫之手
@@ -110,7 +120,9 @@ namespace VideoCopilot.code
             Ring14.description = "status_desc_Ring14";
             Ring14.path_icon = "Ring/Ring14";
             Ring14.base_stats[S.speed] = 40f;//速度+40
-            Ring14.base_stats[S.attack_speed] = 60f;//攻击速度+60
+            Ring14.base_stats[S.attack_speed] = 30f;//攻击速度+30
+            Ring14.base_stats[S.armor] = -10f;
+            Ring14.base_stats["Dodge"] = 20f;
             AssetManager.status.add(pAsset:Ring14);
 
             StatusEffect Ring15 = new StatusEffect();
@@ -121,6 +133,15 @@ namespace VideoCopilot.code
             Ring15.base_stats[S.range] = -3f;//射程-3
             Ring15.base_stats[S.area_of_effect] = -3f;//近战范围-3
             AssetManager.status.add(pAsset:Ring15);
+
+            StatusEffect Ring16 = new StatusEffect();
+            Ring16.id = "Ring16";//一环•气机牵引
+            Ring16.name = "status_title_Ring16";
+            Ring16.description = "status_desc_Ring16";
+            Ring16.path_icon = "Ring/Ring16";
+            Ring16.base_stats[S.intelligence] = 20f;
+            Ring16.base_stats["Accuracy"] = 40f;
+            AssetManager.status.add(pAsset:Ring16);
 
             StatusEffect Ring22 = new StatusEffect();
             Ring22.id = "Ring22";//二环•星之致幻
@@ -161,6 +182,28 @@ namespace VideoCopilot.code
             Ring25.base_stats[S.attack_speed] = -10f;//-攻击速度10
             Ring25.action = new WorldAction(traitAction.attack_Ring25);
             AssetManager.status.add(pAsset:Ring25);
+
+            StatusEffect Ring26 = new StatusEffect();
+            Ring26.id = "Ring26";//二环•因果印记
+            Ring26.name = "status_title_Ring26";
+            Ring26.description = "status_desc_Ring26";
+            Ring26.path_icon = "Ring/Ring26";
+            Ring26.base_stats[S.intelligence] = 30f;
+            Ring26.base_stats["Accuracy"] = 60f;
+            AssetManager.status.add(pAsset:Ring26);
+
+            StatusEffect Ring27 = new StatusEffect();
+            Ring27.id = "Ring27";//二环•相位星痕步
+            Ring27.name = "status_title_Ring27";
+            Ring27.description = "status_desc_Ring27";
+            Ring27.path_icon = "Ring/Ring27";
+            Ring27.base_stats[S.speed] = 60f;//速度+60
+            Ring27.base_stats[S.attack_speed] = 50f;//攻击速度+50
+            Ring27.base_stats[S.armor] = -15f;
+            Ring27.base_stats[S.mod_damage] = -0.15f;
+            Ring27.base_stats["Dodge"] = 35f;
+            Ring27.base_stats["Accuracy"] = -15f;
+            AssetManager.status.add(pAsset:Ring27);
 
             StatusEffect Ring31 = new StatusEffect();
             Ring31.id = "Ring31";//三环•斥力场

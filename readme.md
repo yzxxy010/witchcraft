@@ -1,7 +1,8 @@
-0.3.1更新:
-        1.调整"源能、复活次数、无根之源、轮回记录整"的ui
-        2.大巫师三个阶段稍强化
-        3.有"混沌快递·不灭特惠包"特质的曾升过大巫师不死境或始祖的话会更容易
+0.3.2更新:
+        1.闪避与命中：巫师们现在有机会闪避伤害，同时命中率的提升也增加了他们击中敌人的概率，为战斗增添了更多策略性和不确定性
+        2.对部分“敏捷”类巫术进行了调整，同时引入了数个全新的“命中”类巫术，使巫术体系更加丰富多元
+        3.新巫术亮相：包括“零环•鹰隼凝视”、“一环•气机牵引”、“二环•因果印记”以及“二环•相位星痕步”，这些巫术各具特色，为巫师们提供了更多战斗与辅助手段
+        4.增加了与巫师天赋紧密相关的金手指特质“无极”、“天使投资”和“上帝投资”，为巫师的成长路径带来了更多可能性
 
 主要内容：
     在生物属性下方添加：
@@ -16,10 +17,11 @@
     有巫师天赋的小人在魔法之地上会获得"元素共呜"状态，每年源能+0.5
     "禁巫之族"可用来给不想让其出现巫术天赋的种族用，100%遗传
 
-    Update 0.3.1:
-        1. Adjusted the UI for "Yuan Neng, Resurrection Count, Rootless Origin, and Reincarnation Record".
-        2. Slightly strengthened the three stages of the Great Wizard.
-        3.Characters with the "Chaotic Courier · Unyielding Special Package" trait who have previously ascended to the Great Wizard's Undying Realm or Ancestor level will find it easier.
+    0.3.2 Update:
+        1.Dodge and Hit Mechanics: Wizards now have a chance to dodge damage, while increased hit rates also boost their probability of striking enemies, adding more strategy and uncertainty to battles.
+        2.Magic Adjustments and Additions: Several "Agility" type spells have been tweaked, and several new "Hit" type spells have been introduced, enriching the magic system and making it more diverse.
+        3.New Spells Unveiled: Including "Zero Ring • Eagle Gaze," "First Ring • Qi Traction," "Second Ring • Causal Mark," and "Second Ring • Phase Star Trace Step." These spells, each with unique characteristics, provide wizards with more combat and support options.
+        4.Golden Finger Traits: New traits closely tied to wizard talents, "Wuji," "Angel Investment," and "God Investment," have been added, opening up more possibilities for wizard growth paths.
 
     Main Content:
         Added below creature attributes:

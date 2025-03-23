@@ -11,8 +11,6 @@ namespace VideoCopilot.code
 {
     internal class traitAction
     {
-        private static Dictionary<string, int> _reviveCounts = new Dictionary<string, int>(); //跟踪每个名字复活次数
-
         //以下为拥有这个巫术状态的效果
         public static bool attack_Ring05(BaseSimObject pTarget, WorldTile pTile = null)
         {
@@ -170,6 +168,25 @@ namespace VideoCopilot.code
             return true;
         }
 
+        public static bool attack_sorcery07(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            // 定义一个包含无效特质的HashSet
+            var invalidTraits = new HashSet<string>
+                { "Grade1", "Grade2", "Grade3", "Grade4", "Grade5", "Grade6", "Grade7", "Grade8", "Grade9", "Grade91" };
+            // 检查pTarget和pTarget.a是否不为null，并且pTarget.a是否具有无效特质中的任何一个
+            if (pTarget != null && pTarget.a != null && invalidTraits.Any(trait => pTarget.a.hasTrait(trait)))
+            {
+                return false; // 如果具有无效特质，则返回false
+            }
+
+            if (Toolbox.randomChance(1f))
+            {
+                pSelf.a.addStatusEffect("Ring06", 3f); //零环•鹰隼凝视
+            }
+
+            return true;
+        }
+
         public static bool attack_sorcery11(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
         {
             // 定义一个包含无效特质的HashSet
@@ -291,6 +308,25 @@ namespace VideoCopilot.code
             return true;
         }
 
+        public static bool attack_sorcery17(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            // 定义一个包含无效特质的HashSet
+            var invalidTraits = new HashSet<string>
+                { "Grade4", "Grade5", "Grade6", "Grade7", "Grade8", "Grade9", "Grade91" };
+            // 检查pTarget和pTarget.a是否不为null，并且pTarget.a是否具有无效特质中的任何一个
+            if (pTarget != null && pTarget.a != null && invalidTraits.Any(trait => pTarget.a.hasTrait(trait)))
+            {
+                return false; // 如果具有无效特质，则返回false
+            }
+
+            if (Toolbox.randomChance(0.8f))
+            {
+                pSelf.a.addStatusEffect("Ring16", 6f); //一环•气机牵引
+            }
+
+            return true;
+        }
+
         public static bool attack_sorcery22(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile)
         {
             // 定义一个包含无效特质的HashSet
@@ -329,7 +365,7 @@ namespace VideoCopilot.code
             {
                 return false; // 如果施法者无效，则返回false
             }
-
+            pTarget.a.spawnParticle(Toolbox.makeColor("#FF0000"));
             if (pTarget.isBuilding())
             {
                 return false;
@@ -394,6 +430,42 @@ namespace VideoCopilot.code
             if (Toolbox.randomChance(1f))
             {
                 pTarget.a.addStatusEffect("Ring25", 5f); //5秒状态:二环•生命流逝
+            }
+
+            return true;
+        }
+
+        public static bool attack_sorcery27(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            // 定义一个包含无效特质的HashSet
+            var invalidTraits = new HashSet<string> { "Grade7", "Grade8", "Grade9", "Grade91" };
+            // 检查pTarget和pTarget.a是否不为null，并且pTarget.a是否具有无效特质中的任何一个
+            if (pTarget != null && pTarget.a != null && invalidTraits.Any(trait => pTarget.a.hasTrait(trait)))
+            {
+                return false; // 如果具有无效特质，则返回false
+            }
+
+            if (Toolbox.randomChance(1f))
+            {
+                pSelf.a.addStatusEffect("Ring26", 8f); //二环•因果印记
+            }
+
+            return true;
+        }
+
+        public static bool attack_sorcery28(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
+        {
+            // 定义一个包含无效特质的HashSet
+            var invalidTraits = new HashSet<string> { "Grade7", "Grade8", "Grade9", "Grade91" };
+            // 检查pTarget和pTarget.a是否不为null，并且pTarget.a是否具有无效特质中的任何一个
+            if (pTarget != null && pTarget.a != null && invalidTraits.Any(trait => pTarget.a.hasTrait(trait)))
+            {
+                return false; // 如果具有无效特质，则返回false
+            }
+
+            if (Toolbox.randomChance(1f))
+            {
+                pSelf.a.addStatusEffect("Ring27", 8f); //二环•相位星痕步
             }
 
             return true;
@@ -870,209 +942,7 @@ namespace VideoCopilot.code
 
             return false;
         }
-
-        public static bool intelligence_attack_Grade4(BaseSimObject pSelf, BaseSimObject pTarget,
-                                                      WorldTile     pTile = null)
-        {
-            // 每次攻击计算自身智力值的随机倍数，再减少目标血量
-            if (pTarget != null && pTarget.a != null && pTarget.a.data != null && pSelf != null && pSelf.a != null &&
-                pSelf.a.stats != null)
-            {
-                // 智力值的随机倍数，范围在x到x之间
-                float intelligenceMultiplierMin = 5f;
-                float intelligenceMultiplierMax = 8f;
-                float intelligenceMultiplier =
-                    UnityEngine.Random.Range(intelligenceMultiplierMin, intelligenceMultiplierMax);
-
-                float damageBasedOnIntelligence = pSelf.a.stats[S.intelligence] * intelligenceMultiplier; // 根据智力计算伤害
-                int damageToDeal = Mathf.FloorToInt(damageBasedOnIntelligence);                           // 将浮点数伤害转换为整数
-
-                pTarget.a.data.health -= damageToDeal; // 减去基于智力的伤害值
-
-                if (pTarget.a.data.health <= 0)
-                {
-                    pTarget.a.data.alive = false;
-                    AttackType attackTypeInstance = new AttackType();
-                    (pTarget.a as Actor)?.killHimself(false, attackTypeInstance, true, true, true);
-                }
-            }
-
-            return true;
-        }
-
-        public static bool intelligence_attack_Grade5(BaseSimObject pSelf, BaseSimObject pTarget,
-                                                      WorldTile     pTile = null)
-        {
-            // 每次攻击计算自身智力值的随机倍数，再减少目标血量
-            if (pTarget != null && pTarget.a != null && pTarget.a.data != null && pSelf != null && pSelf.a != null &&
-                pSelf.a.stats != null)
-            {
-                // 智力值的随机倍数，范围在x到x之间
-                float intelligenceMultiplierMin = 7f;
-                float intelligenceMultiplierMax = 10f;
-                float intelligenceMultiplier =
-                    UnityEngine.Random.Range(intelligenceMultiplierMin, intelligenceMultiplierMax);
-
-                float damageBasedOnIntelligence = pSelf.a.stats[S.intelligence] * intelligenceMultiplier; // 根据智力计算伤害
-                int damageToDeal = Mathf.FloorToInt(damageBasedOnIntelligence);                           // 将浮点数伤害转换为整数
-
-                pTarget.a.data.health -= damageToDeal; // 减去基于智力的伤害值
-
-                if (pTarget.a.data.health <= 0)
-                {
-                    pTarget.a.data.alive = false;
-                    AttackType attackTypeInstance = new AttackType();
-                    (pTarget.a as Actor)?.killHimself(false, attackTypeInstance, true, true, true);
-                }
-            }
-
-            return true;
-        }
-
-        public static bool intelligence_attack_Grade6(BaseSimObject pSelf, BaseSimObject pTarget,
-                                                      WorldTile     pTile = null)
-        {
-            // 每次攻击计算自身智力值的随机倍数，再减少目标血量
-            if (pTarget != null && pTarget.a != null && pTarget.a.data != null && pSelf != null && pSelf.a != null &&
-                pSelf.a.stats != null)
-            {
-                // 智力值的随机倍数，范围在x到x之间
-                float intelligenceMultiplierMin = 9f;
-                float intelligenceMultiplierMax = 10f;
-                float intelligenceMultiplier =
-                    UnityEngine.Random.Range(intelligenceMultiplierMin, intelligenceMultiplierMax);
-
-                float damageBasedOnIntelligence = pSelf.a.stats[S.intelligence] * intelligenceMultiplier; // 根据智力计算伤害
-                int damageToDeal = Mathf.FloorToInt(damageBasedOnIntelligence);                           // 将浮点数伤害转换为整数
-
-                pTarget.a.data.health -= damageToDeal; // 减去基于智力的伤害值
-
-                if (pTarget.a.data.health <= 0)
-                {
-                    pTarget.a.data.alive = false;
-                    AttackType attackTypeInstance = new AttackType();
-                    (pTarget.a as Actor)?.killHimself(false, attackTypeInstance, true, true, true);
-                }
-            }
-
-            return true;
-        }
-
-        public static bool intelligence_attack_Grade7(BaseSimObject pSelf, BaseSimObject pTarget,
-                                                      WorldTile     pTile = null)
-        {
-            // 每次攻击计算自身智力值的随机倍数，再减少目标血量
-            if (pTarget != null && pTarget.a != null && pTarget.a.data != null && pSelf != null && pSelf.a != null &&
-                pSelf.a.stats != null)
-            {
-                // 智力值的随机倍数，范围在x到x之间
-                float intelligenceMultiplierMin = 15f;
-                float intelligenceMultiplierMax = 35f;
-                float intelligenceMultiplier =
-                    UnityEngine.Random.Range(intelligenceMultiplierMin, intelligenceMultiplierMax);
-
-                float damageBasedOnIntelligence = pSelf.a.stats[S.intelligence] * intelligenceMultiplier; // 根据智力计算伤害
-                int damageToDeal = Mathf.FloorToInt(damageBasedOnIntelligence);                           // 将浮点数伤害转换为整数
-
-                pTarget.a.data.health -= damageToDeal; // 减去基于智力的伤害值
-
-                if (pTarget.a.data.health <= 0)
-                {
-                    pTarget.a.data.alive = false;
-                    AttackType attackTypeInstance = new AttackType();
-                    (pTarget.a as Actor)?.killHimself(false, attackTypeInstance, true, true, true);
-                }
-            }
-
-            return true;
-        }
-
-        public static bool intelligence_attack_Grade8(BaseSimObject pSelf, BaseSimObject pTarget,
-                                                      WorldTile     pTile = null)
-        {
-            // 每次攻击计算自身智力值的随机倍数，再减少目标血量
-            if (pTarget != null && pTarget.a != null && pTarget.a.data != null && pSelf != null && pSelf.a != null &&
-                pSelf.a.stats != null)
-            {
-                // 智力值的随机倍数，范围在x到x之间
-                float intelligenceMultiplierMin = 25f;
-                float intelligenceMultiplierMax = 45f;
-                float intelligenceMultiplier =
-                    UnityEngine.Random.Range(intelligenceMultiplierMin, intelligenceMultiplierMax);
-
-                float damageBasedOnIntelligence = pSelf.a.stats[S.intelligence] * intelligenceMultiplier; // 根据智力计算伤害
-                int damageToDeal = Mathf.FloorToInt(damageBasedOnIntelligence);                           // 将浮点数伤害转换为整数
-
-                pTarget.a.data.health -= damageToDeal; // 减去基于智力的伤害值
-
-                if (pTarget.a.data.health <= 0)
-                {
-                    pTarget.a.data.alive = false;
-                    AttackType attackTypeInstance = new AttackType();
-                    (pTarget.a as Actor)?.killHimself(false, attackTypeInstance, true, true, true);
-                }
-            }
-
-            return true;
-        }
-
-        public static bool intelligence_attack_Grade9(BaseSimObject pSelf, BaseSimObject pTarget,
-                                                      WorldTile     pTile = null)
-        {
-            // 每次攻击计算自身智力值的随机倍数，再减少目标血量
-            if (pTarget != null && pTarget.a != null && pTarget.a.data != null && pSelf != null && pSelf.a != null &&
-                pSelf.a.stats != null)
-            {
-                // 智力值的随机倍数，范围在x到x之间
-                float intelligenceMultiplierMin = 62f;
-                float intelligenceMultiplierMax = 72f;
-                float intelligenceMultiplier =
-                    UnityEngine.Random.Range(intelligenceMultiplierMin, intelligenceMultiplierMax);
-
-                float damageBasedOnIntelligence = pSelf.a.stats[S.intelligence] * intelligenceMultiplier; // 根据智力计算伤害
-                int damageToDeal = Mathf.FloorToInt(damageBasedOnIntelligence);                           // 将浮点数伤害转换为整数
-
-                pTarget.a.data.health -= damageToDeal; // 减去基于智力的伤害值
-
-                if (pTarget.a.data.health <= 0)
-                {
-                    pTarget.a.data.alive = false;
-                    AttackType attackTypeInstance = new AttackType();
-                    (pTarget.a as Actor)?.killHimself(false, attackTypeInstance, true, true, true);
-                }
-            }
-
-            return true;
-        }
-
-        public static bool intelligence_attack_Grade91(BaseSimObject pSelf, BaseSimObject pTarget,
-                                                       WorldTile     pTile = null)
-        {
-            // 每次攻击计算自身智力值的随机倍数，再减少目标血量
-            if (pTarget != null && pTarget.a != null && pTarget.a.data != null && pSelf != null && pSelf.a != null &&
-                pSelf.a.stats != null)
-            {
-                // 智力值的随机倍数，范围在x到x之间
-                float intelligenceMultiplierMin = 2000f;
-                float intelligenceMultiplierMax = 3000f;
-                float intelligenceMultiplier =
-                    UnityEngine.Random.Range(intelligenceMultiplierMin, intelligenceMultiplierMax);
-
-                float damageBasedOnIntelligence = pSelf.a.stats[S.intelligence] * intelligenceMultiplier; // 根据智力计算伤害
-                int damageToDeal = Mathf.FloorToInt(damageBasedOnIntelligence);                           // 将浮点数伤害转换为整数
-
-                pTarget.a.data.health -= damageToDeal; // 减去基于智力的伤害值
-
-                if (pTarget.a.data.health <= 0)
-                {
-                    pTarget.a.data.alive = false;
-                    AttackType attackTypeInstance = new AttackType();
-                    (pTarget.a as Actor)?.killHimself(false, attackTypeInstance, true, true, true);
-                }
-            }
-
-            return true;
-        }
+        
         public static bool Grade91_attackAction(BaseSimObject pSelf, BaseSimObject pTarget, WorldTile pTile = null)
         {
             if (Toolbox.randomChance(0.1f))
@@ -1156,7 +1026,7 @@ namespace VideoCopilot.code
             }
 
             string[] additionalTraits =
-                { "sorcery01", "sorcery02", "sorcery03", "sorcery04", "sorcery05", "sorcery06" };
+                { "sorcery01", "sorcery02", "sorcery03", "sorcery04", "sorcery05", "sorcery06", "sorcery07" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
 
@@ -1186,7 +1056,7 @@ namespace VideoCopilot.code
             }
 
             string[] additionalTraits =
-                { "sorcery01", "sorcery02", "sorcery03", "sorcery04", "sorcery05", "sorcery06" };
+                { "sorcery01", "sorcery02", "sorcery03", "sorcery04", "sorcery05", "sorcery06", "sorcery07" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
 
@@ -1275,7 +1145,7 @@ namespace VideoCopilot.code
             }
 
             string[] additionalTraits =
-                { "sorcery11", "sorcery12", "sorcery13", "sorcery14", "sorcery15", "sorcery16" };
+                { "sorcery11", "sorcery12", "sorcery13", "sorcery14", "sorcery15", "sorcery16", "sorcery17" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
             upTrait("特质", "Grade1", a,
@@ -1305,7 +1175,7 @@ namespace VideoCopilot.code
             a.ChangeYuanNeng(-2);
 
             string[] additionalTraits =
-                { "sorcery11", "sorcery12", "sorcery13", "sorcery14", "sorcery15", "sorcery16" };
+                { "sorcery11", "sorcery12", "sorcery13", "sorcery14", "sorcery15", "sorcery16", "sorcery17" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
             upTrait("Grade1", "Grade2", a,
@@ -1335,7 +1205,7 @@ namespace VideoCopilot.code
             a.ChangeYuanNeng(-3);
 
             string[] additionalTraits =
-                { "sorcery11", "sorcery12", "sorcery13", "sorcery14", "sorcery15", "sorcery16" };
+                { "sorcery11", "sorcery12", "sorcery13", "sorcery14", "sorcery15", "sorcery16", "sorcery17" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
             upTrait("特质", "Grade3", a,
@@ -1421,7 +1291,7 @@ namespace VideoCopilot.code
                 a.data.setName(newName);
             }
 
-            string[] additionalTraits = { "sorcery22", "sorcery23", "sorcery24", "sorcery25", "sorcery26" };
+            string[] additionalTraits = { "sorcery22", "sorcery23", "sorcery24", "sorcery25", "sorcery26", "sorcery27", "sorcery28" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
             upTrait("特质", "Grade4", a,
@@ -1450,7 +1320,7 @@ namespace VideoCopilot.code
             }
             a.ChangeYuanNeng(-10);
 
-            string[] additionalTraits = { "sorcery22", "sorcery23", "sorcery24", "sorcery25", "sorcery26" };
+            string[] additionalTraits = { "sorcery22", "sorcery23", "sorcery24", "sorcery25", "sorcery26", "sorcery27", "sorcery28" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
             upTrait("特质", "Grade5", a,
@@ -1479,7 +1349,7 @@ namespace VideoCopilot.code
             }
             a.ChangeYuanNeng(-20);
 
-            string[] additionalTraits = { "sorcery22", "sorcery23", "sorcery24", "sorcery25", "sorcery26" };
+            string[] additionalTraits = { "sorcery22", "sorcery23", "sorcery24", "sorcery25", "sorcery26", "sorcery27", "sorcery28" };
             string randomTrait = GetNewRandomTrait(additionalTraits); //获取新随机特质
 
             upTrait("特质", "Grade6", a,
@@ -1944,7 +1814,7 @@ namespace VideoCopilot.code
                     traitsToAdd.Add(trait); // 检查目标对象是否具有 meditation 特质，并将其添加到新列表中
                 }
             }
-            string[] flairTraits = { "flair1", "flair2", "flair3", "flair4", "flair5", "flair6", "blessed", "super_health", "immune", "flower_prints" };
+            string[] flairTraits = { "flair1", "flair2", "flair3", "flair4", "flair5", "flair6", "talent1", "talent2", "talent3", "talent4", "blessed", "flower_prints" };
             int randomIndex = UnityEngine.Random.Range(0, flairTraits.Length);
             traitsToAdd.Add(flairTraits[randomIndex]);
             var act = World.world.units.createNewUnit(a.asset.id, pTile, 0f);

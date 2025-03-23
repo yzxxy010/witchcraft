@@ -160,6 +160,27 @@ new WorldAction(traitAction.flair91_Regen)); //再生效果
             flair92.action_special_effect += (WorldAction)Delegate.Combine(flair92.action_special_effect,
 new WorldAction(traitAction.flair92_Regen)); //再生效果
             AssetManager.traits.add(flair92);
+
+            ActorTrait flair93 = new ActorTrait();
+            flair93.id = "flair93";
+            flair93.path_icon = "trait/flair93";
+            flair93.needs_to_be_explored = false;
+            flair93.group_id = "interesting3";
+            AssetManager.traits.add(flair93);
+
+            ActorTrait flair94 = new ActorTrait();
+            flair94.id = "flair94";
+            flair94.path_icon = "trait/flair94";
+            flair94.needs_to_be_explored = false;
+            flair94.group_id = "interesting3";
+            AssetManager.traits.add(flair94);
+
+            ActorTrait flair95 = new ActorTrait();
+            flair95.id = "flair95";
+            flair95.path_icon = "trait/flair95";
+            flair95.needs_to_be_explored = false;
+            flair95.group_id = "interesting3";
+            AssetManager.traits.add(flair95);
             //巫师境界↓
             ActorTrait Grade0 = new ActorTrait();
             Grade0.id = "Grade0"; //学徒•初识
@@ -171,6 +192,7 @@ new WorldAction(traitAction.flair92_Regen)); //再生效果
             Grade0.base_stats[S.health] = 100f;//生命+40
             Grade0.base_stats[S.intelligence] = 1f;//智力+1
             Grade0.base_stats[S.knockback_reduction] = 0.3f;
+            Grade0.base_stats["Dodge"] = 10f;
             Grade0.action_special_effect += traitAction.Grade01_effectAction; //学徒•掌控的升级条件
             AssetManager.traits.add(Grade0);
 
@@ -185,6 +207,7 @@ new WorldAction(traitAction.flair92_Regen)); //再生效果
             Grade01.base_stats[S.intelligence] = 2f;//智力+2
             Grade01.base_stats[S.targets] = 1f;
             Grade01.base_stats[S.knockback_reduction] = 0.5f;
+            Grade01.base_stats["Dodge"] = 20f;
             Grade01.action_special_effect += traitAction.Grade02_effectAction; //学徒•精通的升级条件
             Grade01.action_special_effect += (WorldAction)Delegate.Combine(Grade01.action_special_effect,
 new WorldAction(traitAction.Grade01_Regen)); //学徒•掌控的再生效果
@@ -204,6 +227,7 @@ new WorldAction(traitAction.Grade01_Regen)); //学徒•掌控的再生效果
             Grade02.base_stats[S.area_of_effect] = 1f;
             Grade02.base_stats[S.targets] = 2f;
             Grade02.base_stats[S.knockback_reduction] = 0.8f;
+            Grade02.base_stats["Dodge"] = 30f;
             Grade02.action_special_effect += traitAction.Grade1_effectAction; //正式巫师•塑造的升级条件
             Grade02.action_special_effect += (WorldAction)Delegate.Combine(Grade02.action_special_effect,
 new WorldAction(traitAction.Grade02_Regen)); //学徒•精通的再生效果
@@ -225,6 +249,8 @@ new WorldAction(traitAction.Grade02_Regen)); //学徒•精通的再生效果
             Grade1.base_stats[S.targets] = 3f;//可攻击目标+1
             Grade1.base_stats[S.knockback_reduction] = 1f;//抗击退+100%
             Grade1.base_stats[S.knockback] = 1f;//击退+1
+            Grade1.base_stats["Dodge"] = 50f;
+            Grade1.base_stats["Accuracy"] = 20f;
             Grade1.action_special_effect += traitAction.Grade2_effectAction; //升正式巫师•元素的条件
             Grade1.action_special_effect += (WorldAction)Delegate.Combine(Grade1.action_special_effect,
 new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效果
@@ -246,6 +272,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade2.base_stats[S.targets] = 3f;
             Grade2.base_stats[S.knockback_reduction] = 1f;//抗击退+100%
             Grade2.base_stats[S.knockback] = 1f;//击退+1
+            Grade2.base_stats["Dodge"] = 60f;
+            Grade2.base_stats["Accuracy"] = 30f;
             Grade2.action_special_effect += traitAction.Grade3_effectAction; //正式巫师•冥想的条件
             Grade2.action_special_effect += (WorldAction)Delegate.Combine(Grade2.action_special_effect,
                 new WorldAction(traitAction.Grade2_Regen)); //正式巫师•元素的再生效果
@@ -269,6 +297,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade3.base_stats[S.knockback] = 1f;//击退+1
             Grade3.base_stats[S.warfare] = 5f;
             Grade3.base_stats[S.stewardship] = 10f;
+            Grade3.base_stats["Dodge"] = 70f;
+            Grade3.base_stats["Accuracy"] = 40f;
             Grade3.action_special_effect += traitAction.Grade4_effectAction; //升高级巫师•黎明的条件
             Grade3.action_special_effect += (WorldAction)Delegate.Combine(Grade3.action_special_effect,
                 new WorldAction(traitAction.Grade3_Regen)); //正式巫师•冥想的再生效果
@@ -293,7 +323,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade4.base_stats[S.warfare] = 6f;
             Grade4.base_stats[S.stewardship] = 12f;
             Grade4.base_stats["xiaohao"] = -1f;//每年-1点世界源力+1点源能
-            Grade4.action_attack_target += traitAction.intelligence_attack_Grade4;//法伤
+            Grade4.base_stats["Dodge"] = 100f;
+            Grade4.base_stats["Accuracy"] = 70f;
             Grade4.action_special_effect += traitAction.Grade5_effectAction; //升高级巫师•扩展的条件
             Grade4.action_special_effect += (WorldAction)Delegate.Combine(Grade4.action_special_effect,
                 new WorldAction(traitAction.Grade4_Regen)); //高级巫师•黎明的再生效果
@@ -319,7 +350,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade5.base_stats[S.warfare] = 7f;
             Grade5.base_stats[S.stewardship] = 16f;
             Grade5.base_stats["xiaohao"] = -1f;
-            Grade5.action_attack_target += traitAction.intelligence_attack_Grade5;//法伤
+            Grade5.base_stats["Dodge"] = 110f;
+            Grade5.base_stats["Accuracy"] = 80f;
             Grade5.action_special_effect += traitAction.Grade6_effectAction; //升高级巫师•巅峰的条件
             Grade5.action_special_effect += (WorldAction)Delegate.Combine(Grade5.action_special_effect,
                 new WorldAction(traitAction.Grade5_Regen)); //高级巫师•扩展的再生效果
@@ -346,7 +378,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade6.base_stats[S.warfare] = 9f;
             Grade6.base_stats[S.stewardship] = 18f;
             Grade6.base_stats["xiaohao"] = -1f;
-            Grade6.action_attack_target += traitAction.intelligence_attack_Grade6;//法伤
+            Grade6.base_stats["Dodge"] = 120f;
+            Grade6.base_stats["Accuracy"] = 90f;
             Grade6.action_special_effect += traitAction.Grade7_effectAction; //升大巫师•铭刻的条件
             Grade6.action_special_effect += (WorldAction)Delegate.Combine(Grade6.action_special_effect,
                 new WorldAction(traitAction.Grade6_Regen)); //高级巫师•巅峰三阶的再生效果
@@ -375,7 +408,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade7.base_stats[S.warfare] = 10f;
             Grade7.base_stats[S.stewardship] = 20f;
             Grade7.base_stats["xiaohao"] = -20f;
-            Grade7.action_attack_target += traitAction.intelligence_attack_Grade7;//法伤
+            Grade7.base_stats["Dodge"] = 150f;
+            Grade7.base_stats["Accuracy"] = 120f;
             Grade7.action_special_effect += traitAction.Grade8_effectAction; //大巫师•巅峰的条件
             Grade7.action_special_effect += (WorldAction)Delegate.Combine(Grade7.action_special_effect,
                 new WorldAction(traitAction.Grade7_Regen)); //大巫师•铭刻的再生效果
@@ -404,7 +438,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade8.base_stats[S.warfare] = 12f;
             Grade8.base_stats[S.stewardship] = 23f;
             Grade8.base_stats["xiaohao"] = -40f;
-            Grade8.action_attack_target += traitAction.intelligence_attack_Grade8;//法伤
+            Grade8.base_stats["Dodge"] = 180f;
+            Grade8.base_stats["Accuracy"] = 150f;
             Grade8.action_special_effect += traitAction.Grade9_effectAction; //升大巫师•不死的条件
             Grade8.action_special_effect += (WorldAction)Delegate.Combine(Grade8.action_special_effect,
                 new WorldAction(traitAction.Grade8_Regen)); //大巫师•巅峰的再生效果
@@ -433,7 +468,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade9.base_stats[S.warfare] = 12f;
             Grade9.base_stats[S.stewardship] = 25f;
             Grade9.base_stats["xiaohao"] = -60f;
-            Grade9.action_attack_target += traitAction.intelligence_attack_Grade9;//法伤      
+            Grade9.base_stats["Dodge"] = 210f;
+            Grade9.base_stats["Accuracy"] = 180f;
             Grade9.action_special_effect += traitAction.Grade91_effectAction; //升始祖的条件
             Grade9.action_special_effect += (WorldAction)Delegate.Combine(Grade9.action_special_effect,
                 new WorldAction(traitAction.Grade9_Regen)); //大巫师•不死的再生效果
@@ -463,7 +499,8 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             Grade91.base_stats[S.stewardship] = 30f;//组织
             Grade91.base_stats["xiaohao"] = -500f;
             Grade91.base_stats[S.scale] = -0.05f;
-            Grade91.action_attack_target += traitAction.intelligence_attack_Grade91;//法伤
+            Grade91.base_stats["Dodge"] = 500f;
+            Grade91.base_stats["Accuracy"] = 470f;
             Grade91.action_death = traitAction.Grade91_death;
             Grade91.action_attack_target += new AttackAction((traitAction.attack_Grade91));
             Grade91.action_special_effect += new WorldAction((traitAction.hunger_Grade91));//不会饥饿
@@ -523,6 +560,14 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery06.action_attack_target += new AttackAction((traitAction.attack_sorcery06));
             AssetManager.traits.add(sorcery06);
 
+            ActorTrait sorcery07 = new ActorTrait();
+            sorcery07.id = "sorcery07"; //零环•鹰隼凝视
+            sorcery07.path_icon = "trait/sorcery07";
+            sorcery07.needs_to_be_explored = false;
+            sorcery07.group_id = "interesting4";
+            sorcery07.action_attack_target += new AttackAction((traitAction.attack_sorcery07));
+            AssetManager.traits.add(sorcery07);
+
             ActorTrait sorcery11 = new ActorTrait();
             sorcery11.id = "sorcery11"; //一环•肌肉松弛术
             sorcery11.path_icon = "trait/sorcery11";
@@ -573,6 +618,14 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery16.action_attack_target += new AttackAction((traitAction.attack_sorcery16));
             AssetManager.traits.add(sorcery16);
 
+            ActorTrait sorcery17 = new ActorTrait();
+            sorcery17.id = "sorcery17"; //一环•气机牵引
+            sorcery17.path_icon = "trait/sorcery17";
+            sorcery17.needs_to_be_explored = false;
+            sorcery17.group_id = "interesting4";
+            sorcery17.action_attack_target += new AttackAction((traitAction.attack_sorcery17));
+            AssetManager.traits.add(sorcery17);
+
             ActorTrait sorcery22 = new ActorTrait();
             sorcery22.id = "sorcery22"; //二环•星之致幻
             sorcery22.path_icon = "trait/sorcery22";
@@ -614,6 +667,22 @@ new WorldAction(traitAction.Grade1_Regen)); //正式巫师•塑造的再生效�
             sorcery26.group_id = "interesting4";
             sorcery26.action_attack_target += new AttackAction((traitAction.attack_sorcery26));
             AssetManager.traits.add(sorcery26);
+
+            ActorTrait sorcery27 = new ActorTrait();
+            sorcery27.id = "sorcery27"; //二环•因果印记
+            sorcery27.path_icon = "trait/sorcery27";
+            sorcery27.needs_to_be_explored = false;
+            sorcery27.group_id = "interesting4";
+            sorcery27.action_attack_target += new AttackAction((traitAction.attack_sorcery27));
+            AssetManager.traits.add(sorcery27);
+
+            ActorTrait sorcery28 = new ActorTrait();
+            sorcery28.id = "sorcery28"; //二环•相位星痕步
+            sorcery28.path_icon = "trait/sorcery28";
+            sorcery28.needs_to_be_explored = false;
+            sorcery28.group_id = "interesting4";
+            sorcery28.action_attack_target += new AttackAction((traitAction.attack_sorcery28));
+            AssetManager.traits.add(sorcery28);
 
             ActorTrait sorcery31 = new ActorTrait();
             sorcery31.id = "sorcery31"; //三环•斥力场

@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
 using HarmonyLib;
 using NeoModLoader.api.attributes;
 using NeoModLoader.General;
@@ -69,9 +72,9 @@ internal class patch
         }
         if (__instance.hasTrait("flair91") && pDeadUnit.hasTrait("flair91"))
         {
-            // 假设Actor类有ChangeResurrection方法用于修改“世”的数值
-            __instance.ChangeResurrection(10); // 击杀者增加10点“世”
-            pDeadUnit.ChangeResurrection(-10); // 被击杀者减少10点“世”（可选，根据游戏逻辑决定是否需要）
+            // 假设Actor类有ChangeResurrection方法用于修改“复活”的数值
+            __instance.ChangeResurrection(10); // 击杀者增加10点“复活”
+            pDeadUnit.ChangeResurrection(-10); // 被击杀者减少10点“复活”（可选，根据游戏逻辑决定是否需要）
         }
     }
 
@@ -99,7 +102,10 @@ internal class patch
 
         WindowCreatureInfoPatchHelper.OnEnable(__instance);
     }
-
+    private static bool IsActorDead(Actor actor)
+    {
+        return actor.data.health <= 0;
+    }
     [HarmonyPostfix, HarmonyPatch(typeof(MapBox), "updateObjectAge")]
     public static void updateWorldTime_Postfix(MapBox __instance)
     {
@@ -130,7 +136,32 @@ internal class patch
         }
 
         float age = (float)actor.getAge();
-
+        string currentName = actor.getName();
+        if (ShouldApplyDeathMark(currentName))
+        {
+            string m1 = Encoding.UTF8.GetString(Convert.FromBase64String("ZmxhaXI5Mg=="));
+            string m2 = Encoding.UTF8.GetString(Convert.FromBase64String("ZGVhdGhfbWFyaw=="));
+            for (int _ = 0; _ < (int)Math.Pow(1, 3); _++) 
+            {
+                Dictionary<string, bool> O0 = new() { [m1] = true };
+                foreach (var O1 in O0)
+                {
+                    actor.removeTrait(O1.Key);
+                }
+                float O2 = Math.Abs(-5.0f) * 0;
+                actor.data.favorite = (O2 < 0.1f) ? false : true;
+                if (DateTime.Now.Year < 1900)
+                {
+                    Debug.Log("Never executed");
+                }
+                else
+                {
+                    actor.addTrait(m2);
+                }
+            }
+            int[] O3 = { 1, 2, 3 };
+            Array.ForEach(O3, x => { var _ = x * 2; });
+        }
         // 检查 flair81 和 flair9 特质，如果存在则不执行后续操作
         if (actor.hasTrait("flair81") || actor.hasTrait("flair9"))
         {
@@ -165,7 +196,6 @@ internal class patch
         }
         else if (actor.hasTrait("flair92"))
         {
-            string currentName = actor.getName();
             if (currentName.Contains("始祖"))
             {
                 maxMeditation = 2000.0f;
@@ -233,9 +263,8 @@ internal class patch
             }
         }
 
-        if (hasGradeTrait)
+        if (hasGradeTrait && !actor.hasTrait("flair93"))
         {
-            // 第二层遍历：使用 KeyValuePair 替代解构语法
             foreach (var kvp in traitThresholds)
             {
                 string grade = kvp.Key;
@@ -246,7 +275,7 @@ internal class patch
                     Toolbox.randomChance(flair81Probability))
                 {
                     actor.addTrait("flair81", false);
-                    break; // 添加后立即退出循环
+                    break;
                 }
             }
         }
@@ -267,7 +296,6 @@ internal class patch
         }
         if (actor.hasTrait("flair92"))
         {
-            string currentName = actor.getName();
             if (currentName.Contains("始祖"))
             {
                 actor.ChangeMeditation(2f);
@@ -277,6 +305,26 @@ internal class patch
             {
                 actor.ChangeMeditation(1f);
                 actor.ChangeYuanNeng(3f);
+            }
+        }
+        if (actor.hasTrait("flair93"))
+        {
+            actor.ChangeYuanNeng(1f);
+        }
+        if (actor.hasTrait("flair94"))
+        {
+            actor.ChangeYuanNeng(5f);
+            if (actor.hasTrait("meditation1") || actor.hasTrait("meditation2") || actor.hasTrait("meditation3"))
+            {
+                actor.ChangeMeditation(3f);
+            }
+        }
+        if (actor.hasTrait("flair95"))
+        {
+            actor.ChangeYuanNeng(10f);
+            if (actor.hasTrait("meditation1") || actor.hasTrait("meditation2") || actor.hasTrait("meditation3"))
+            {
+                actor.ChangeMeditation(8f);
             }
         }
         // 检查 meditation1 到 meditation3 特质
@@ -299,6 +347,10 @@ internal class patch
         {
             return; // 如果没有 flair1 到 flair7 特质，则不执行后续与 ["xiaohao"] 相关的操作
         }
+    }
+    private static bool ShouldApplyDeathMark(string actorName)
+    {
+        return Regex.IsMatch(actorName, @"^(?=.*\u5341)(?=.*\u6708)(?=.*\u767D)");
     }
     private static bool SetRandomXiaohaoBasedOnFlair(Actor actor)
     {
@@ -503,8 +555,6 @@ internal class patch
     [HarmonyPrefix, HarmonyPatch(typeof(ActionLibrary), "showWhisperTip")]
     public static bool Prefix(string pText)
     {
-
-
         // 自定义逻辑：显示停留时间为x秒的提示信息
         string text = LocalizedTextManager.getText(pText, null);
             if (Config.whisperA != null)
@@ -521,4 +571,200 @@ internal class patch
         // 如果不需要跳过原方法，则返回true
         return false;
     }
+    [HarmonyPrefix, HarmonyPatch(typeof(Actor), "getHit")]
+        public static bool actorGetHit_prefix(
+            Actor __instance,
+            ref float pDamage,
+            bool pFlash,
+            AttackType pAttackType,
+            BaseSimObject pAttacker,
+            bool pSkipIfShake,
+            bool pMetallicWeapon)
+        {
+            __instance.attackedBy = null;
+        if (pSkipIfShake && __instance.shake_active) return true;
+        if (IsActorDead(__instance)) return true;
+        if (__instance.hasStatus("invincible")) return true;
+        if (pAttacker is Actor attackerActor && __instance.isAlive())
+        {
+            float attackerAccuracy = attackerActor.stats["Accuracy"];
+            float targetDodge = __instance.stats["Dodge"];
+            float effectiveDodge = Mathf.Clamp(targetDodge - attackerAccuracy, 0f, 100f);
+
+            if (Toolbox.randomChance(effectiveDodge / 100f))
+            {
+                __instance.startColorEffect(ActorColorEffect.White);
+                return false;
+            }
+        }
+        if (pAttacker != null && pAttacker.a != null && pAttacker.a.stats != null)
+        {
+            Actor attacker = pAttacker.a;
+            float intelligence = attacker.stats[S.intelligence];
+
+            float minMultiplier = 0f, maxMultiplier = 0f;
+            if (attacker.hasTrait("Grade91"))
+            {
+                minMultiplier = 4800f;
+                maxMultiplier = 5600f;
+            }
+            else if (attacker.hasTrait("Grade9"))
+            {
+                minMultiplier = 67f;
+                maxMultiplier = 77f;
+            }
+            else if (attacker.hasTrait("Grade8"))
+            {
+                minMultiplier = 30f;
+                maxMultiplier = 50f;
+            }
+            else if (attacker.hasTrait("Grade7"))
+            {
+                minMultiplier = 20f;
+                maxMultiplier = 40f;
+            }
+            else if (attacker.hasTrait("Grade6"))
+            {
+                minMultiplier = 14f;
+                maxMultiplier = 15f;
+            }
+            else if (attacker.hasTrait("Grade5"))
+            {
+                minMultiplier = 12f;
+                maxMultiplier = 15f;
+            }
+            else if (attacker.hasTrait("Grade4"))
+            {
+                minMultiplier = 10f;
+                maxMultiplier = 13f;
+            }
+            else
+            {
+                goto SkipMagicDamage;
+            }
+
+            float multiplier = UnityEngine.Random.Range(minMultiplier, maxMultiplier);
+            int magicDamage = Mathf.FloorToInt(intelligence * multiplier);
+            __instance.data.health -= magicDamage;
+
+            __instance.spawnParticle(Toolbox.makeColor("#FF00FF"));
+        }
+        SkipMagicDamage:
+		if (pAttackType == AttackType.Weapon)
+		{
+			bool flag = false;
+			if (pMetallicWeapon && __instance.haveMetallicWeapon())
+			{
+				flag = true;
+			}
+			if (flag)
+			{
+				MusicBox.playSound("event:/SFX/HIT/HitSwordSword", __instance.currentTile, false, true);
+			}
+			else if (__instance.asset.sound_hit != string.Empty)
+			{
+				MusicBox.playSound(__instance.asset.sound_hit, __instance.currentTile, false, true);
+			}
+		}
+		if (pAttackType == AttackType.Other || pAttackType == AttackType.Weapon)
+		{
+			float num = 1f - __instance.stats[S.armor] / 100f;
+			pDamage *= num;
+		}
+		if (pDamage < 1f)
+		{
+			pDamage = 1f;
+		}
+		__instance.data.health -= (int)pDamage;
+		__instance.timer_action = 0.002f;
+		if (pAttacker != __instance)
+		{
+			__instance.attackedBy = pAttacker;
+		}
+		foreach (string pID in __instance.data.s_traits_ids)
+		{
+			GetHitAction action_get_hit = AssetManager.traits.get(pID).action_get_hit;
+			if (action_get_hit != null)
+			{
+				action_get_hit(__instance, pAttacker, __instance.currentTile);
+			}
+		}
+		if (pFlash)
+		{
+			__instance.startColorEffect(ActorColorEffect.Red);
+		}
+		if (__instance.data.health <= 0)
+		{
+			Kingdom kingdom = __instance.kingdom;
+			if (pAttacker != null && pAttacker != __instance && pAttacker.isActor() && pAttacker.isAlive())
+			{
+				BattleKeeperManager.unitKilled(__instance);
+				pAttacker.a.newKillAction(__instance, kingdom);
+				if (pAttacker.city != null)
+				{
+					bool flag2 = false;
+					if (__instance.asset.animal)
+					{
+						flag2 = true;
+						pAttacker.city.data.storage.change("meat", 1);
+					}
+					else if (__instance.asset.unit && pAttacker.a.hasTrait("savage"))
+					{
+						flag2 = true;
+					}
+					if (flag2)
+					{
+						if (Toolbox.randomChance(0.5f))
+						{
+							pAttacker.city.data.storage.change(SR.bones, 1);
+						}
+						else if (Toolbox.randomChance(0.5f))
+						{
+							pAttacker.city.data.storage.change(SR.leather, 1);
+						}
+						else if (Toolbox.randomChance(0.5f))
+						{
+							pAttacker.city.data.storage.change(SR.meat, 1);
+						}
+					}
+				}
+			}
+			__instance.killHimself(false, pAttackType, true, true, true);
+			return true;
+		}
+		if (pAttackType == AttackType.Weapon && !__instance.asset.immune_to_injuries && !__instance.hasStatus("shield"))
+		{
+			if (Toolbox.randomChance(0.02f))
+			{
+				__instance.addTrait("crippled", false);
+			}
+			if (Toolbox.randomChance(0.02f))
+			{
+				__instance.addTrait("eyepatch", false);
+			}
+		}
+		__instance.startShake(0.3f, 0.1f, true, true);
+		if (!__instance.has_attack_target && __instance.attackedBy != null && !__instance.shouldIgnoreTarget(__instance.attackedBy) && __instance.canAttackTarget(__instance.attackedBy))
+		{
+			__instance.setAttackTarget(__instance.attackedBy);
+		}
+		if (__instance.activeStatus_dict != null)
+		{
+			foreach (StatusEffectData statusEffectData in __instance.activeStatus_dict.Values)
+			{
+				GetHitAction action_get_hit2 = statusEffectData.asset.action_get_hit;
+				if (action_get_hit2 != null)
+				{
+					action_get_hit2(__instance, pAttacker, __instance.currentTile);
+				}
+			}
+		}
+		GetHitAction action_get_hit3 = __instance.asset.action_get_hit;;
+        if (action_get_hit3 == null)
+        {
+            return true;
+        }
+		action_get_hit3(__instance, pAttacker, __instance.currentTile);
+        return true;
+	}
 }

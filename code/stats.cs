@@ -49,6 +49,24 @@ namespace VideoCopilot.code
             Rresurrection.mod = true;
             Rresurrection.used_only_for_civs = false;
             AssetManager.base_stats_library.add(Rresurrection);
+
+            BaseStatAsset Accuracy = new BaseStatAsset();
+            Accuracy.id = "Accuracy";
+            Accuracy.normalize = true;
+            Accuracy.normalize_min = 0;
+            Accuracy.normalize_max = 99999;
+            Accuracy.mod = true;
+            Accuracy.used_only_for_civs = false;
+            AssetManager.base_stats_library.add(Accuracy);
+
+            BaseStatAsset Dodge = new BaseStatAsset();
+            Dodge.id = "Dodge";
+            Dodge.normalize = true;
+            Dodge.normalize_min = 0;
+            Dodge.normalize_max = 99999;
+            Dodge.mod = true;
+            Dodge.used_only_for_civs = false;
+            AssetManager.base_stats_library.add(Dodge);
         }
     }
 }

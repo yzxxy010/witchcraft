@@ -51,6 +51,8 @@ public class WindowCreatureInfoPatchHelper
         statIcons[1].cityIcon.setValue(actor.GetMeditation());
         statIcons[2].cityIcon.setValue(actor.GetResurrection());
         statIcons[3].cityIcon.setValue(actor.GetRresurrection());
+        statIcons[4].cityIcon.setValue(actor.stats["Accuracy"]);
+        statIcons[5].cityIcon.setValue(actor.stats["Dodge"]);
     }
 
 
@@ -86,17 +88,17 @@ public class WindowCreatureInfoPatchHelper
         },
         new StatIcon()
         {
-            name = "占位4",
-            iconPath = "ui/civActor_Meditation.png",
-            tip = "悬浮文本",
-            isShow = false
+            name = "Accuracy",
+            iconPath = "ui/Accuracy.png",
+            tip = "命中",
+            isShow = true
         },
         new StatIcon()
         {
-            name = "占位5",
-            iconPath = "ui/civActor_Meditation.png",
-            tip = "悬浮文本",
-            isShow = false
+            name = "Dodge",
+            iconPath = "ui/Dodge.png",
+            tip = "闪避",
+            isShow = true
         },
         new StatIcon()
         {

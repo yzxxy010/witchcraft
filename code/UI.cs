@@ -16,7 +16,8 @@ public class UI
 
     public static void Init()
     {
-        tab = TabManager.CreateTab("witchcraft" ,"tab_witchcraft", "hotkey_tip_tab_other",Resources.Load<Sprite>("ui/TabIcon.png"));
+        tab = TabManager.CreateTab("witchcraft", "tab_witchcraft", "hotkey_tip_tab_other",
+                                   Resources.Load<Sprite>("ui/TabIcon.png"));
         tab.SetLayout(new List<string>()
         {
             INFO, DISPLAY
@@ -28,10 +29,13 @@ public class UI
 
     private static void _addButtons()
     {
-        
+        var XingKongShe = PowerButtonCreator.CreateSimpleButton("windowXingKongShe",
+                                                                () => { window.XingKongShe.showWindow(); },
+                                                                Resources.Load<Sprite>("ui/xingkonglogo.jpg"));
         var buttons = PowerButtonCreator.CreateSimpleButton("windowAttack",
-            ()=>{window_attack.showWindow();}, Resources.Load<Sprite>("ui/openAttackWindow.png"));
-        tab.AddPowerButton(INFO,buttons );
+                                                            () => { window_attack.showWindow(); },
+                                                            Resources.Load<Sprite>("ui/openAttackWindow.png"));
+        tab.AddPowerButton(INFO, XingKongShe);
+        tab.AddPowerButton(INFO, buttons);
     }
-    
 }
